@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import {
-  Flex,
   Text,
   Box,
   Heading,
@@ -56,7 +55,7 @@ const BoxLogin = () => {
     if (allEmail.includes(email)) {
       const newEmail = users[allEmail.indexOf(email)];
       if (newEmail.password.includes(password)) {
-        localStorage.setItem("akun", allEmail.indexOf(email));
+        localStorage.setItem("account", allEmail.indexOf(email));
         alert("succes");
         Navigate("/");
       } else {
@@ -64,7 +63,7 @@ const BoxLogin = () => {
       }
     } else {
       alert("Email Belum Terdaftar");
-      Navigate("/register");
+      Navigate("/signup");
     }
   };
 
@@ -124,6 +123,8 @@ const BoxLogin = () => {
           justifyContent="center"
           alignItems="center"
           flexDirection="column"
+          w="400px"
+
         >
           <Stack w="full">
             <Heading
@@ -193,7 +194,7 @@ const BoxLogin = () => {
           </Stack>
           <Box marginTop="20px" display="flex" gap=".4em">
             <Text textColor="white">Don't have an account yet? </Text>
-            <Link to="/register">
+            <Link to="/signup">
               <Text color="#7ED957">Sign Up</Text>{" "}
             </Link>
           </Box>
