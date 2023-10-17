@@ -214,7 +214,7 @@ const BoxRegister = () => {
           <Box marginTop="20px" display="flex" gap=".4em">
             <Text textColor="white">You already have an account? </Text>
             <Link to="/login">
-              <Text color="#7ED957">Login</Text>{" "}
+              <Text color="#7ED957">Login here</Text>{" "}
             </Link>
           </Box>
         </Box>
