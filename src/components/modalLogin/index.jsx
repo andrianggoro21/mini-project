@@ -13,7 +13,7 @@ import {
 import React, { useState } from "react";
 import { FaUserSecret, FaUser } from "react-icons/fa";
 
-function ModalUser() {
+function ModalLogin() {
   const [isOpen, setIsOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(true);
   const [isUsers, setIsUsers] = useState(true);
@@ -40,7 +40,9 @@ function ModalUser() {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent bgColor="#060E03">
-          <ModalHeader fontSize="md" textColor="white" textAlign="center">You want to login as ?</ModalHeader>
+          <ModalHeader fontSize="md" textColor="white" textAlign="center">
+            You want to login as ?
+          </ModalHeader>
           <ModalCloseButton />
           <ModalBody colorScheme="white" textAlign="center">
             <Box display="flex" flexDirection="row" justifyContent="center">
@@ -49,15 +51,15 @@ function ModalUser() {
                   <FaUserSecret size="50px" />
                 </Button>
                 <Box m={2} color="white">
-                {isAdmin && <p>Anda adalah E.O</p>}
+                  {isAdmin && <p>Anda adalah E.O</p>}
                 </Box>
               </Box>
               <Box w="40em" m={2}>
                 <Button h="5em" background="#374431">
                   <FaUser size={50} />
-                </Button >
+                </Button>
                 <Box m={2} color="white">
-                {isUsers && <p>Anda adalah seorang User.</p>}
+                  {isUsers && <p>Anda adalah User.</p>}
                 </Box>
               </Box>
             </Box>
@@ -73,4 +75,4 @@ function ModalUser() {
   );
 }
 
-export default ModalUser;
+export default ModalLogin;

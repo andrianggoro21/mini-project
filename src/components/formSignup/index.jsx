@@ -12,9 +12,15 @@ import {
   InputRightElement,
   Image,
   FormErrorMessage,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
 } from "@chakra-ui/react";
 import * as Yup from "yup";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaUserSecret, FaUser } from "react-icons/fa";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { useFormik } from "formik";
@@ -44,6 +50,25 @@ const RegisterSchema = Yup.object().shape({
 });
 
 const BoxRegister = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(true);
+  const [isUsers, setIsUsers] = useState(true);
+  const onClose = () => setIsOpen(false);
+
+  const openModal = () => setIsOpen(true);
+
+  const handleRegister = (role) => {
+    if (role === "admin") {
+      setIsAdmin(true);
+      setIsUsers(false);
+    } else if (role === "users") {
+      setIsAdmin(false);
+      setIsUsers(true);
+    }
+
+    openModal();
+  };
+
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
@@ -81,20 +106,29 @@ const BoxRegister = () => {
       bgPosition="center"
       bgRepeat="no-repeat"
       minH="100vh"
+      gap={{ base: "0.5em", lg: "20em" }}
       display="flex"
       alignItems="center"
       justifyContent="center"
+      flexDirection={{ base: "column", md: "row" }}
     >
-      <Box w="50vw" display="flex" alignItems="center" justifyContent="center">
-        <Image src={Logo} />
-        <Image src={Event} />
+      <Box
+        gap="1em"
+        w="auto"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Image w="7em" src={Logo} />
+        <Image display={{ base: "none", md: "block" }} src={Event} />
       </Box>
       <Box
         bg="transparent"
         p={8}
         borderRadius="md"
         boxShadow="md"
-        w="50vw"
+        w="auto"
+        maxW="100vw"
         display="flex"
         alignItems="center"
         justifyContent="center"
@@ -158,7 +192,6 @@ const BoxRegister = () => {
                     border="none"
                     textColor="whatsapp.400"
                   />
-                 
 
                   <InputRightElement width="4.5rem">
                     <Button
@@ -176,16 +209,15 @@ const BoxRegister = () => {
                 <InputGroup>
                   <Input
                     bgColor="#262626"
-                    id="password"
+                    id="confirmPassword"
                     placeholder="Confirm your password"
                     type={showPassword ? "text" : "password"}
-                    name="password"
-                    value={formik.values.password}
+                    name="confirmPassword"
+                    value={formik.values.confirmPassword}
                     onChange={formik.handleChange}
                     border="none"
                     textColor="whatsapp.400"
                   />
-                 
 
                   <InputRightElement width="4.5rem">
                     <Button
@@ -198,8 +230,9 @@ const BoxRegister = () => {
                   </InputRightElement>
                 </InputGroup>
               </FormControl>
-             
+
               <Button
+                onClick={() => handleRegister("Sign up")}
                 type="submit"
                 colorScheme="#7ED957"
                 bg="#7ED957"
@@ -217,6 +250,40 @@ const BoxRegister = () => {
               <Text color="#7ED957">Login here</Text>{" "}
             </Link>
           </Box>
+          <Modal isOpen={isOpen} onClose={onClose}>
+            <ModalOverlay />
+            <ModalContent bgColor="#060E03">
+              <ModalHeader fontSize="md" textColor="white" textAlign="center">
+                You want to Register as ?
+              </ModalHeader>
+              <ModalCloseButton />
+              <ModalBody colorScheme="white" textAlign="center">
+                <Box display="flex" flexDirection="row" justifyContent="center">
+                  <Box w="40em" m={2}>
+                    <Button h="5em" background="#374431" variant="solid">
+                      <FaUserSecret size="50px" />
+                    </Button>
+                    <Box m={2} color="white">
+                      {isAdmin && <p>Anda adalah E.O</p>}
+                    </Box>
+                  </Box>
+                  <Box w="40em" m={2}>
+                    <Button h="5em" background="#374431">
+                      <FaUser size={50} />
+                    </Button>
+                    <Box m={2} color="white">
+                      {isUsers && <p>Anda adalah User.</p>}
+                    </Box>
+                  </Box>
+                </Box>
+              </ModalBody>
+              {/* <ModalFooter>
+              <Button colorScheme="blue" mr={3} onClick={onClose}>
+                Close
+              </Button>
+            </ModalFooter> */}
+            </ModalContent>
+          </Modal>
         </Box>
       </Box>
     </Box>

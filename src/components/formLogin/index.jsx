@@ -90,20 +90,23 @@ const BoxLogin = () => {
       bgPosition="center"
       bgRepeat="no-repeat"
       minH="100vh"
+      gap={{base:"0.5em", lg:"20em"}}
       display="flex"
       alignItems="center"
       justifyContent="center"
+      flexDirection={{base:"column", md:"row"}}
     >
-      <Box w="50vw" display='flex' alignItems='center' justifyContent='center'>
-        <Image src={Logo} />
-        <Image src={Event} />
+      <Box gap="1em" w="auto" display='flex' alignItems='center' justifyContent='center'>
+        <Image w="7em" src={Logo} />
+        <Image display={{base:"none", md:"block" }} src={Event} />
       </Box>
       <Box
         bg="transparent"
         p={8}
         borderRadius="md"
         boxShadow="md"
-        w="50vw"
+        w="auto"
+        maxW="100vw"
         display="flex"
         alignItems="center"
         justifyContent="center"
@@ -123,7 +126,8 @@ const BoxLogin = () => {
           justifyContent="center"
           alignItems="center"
           flexDirection="column"
-          w="400px"
+          w="900px"
+          maxW="400px"
 
         >
           <Stack w="full">
