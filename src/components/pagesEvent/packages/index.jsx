@@ -1,9 +1,11 @@
 import { Box, Text, Image, Button } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import NotRefund from "../../../assets/images/not-refund.png";
 import Instant from "../../../assets/images/instant.png";
 import ValidDate from "../../../assets/images/valid-date.png";
 
 const Packages = () => {
+  const id = document.getElementById("nav-event");
   return (
     <Box>
       <Text
@@ -121,9 +123,11 @@ const Packages = () => {
             </Text>
           </Box>
           <Box>
-            <Button bgColor="#3C891C" color="#ffffff" padding="10px">
-              Select Tickect
-            </Button>
+            <Link to="/attedance">
+              <Button bgColor="#3C891C" color="#ffffff" padding="10px">
+                Select Tickect
+              </Button>
+            </Link>
           </Box>
         </Box>
       </Box>
@@ -179,9 +183,11 @@ const Packages = () => {
             </Text>
           </Box>
           <Box>
-            <Button bgColor="#3C891C" color="#ffffff" padding="10px">
-              Select Tickect
-            </Button>
+            <Link to="/attedance">
+              <Button bgColor="#3C891C" color="#ffffff" padding="10px">
+                Select Tickect
+              </Button>
+            </Link>
           </Box>
         </Box>
       </Box>

@@ -34,7 +34,6 @@ const Highlight = () => {
         </ListItem>
         <ListItem>Maximum 4 tickets in 1 transaction.</ListItem>
       </UnorderedList>
-
       <Box bgColor="#1E1E1E" marginTop="16px" padding="16px" color="#ffffff" fontSize="14px" fontWeight="400" textAlign="justify" borderRadius='10px'>
         <Box display="flex" alignItems="center" gap="10px" marginBottom='16px'>
           <Image src={Info} />
