@@ -1,3 +1,4 @@
+
 import { Box } from "@chakra-ui/react";
 import Navbar from "../../components/navbar";
 import Widget from "../../components/pagesAttendance/widgetAttendance";
@@ -5,6 +6,8 @@ import FormAttendance from "../../components/pagesAttendance/formAttendance";
 import DetailAttendance from "../../components/pagesAttendance/detailAttendance";
 
 const Attedance = () => {
+  
+
   return (
     <Box>
       <Navbar />

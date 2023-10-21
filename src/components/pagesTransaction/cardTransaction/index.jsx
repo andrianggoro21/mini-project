@@ -4,9 +4,7 @@ import {
   Image,
   Button,
   Card,
-  CardHeader,
   CardBody,
-  CardFooter,
 } from "@chakra-ui/react";
 import Banner1 from "../../../assets/images/banner1.png";
 import Loc from "../../../assets/images/location.png";

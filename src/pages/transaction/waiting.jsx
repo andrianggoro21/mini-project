@@ -1,7 +1,6 @@
 import { Box, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import Navbar from "../../components/navbar";
-// import TabHeader from "../../components/pagesTransaction/tabHeader";
 import CardTransaction from "../../components/pagesTransaction/cardTransaction";
 
 

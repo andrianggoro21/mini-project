@@ -8,6 +8,7 @@ import {
 import banner from "../../../assets/images/banner1.png";
 import Cal from "../../../assets/images/calendar.png";
 import Loc from "../../../assets/images/location.png";
+import Time from "../../../assets/images/time.png"
 
 const Widget = () => {
   return (
@@ -33,7 +34,7 @@ const Widget = () => {
                   </Text>
                 </Box>
                 <Box display="flex" alignItems="center" gap="10px">
-                  <Image src={Cal} />
+                  <Image src={Time} />
                   <Text color="#bcbcbc" fontSize="14px">
                     15:00 - 23:00 WIB
                   </Text>

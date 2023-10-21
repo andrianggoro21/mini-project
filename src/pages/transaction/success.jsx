@@ -1,9 +1,7 @@
 import { Box, Text} from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import Navbar from "../../components/navbar";
-// import TabHeader from "../../components/pagesTransaction/tabHeader";
-import CardTransaction from "../../components/pagesTransaction/cardTransaction";
-
+import CardTicket from "../../components/pagesTransaction/cardTicket";
 
 const Success = () => {
   return (
@@ -59,10 +57,8 @@ const Success = () => {
             </Box>
           </Box>
         </Box>
-        {/* <TabHeader /> */}
-        {/* <Box bgColor="#353535" w="full" h="2px" margin="32px 0 32px 0" /> */}
         <Box id="success">
-          
+          <CardTicket/>
         </Box>
       </Box>
     </Box>
