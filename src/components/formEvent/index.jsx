@@ -52,7 +52,7 @@ const EventSchema = Yup.object().shape({
 const FormEvent = () => {
   const formEvent = async(event_name, category_event, location_event, duration_event, start_date_event, last_date_event, description_event, highlight_event, included_event) => {
     try {
-      await axios.post("", 
+      await axios.post("http://localhost:3000/event", 
       event_name, category_event, location_event, duration_event, start_date_event, last_date_event, description_event, highlight_event, included_event);
     } catch (err) {
       console.log(err);
@@ -74,7 +74,16 @@ const FormEvent = () => {
 
     validationSchema: EventSchema,
     onSubmit: (values) => {
-
+      formEvent(
+        values.event_name,
+        values.category_event,
+        values.location_event,
+        values.duration_event,
+        values.start_date_event,
+        values.last_date_event,
+        values.description_event,
+        values.highlight_event,
+        values.included_event);
     }
   });
 
