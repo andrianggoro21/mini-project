@@ -146,20 +146,20 @@ const FormEvent = () => {
 
               <FormControl
                 variant="floating"
-                isInvalid={formik.touched.name_event && formik.errors.name_event}
+                isInvalid={formik.touched.event_name && formik.errors.event_name}
               >
                 <FormLabel>Event Name</FormLabel>
                 <InputGroup>
                   <Input
                     placeholder="Type event's here name here"
                     type="text"
-                    name="name_event"
-                    value={formik.values.name_event}
+                    name="event_name"
+                    value={formik.values.event_name}
                     onChange={formik.handleChange}
                   ></Input>
                 </InputGroup>
-                {formik.touched.name_event && formik.errors.name_event && (
-                  <FormErrorMessage>{formik.errors.name_event}</FormErrorMessage>
+                {formik.touched.event_name && formik.errors.event_name && (
+                  <FormErrorMessage>{formik.errors.event_name}</FormErrorMessage>
                 )}
               </FormControl>
               <FormControl
