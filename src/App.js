@@ -1,4 +1,3 @@
-
 // import logo from './logo.svg';
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
@@ -13,15 +12,11 @@ import Dashboard from "./pages/dashboard";
 import CreateEvent from "./pages/createEvent";
 import CreateTicket from "./pages/createTicket";
 import ListEvent from "./components/listEvent";
-import "./App.css";
-import { Routes, Route } from "react-router-dom";
 import BoxLogin from "./components/formLogin";
 import BoxRegister from "./pages/signup";
 import ModalUser from "./components/modalLogin";
 import ModalRegister from "./components/modalSignup";
 import FormRegister from "./components/formSignup";
-
-
 
 function App() {
   return (
@@ -30,23 +25,20 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/dashboard/event-form" element={<CreateEvent/>}/>
-        <Route path="/event" element={<Event/>}/>
-        <Route path="/transaction/waiting" element={<Waiting/>}/>
-        <Route path="/transaction/success" element={<Success/>}/>
-        <Route path="/attedance" element={<Attedance/>}/>
+        <Route path="/dashboard/event-form" element={<CreateEvent />} />
+        <Route path="/event" element={<Event />} />
+        <Route path="/transaction/waiting" element={<Waiting />} />
+        <Route path="/transaction/success" element={<Success />} />
+        <Route path="/attedance" element={<Attedance />} />
+        <Route element={<FormRegister />} path="/register" />
+        <Route element={<ModalRegister />} path="/modal-register" />
+        <Route element={<ModalUser />} path="/modal-login" />
+        <Route element={<BoxRegister />} path="/signup" />
+        <Route element={<BoxLogin />} path="/login" />
       </Routes>
       <Footer />
     </>
   );
-<Routes>
-  <Route element={<FormRegister />} path="/register" />
-  <Route element={<ModalRegister />} path="/modal-register" />
-  <Route element={<ModalUser />} path="/modal-login" />
-  <Route element= {<BoxRegister />} path="/signup" />
-  <Route element= {<BoxLogin />} path="/login" />
-  </Routes>
-  )
 }
 
 export default App;
