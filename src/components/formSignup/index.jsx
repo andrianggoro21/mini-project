@@ -12,15 +12,9 @@ import {
   InputRightElement,
   Image,
   FormErrorMessage,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
 } from "@chakra-ui/react";
 import * as Yup from "yup";
-import { FaEye, FaEyeSlash, FaUserSecret, FaUser } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { useFormik } from "formik";
@@ -28,6 +22,7 @@ import Regis from "../../assets/images/Registration.png";
 import Logo from "../../assets/images/logo.png";
 import Event from "../../assets/images/EVENT.IN.png";
 
+//resgiter schema yup
 const RegisterSchema = Yup.object().shape({
   name: Yup.string()
     .min(4, "Name must be 4 characters minimum")
@@ -36,52 +31,37 @@ const RegisterSchema = Yup.object().shape({
     .email("Invalid email address format")
     .required("Email is required"),
   password: Yup.string()
-
     .matches(
-      "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$",
-      `Password must be 6 characters minimum, at least contain one lowercase,
-           one uppercase, one number, and one symbol`
+      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/,
+      `Password must be 6 characters minimum, at least contain one lowercase, one uppercase, one number, and one symbol`
     )
     .required("Password is required"),
-
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("password"), null], "Passwords must match")
     .required("Confirm Password is required"),
 });
 
-const BoxRegister = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(true);
-  const [isUsers, setIsUsers] = useState(true);
-  const onClose = () => setIsOpen(false);
-
-  const openModal = () => setIsOpen(true);
-
-  const handleRegister = (role) => {
-    if (role === "admin") {
-      setIsAdmin(true);
-      setIsUsers(false);
-    } else if (role === "users") {
-      setIsAdmin(false);
-      setIsUsers(true);
-    }
-
-    openModal();
-  };
-
+const FormRegister = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate();
+  const Navigate = useNavigate();
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
+  const [registrationError, setRegistrationError] = useState(false);
 
-  const register = async (name, email, password) => {
+  // input data
+  const register = async (values) => {
     try {
       await axios.post("http://localhost:3000/users", {
-        name,
-        email,
-        password,
+        name: values.name,
+        email: values.email,
+        password: values.password,
       });
-      alert("Register Success");
+      setRegistrationSuccess(true);
+      setRegistrationError(false);
+      // Navigate("/login");
     } catch (err) {
-      console.log(err);
+      console.error("Registration Error:", err);
+      setRegistrationSuccess(false);
+      setRegistrationError(true);
     }
   };
 
@@ -90,12 +70,13 @@ const BoxRegister = () => {
       name: "",
       email: "",
       password: "",
+      confirmPassword: "",
     },
-
     validationSchema: RegisterSchema,
     onSubmit: (values) => {
-      register(values.name, values.email, values.password);
-      navigate("/login");
+      if (formik.isValid) {
+        register(values);
+      }
     },
   });
 
@@ -132,15 +113,6 @@ const BoxRegister = () => {
         display="flex"
         alignItems="center"
         justifyContent="center"
-        // flexDirection='column'
-
-        // width="534px"
-        // height="773px"
-        // left="169px"
-        // top="121px"
-        // display='flex'
-        // justifyContent='center'
-        // flexDirection='column'
       >
         <Box
           className="form"
@@ -163,8 +135,24 @@ const BoxRegister = () => {
               Sign up
             </Heading>
             <form onSubmit={formik.handleSubmit}>
-              <FormControl>
-                <FormLabel textColor="#696666">Email :</FormLabel>
+              <FormControl isInvalid={formik.errors.name}>
+                <FormLabel textColor="#696666">Name:</FormLabel>
+                <Input
+                  bgColor="#262626"
+                  id="name"
+                  placeholder="Enter your name"
+                  type="text"
+                  name="name"
+                  value={formik.values.name}
+                  onChange={formik.handleChange}
+                  border="none"
+                  textColor="whatsapp.400"
+                />
+                <FormErrorMessage>{formik.errors.name}</FormErrorMessage>
+              </FormControl>
+
+              <FormControl isInvalid={formik.errors.email} mt={4}>
+                <FormLabel textColor="#696666">Email:</FormLabel>
                 <Input
                   bgColor="#262626"
                   id="email"
@@ -176,10 +164,11 @@ const BoxRegister = () => {
                   border="none"
                   textColor="whatsapp.400"
                 />
+                <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
               </FormControl>
 
-              <FormControl mt={4}>
-                <FormLabel textColor="#696666">Password :</FormLabel>
+              <FormControl isInvalid={formik.errors.password} mt={4}>
+                <FormLabel textColor="#696666">Password:</FormLabel>
                 <InputGroup>
                   <Input
                     bgColor="#262626"
@@ -192,7 +181,6 @@ const BoxRegister = () => {
                     border="none"
                     textColor="whatsapp.400"
                   />
-
                   <InputRightElement width="4.5rem">
                     <Button
                       h="1.75rem"
@@ -203,9 +191,11 @@ const BoxRegister = () => {
                     </Button>
                   </InputRightElement>
                 </InputGroup>
+                <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
               </FormControl>
-              <FormControl mt={4}>
-                <FormLabel textColor="#696666">Confirm Password :</FormLabel>
+
+              <FormControl isInvalid={formik.errors.confirmPassword} mt={4}>
+                <FormLabel textColor="#696666">Confirm Password:</FormLabel>
                 <InputGroup>
                   <Input
                     bgColor="#262626"
@@ -218,7 +208,6 @@ const BoxRegister = () => {
                     border="none"
                     textColor="whatsapp.400"
                   />
-
                   <InputRightElement width="4.5rem">
                     <Button
                       h="1.75rem"
@@ -229,10 +218,12 @@ const BoxRegister = () => {
                     </Button>
                   </InputRightElement>
                 </InputGroup>
+                <FormErrorMessage>
+                  {formik.errors.confirmPassword}
+                </FormErrorMessage>
               </FormControl>
 
               <Button
-                onClick={() => handleRegister("Sign up")}
                 type="submit"
                 colorScheme="#7ED957"
                 bg="#7ED957"
@@ -244,50 +235,26 @@ const BoxRegister = () => {
               </Button>
             </form>
           </Stack>
+          {registrationSuccess && (
+            <Text mt={4} textColor="green.400">
+              Registration successful!
+            </Text>
+          )}
+          {registrationError && (
+            <Text mt={4} textColor="red.400">
+              Registration failed. Please check your data.
+            </Text>
+          )}
           <Box marginTop="20px" display="flex" gap=".4em">
             <Text textColor="white">You already have an account? </Text>
             <Link to="/login">
-              <Text color="#7ED957">Login here</Text>{" "}
+            <Text color="#7ED957">Login here</Text>
             </Link>
           </Box>
-          <Modal isOpen={isOpen} onClose={onClose}>
-            <ModalOverlay />
-            <ModalContent bgColor="#060E03">
-              <ModalHeader fontSize="md" textColor="white" textAlign="center">
-                You want to Register as ?
-              </ModalHeader>
-              <ModalCloseButton />
-              <ModalBody colorScheme="white" textAlign="center">
-                <Box display="flex" flexDirection="row" justifyContent="center">
-                  <Box w="40em" m={2}>
-                    <Button h="5em" background="#374431" variant="solid">
-                      <FaUserSecret size="50px" />
-                    </Button>
-                    <Box m={2} color="white">
-                      {isAdmin && <p>Anda adalah E.O</p>}
-                    </Box>
-                  </Box>
-                  <Box w="40em" m={2}>
-                    <Button h="5em" background="#374431">
-                      <FaUser size={50} />
-                    </Button>
-                    <Box m={2} color="white">
-                      {isUsers && <p>Anda adalah User.</p>}
-                    </Box>
-                  </Box>
-                </Box>
-              </ModalBody>
-              {/* <ModalFooter>
-              <Button colorScheme="blue" mr={3} onClick={onClose}>
-                Close
-              </Button>
-            </ModalFooter> */}
-            </ModalContent>
-          </Modal>
         </Box>
       </Box>
     </Box>
   );
 };
 
-export default BoxRegister;
+export default FormRegister;

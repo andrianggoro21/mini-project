@@ -8,7 +8,6 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Icon,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { FaUserSecret, FaUser } from "react-icons/fa";
@@ -38,13 +37,13 @@ function ModalLogin() {
       <Button onClick={() => handleLogin("login")}>Login</Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent bgColor="#060E03">
-          <ModalHeader fontSize="md" textColor="white" textAlign="center">
-            You want to login as ?
-          </ModalHeader>
-          <ModalCloseButton />
-          <ModalBody colorScheme="white" textAlign="center">
+            <ModalOverlay />
+            <ModalContent bgColor="#060E03">
+              <ModalHeader fontSize="md" textColor="white" textAlign="center">
+                You want to Register as ?
+              </ModalHeader>
+              <ModalCloseButton />
+              <ModalBody colorScheme="white" textAlign="center">
             <Box display="flex" flexDirection="row" justifyContent="center">
               <Box w="40em" m={2}>
                 <Button h="5em" background="#374431" variant="solid">

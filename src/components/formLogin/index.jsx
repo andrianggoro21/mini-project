@@ -37,7 +37,7 @@ const BoxLogin = () => {
   // ambil data
   const fatchDataLogin = async () => {
     try {
-      const response = await axios.get();
+      const response = await axios.get("http://localhost:3000/users");
       setUsers(response.data);
     } catch (err) {
       console.log(err);
@@ -63,7 +63,7 @@ const BoxLogin = () => {
       }
     } else {
       alert("Email Belum Terdaftar");
-      Navigate("/signup");
+      Navigate("/register");
     }
   };
 
@@ -110,15 +110,7 @@ const BoxLogin = () => {
         display="flex"
         alignItems="center"
         justifyContent="center"
-        // flexDirection='column'
-
-        // width="534px"
-        // height="773px"
-        // left="169px"
-        // top="121px"
-        // display='flex'
-        // justifyContent='center'
-        // flexDirection='column'
+        
       >
         <Box
           className="form"
