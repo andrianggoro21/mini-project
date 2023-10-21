@@ -24,23 +24,60 @@ import {
   FormErrorMessage,
   Textarea,
 } from "@chakra-ui/react";
+import axios from "axios";
 import { useFormik } from "formik";
+import * as Yup from "yup";
+
+const EventSchema = Yup.object().shape({
+  event_name: Yup.string()
+    .required("Event name is required"),
+  category_event: Yup.string()
+    .required("Category event is required"),
+  location_event: Yup.string()
+    .required("Location is required"),
+  duration_event: Yup.string()
+    .required("Duration is required"),
+  start_date_event: Yup.string()
+    .required("Start date is required"),
+  last_date_event: Yup.string()
+    .required("Last date required"),
+  description_event: Yup.string()
+    .required("Description is required"),
+  highlight_event: Yup.string()
+    .required("Highlight is required"),
+  included_event: Yup.string()
+    .required("Included is required"),
+})
+
 const FormEvent = () => {
+  const formEvent = async(event_name, category_event, location_event, duration_event, start_date_event, last_date_event, description_event, highlight_event, included_event) => {
+    try {
+      await axios.post("", 
+      event_name, category_event, location_event, duration_event, start_date_event, last_date_event, description_event, highlight_event, included_event);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   const formik = useFormik({
     initialValues: {
       event_name: "",
       category_event: "",
-      location: "",
-      description: "",
-      highlight: "",
-      included: "",
+      location_event: "",
+      duration_event: "",
+      start_date_event: "",
+      last_date_event: "",
+      description_event: "",
+      highlight_event: "",
+      included_event: "",
     },
 
-    // validationSchema: EventSchema,
-    // onSubmit: (values) => {
+    validationSchema: EventSchema,
+    onSubmit: (values) => {
 
-    // }
+    }
   });
+
 
   // const { isOpen, onOpen, onClose } = useState();
   const { isOpen, onOpen, onClose } = useDisclosure();
