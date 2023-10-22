@@ -29,7 +29,7 @@ function App() {
         <Route path="/event" element={<Event />} />
         <Route path="/transaction/waiting" element={<Waiting />} />
         <Route path="/transaction/success" element={<Success />} />
-        <Route path="/attedance" element={<Attedance />} />
+        <Route path="/attendance" element={<Attedance />} />
         <Route element={<FormRegister />} path="/register" />
         <Route element={<ModalRegister />} path="/modal-register" />
         <Route element={<ModalUser />} path="/modal-login" />
