@@ -18,7 +18,7 @@ const BottomNav = () => {
         <Box display="flex" flexDirection="column">
           <Box display="flex" alignItems="center" gap="10px">
             <Text fontSize="16px" fontWeight="400" color="#838383">
-              Star from
+              Start from
             </Text>
             <Text
               fontSize="16px"

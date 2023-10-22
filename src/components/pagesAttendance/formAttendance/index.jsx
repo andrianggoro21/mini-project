@@ -1,14 +1,24 @@
 import { useState } from "react";
 import axios from "axios";
 import { useFormik } from "formik";
+import * as Yup from "yup";
 import {
   Box,
   Text,
   Input,
   FormControl,
   FormLabel,
+  FormErrorMessage,
   Button,
 } from "@chakra-ui/react";
+
+const AttendanceSchema = Yup.object().shape({
+  fullname: Yup.string().required("Fullname is required"),
+  email: Yup.string()
+    .email("Invalid email address format")
+    .required("Email is required"),
+  noTelp: Yup.number().required("Password is required"),
+});
 
 const FormAttendance = () => {
   // const [input, setInput] = useState();
@@ -33,6 +43,7 @@ const FormAttendance = () => {
       noTelp: "",
     },
 
+    validationSchema: AttendanceSchema,
     onSubmit: (values) => {
       inputAttendance(values.fullname, values.email, values.noTelp);
       // formik.values.posting = "";
@@ -53,7 +64,10 @@ const FormAttendance = () => {
         <form onSubmit={formik.handleSubmit}>
           <Box display="flex" flexDirection="column" gap="32px">
             <Box>
-              <FormControl isRequired>
+              <FormControl
+                isRequired
+                isInvalid={formik.touched.fullname && formik.errors.fullname}
+              >
                 <FormLabel color="#bcbcbc">Full Name</FormLabel>
                 <Input
                   placeholder="Full Name"
@@ -66,10 +80,16 @@ const FormAttendance = () => {
                   value={formik.values.fullname}
                   onChange={formik.handleChange}
                 />
+                {formik.touched.fullname && formik.errors.fullname && (
+                  <FormErrorMessage>{formik.errors.fullname}</FormErrorMessage>
+                )}
               </FormControl>
             </Box>
             <Box>
-              <FormControl isRequired>
+              <FormControl
+                isRequired
+                isInvalid={formik.touched.email && formik.errors.email}
+              >
                 <FormLabel color="#bcbcbc">Email</FormLabel>
                 <Input
                   placeholder="Email"
@@ -82,10 +102,16 @@ const FormAttendance = () => {
                   value={formik.values.email}
                   onChange={formik.handleChange}
                 />
+                {formik.touched.email && formik.errors.email && (
+                  <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
+                )}
               </FormControl>
             </Box>
             <Box>
-              <FormControl isRequired>
+              <FormControl
+                isRequired
+                isInvalid={formik.touched.noTelp && formik.errors.noTelp}
+              >
                 <FormLabel color="#bcbcbc">Phone Number</FormLabel>
                 <Input
                   placeholder="Phone Number"
@@ -98,6 +124,9 @@ const FormAttendance = () => {
                   value={formik.values.noTelp}
                   onChange={formik.handleChange}
                 />
+                {formik.touched.noTelp && formik.errors.noTelp && (
+                  <FormErrorMessage>{formik.errors.noTelp}</FormErrorMessage>
+                )}
               </FormControl>
             </Box>
             <Button
@@ -109,53 +138,6 @@ const FormAttendance = () => {
               submit
             </Button>
           </Box>
-        </form>
-      </Box>
-
-      <Box
-        padding="24px"
-        borderRadius="10px"
-        margin="20px 0 20px 0"
-        bgColor="#1E1E1E"
-      >
-        <form>
-          <FormControl isRequired>
-            <Box display="flex" flexDirection="column" gap="32px">
-              <Box>
-                <FormLabel color="#bcbcbc">Full Name</FormLabel>
-                <Input
-                  placeholder="Full Name"
-                  color="#ffffff"
-                  bgColor="#262626"
-                  border="none"
-                  _placeholder={{ color: "#585454" }}
-                  focusBorderColor="#262626"
-                />
-              </Box>
-              <Box>
-                <FormLabel color="#bcbcbc">Email</FormLabel>
-                <Input
-                  placeholder="Email"
-                  color="#ffffff"
-                  bgColor="#262626"
-                  border="none"
-                  _placeholder={{ color: "#585454" }}
-                  focusBorderColor="#262626"
-                />
-              </Box>
-              <Box>
-                <FormLabel color="#bcbcbc">Phone Number</FormLabel>
-                <Input
-                  placeholder="Phone Number"
-                  color="#ffffff"
-                  bgColor="#262626"
-                  border="none"
-                  _placeholder={{ color: "#585454" }}
-                  focusBorderColor="#262626"
-                />
-              </Box>
-            </Box>
-          </FormControl>
         </form>
       </Box>
     </Box>

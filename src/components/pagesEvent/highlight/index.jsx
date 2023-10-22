@@ -7,7 +7,7 @@ import {
 } from "@chakra-ui/react";
 import Info from "../../../assets/images/info.png";
 
-const Highlight = () => {
+const Highlight = ({highlight}) => {
   return (
     <Box color="#ffffff" fontSize="14px" fontWeight="400" textAlign="justify">
       <Text
@@ -18,7 +18,7 @@ const Highlight = () => {
       >
         Highlight
       </Text>
-      <UnorderedList spacing={3} letterSpacing=".6px">
+      {/* <UnorderedList spacing={3} letterSpacing=".6px">
         <ListItem>
           Watch Ambyar Concert Yogyakarta 2023 featuring Denny Caknan, Guyon
           Waton, Gilga Sahid, NDX A.K.A, Happy Asmara, Yenni Inka, Aftershine
@@ -33,7 +33,8 @@ const Highlight = () => {
           Virtual Account with promo code 123BCA
         </ListItem>
         <ListItem>Maximum 4 tickets in 1 transaction.</ListItem>
-      </UnorderedList>
+      </UnorderedList> */}
+      {highlight}
       <Box bgColor="#1E1E1E" marginTop="16px" padding="16px" color="#ffffff" fontSize="14px" fontWeight="400" textAlign="justify" borderRadius='10px'>
         <Box display="flex" alignItems="center" gap="10px" marginBottom='16px'>
           <Image src={Info} />

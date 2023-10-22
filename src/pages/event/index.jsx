@@ -1,29 +1,45 @@
 import { Box } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import axios from "axios";
 import Navbar from "../../components/navbar";
 import BannerEvent from "../../components/pagesEvent/bannerEvent";
 import VoucherEvent from "../../components/pagesEvent/voucherEvent";
-// import NavEvent from "../../components/pagesEvent/navEvent";
 import Overview from "../../components/pagesEvent/overview";
 import Description from "../../components/pagesEvent/description";
 import Highlight from "../../components/pagesEvent/highlight";
 import Packages from "../../components/pagesEvent/packages";
 import Included from "../../components/pagesEvent/included";
 import BottomNav from "../../components/pagesEvent/bottomNav";
+import { useState, useEffect } from "react";
+import Footer from "../../components/footer";
 
 const Event = () => {
+  const [data, setData] = useState([]);
+  const getEvent = async () => {
+    try {
+      const response = await axios.get("http://localhost:8888/event/1");
+      setData(response.data);
+      console.log(response.data);
+      console.log(response.data.include);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getEvent();
+  }, []);
   return (
     <Box maxW="100vw" minH="100vh">
       <Navbar />
       <Box
         className="event"
         bgColor="#121212"
-        padding={{ base: "24px", lg: "24px 80px 24px 80px" }}
+        padding={{ base: "100px 24px  24px  24px", lg: "100px 80px 24px 80px" }}
       >
-        <BannerEvent />
+        <BannerEvent banner={data.path} />
         <VoucherEvent />
         <Box bgColor="#353535" w="full" h="2px" margin="24px 0 24px 0" />
-        <Box>
+        <Box display={{ base: "none", md: "block" }}>
           <Box
             color="#838383"
             fontWeight="700"
@@ -80,24 +96,38 @@ const Event = () => {
           </Box>
         </Box>
         <Box id="overview">
-          <Overview/>
+          <Overview
+            title={data.title}
+            location={data.location}
+            date={data.date}
+            eoUser={data.eo_user}
+          />
         </Box>
         <Box bgColor="#353535" w="full" h="2px" margin="24px 0 24px 0" />
         <Box id="description">
-          <Description/>
+          <Description description={data.description} />
         </Box>
         <Box bgColor="#353535" w="full" h="2px" margin="24px 0 24px 0" />
         <Box id="highlight">
-          <Highlight/>
+          <Highlight highlight={data.highlight} />
         </Box>
         <Box bgColor="#353535" w="full" h="2px" margin="24px 0 24px 0" />
         <Box id="packages">
-          <Packages/>
+          <Packages
+            date={
+              data.date
+            } /*regular={data.typeTicket.regular} premium={data.typeTicket.premium}*/
+          />
         </Box>
         <Box bgColor="#353535" w="full" h="2px" margin="24px 0 24px 0" />
-        <Box id="included"><Included/></Box>
+        <Box id="included">
+          <Included include={data.include} />
+        </Box>
       </Box>
       <BottomNav />
+      <Box display={{ base: "none", lg: "block"}} >
+        <Footer />
+      </Box>
     </Box>
   );
 };
