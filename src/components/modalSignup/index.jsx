@@ -8,7 +8,7 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Icon,
+  Text,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { FaUserSecret, FaUser } from "react-icons/fa";
@@ -21,7 +21,7 @@ function ModalRegister() {
 
   const openModal = () => setIsOpen(true);
 
-  const handleRegister = (role) => {
+  const handleLogin = (role) => {
     if (role === "admin") {
       setIsAdmin(true);
       setIsUsers(false);
@@ -35,8 +35,16 @@ function ModalRegister() {
 
   return (
     <Box>
-      <Button onClick={() => handleRegister("Signup")}>Register</Button>
-
+      <Button
+        variant="unstyled"
+        border="1px solid #3C891C"
+        size={"sm"}
+        w="120px"
+        h="40px"
+        onClick={() => handleLogin("login")}
+      >
+        Sign Up
+      </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent bgColor="#060E03">
@@ -51,7 +59,8 @@ function ModalRegister() {
                   <FaUserSecret size="50px" />
                 </Button>
                 <Box m={2} color="white">
-                  {isAdmin && <p>Anda adalah E.O</p>}
+                  {isAdmin}
+                  <Text fontWeight="semibold">Anda adalah E.O</Text>
                 </Box>
               </Box>
               <Box w="40em" m={2}>
@@ -59,16 +68,12 @@ function ModalRegister() {
                   <FaUser size={50} />
                 </Button>
                 <Box m={2} color="white">
-                  {isUsers && <p>Anda adalah User.</p>}
+                  {isUsers}
+                  <Text fontWeight="semibold">Anda adalah User.</Text>
                 </Box>
               </Box>
             </Box>
           </ModalBody>
-          {/* <ModalFooter>
-              <Button colorScheme="blue" mr={3} onClick={onClose}>
-                Close
-              </Button>
-            </ModalFooter> */}
         </ModalContent>
       </Modal>
     </Box>
