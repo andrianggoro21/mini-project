@@ -15,6 +15,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/event-form" element={<CreateEvent/>}/>
+        <Route path="/dashboard/ticket-form" element={<CreateTicket/>}/>
       </Routes>
       <Footer />
     </>
