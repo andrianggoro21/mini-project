@@ -25,6 +25,9 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { CgClose } from "react-icons/cg";
 import { GrClose } from "react-icons/gr";
 import { RiSearchLine } from "react-icons/ri";
+import React, { useState } from "react";
+import ModalLogin from "../modalLogin";
+import ModalRegister from "../modalSignup";
 
 const Links = ["Home", "Find Events", "Transaction"];
 
@@ -49,6 +52,11 @@ const NavLink = (props) => {
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleLoginClick = () => {
+    setIsModalOpen(true);
+  };
   return (
     <>
       <Box
@@ -101,27 +109,21 @@ const Navbar = () => {
               />
               <Input type="text" placeholder="Find your events here" />
             </InputGroup>
-
-            <Button
-              variant={"unstyled"}
-              border="1px solid #3C891C"
-              size={"sm"}
-              w="120px"
-              h="40px"
-            >
-              Sign Up
-            </Button>
-            <Button
-              variant={"solid"}
-              backgroundColor="#3C891C"
-              size={"sm"}
-              w="120px"
-              h="40px"
-            >
-              Log In
-            </Button>
+            <Box>
+              <ModalRegister
+                onClick={handleLoginClick}
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(true)}
+              />
+            </Box>
+            <Box>
+              <ModalLogin
+                onClick={handleLoginClick}
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(true)}
+              />
+            </Box>
           </HStack>
-
           <IconButton
             variant="unstyled"
             size={"md"}
@@ -134,7 +136,6 @@ const Navbar = () => {
       </Box>
       {isOpen ? (
         <Flex
-
           background="#0D0D0D"
           p={8}
           w="full"

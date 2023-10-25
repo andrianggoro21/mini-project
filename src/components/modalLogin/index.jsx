@@ -8,17 +8,20 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  Text,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { FaUserSecret, FaUser } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
 
 function ModalLogin() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(true);
-  const [isUsers, setIsUsers] = useState(true);
-  const onClose = () => setIsOpen(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isUsers, setIsUsers] = useState(false);
 
+  const onClose = () => setIsOpen(false);
   const openModal = () => setIsOpen(true);
+  
 
   const handleLogin = (role) => {
     if (role === "admin") {
@@ -34,40 +37,49 @@ function ModalLogin() {
 
   return (
     <Box>
-      <Button onClick={() => handleLogin("login")}>Login</Button>
-
+      <Button
+        variant="soilid"
+        bgColor="#3C891C"
+        size={"sm"}
+        w="120px"
+        h="40px"
+        onClick={() => handleLogin("login")}
+      >
+        Log In
+      </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
-            <ModalOverlay />
-            <ModalContent bgColor="#060E03">
-              <ModalHeader fontSize="md" textColor="white" textAlign="center">
-                You want to Register as ?
-              </ModalHeader>
-              <ModalCloseButton />
-              <ModalBody colorScheme="white" textAlign="center">
-            <Box display="flex" flexDirection="row" justifyContent="center">
+        <ModalOverlay />
+        <ModalContent bgColor="#060E03">
+          <ModalHeader fontSize="md" textColor="white" textAlign="center">
+            You want to Login as ?
+          </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody colorScheme="white" textAlign="center">
+              <Box display='flex' flexDirection='row' justifyContent='center'>
               <Box w="40em" m={2}>
+              <Link to="/login">
                 <Button h="5em" background="#374431" variant="solid">
-                  <FaUserSecret size="50px" />
+                  <FaUserSecret size={50} />
                 </Button>
                 <Box m={2} color="white">
-                  {isAdmin && <p>Anda adalah E.O</p>}
+                  {isAdmin}
+                  <Text fontWeight="semibold">Anda adalah E.O</Text>
                 </Box>
+                </Link>
               </Box>
               <Box w="40em" m={2}>
+              <Link to="/login">
                 <Button h="5em" background="#374431">
                   <FaUser size={50} />
                 </Button>
-                <Box m={2} color="white">
-                  {isUsers && <p>Anda adalah User.</p>}
-                </Box>
+                  <Box m={2} color="white">
+                    {isUsers}
+                      <Text fontWeight="semibold">Anda adalah User.</Text>
+                  </Box>
+                  </Link>
               </Box>
-            </Box>
+              </Box>
           </ModalBody>
-          {/* <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Close
-            </Button>
-          </ModalFooter> */}
         </ModalContent>
       </Modal>
     </Box>

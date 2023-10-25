@@ -26,7 +26,12 @@ const LoginSchema = Yup.object().shape({
   email: Yup.string()
     .email("Invalid email address format")
     .required("Email is required"),
-  password: Yup.string().required("Password is required"),
+  password: Yup.string()
+  .matches(
+    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/,
+    `Password must be 6 characters minimum, at least contain one lowercase, one uppercase, one number, and one symbol`
+  )
+  .required("Password is required"),
 });
 
 const BoxLogin = () => {
@@ -190,7 +195,7 @@ const BoxLogin = () => {
           </Stack>
           <Box marginTop="20px" display="flex" gap=".4em">
             <Text textColor="white">Don't have an account yet? </Text>
-            <Link to="/signup">
+            <Link to="/register">
               <Text color="#7ED957">Sign Up..</Text>{" "}
             </Link>
           </Box>
