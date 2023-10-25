@@ -35,6 +35,8 @@ function App() {
         <Route element={<ModalUser />} path="/modal-login" />
         <Route element={<BoxRegister />} path="/signup" />
         <Route element={<BoxLogin />} path="/login" />
+        <Route path="/dashboard/event-form" element={<CreateEvent/>}/>
+        <Route path="/dashboard/ticket-form" element={<CreateTicket/>}/>
       </Routes>
       {/* <Footer /> */}
     </>
