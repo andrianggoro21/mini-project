@@ -1,14 +1,10 @@
-import {
-  Box,
-  Text,
-  Card,
-  CardBody,
-  Image,
-} from "@chakra-ui/react";
+import { Box, Text, Card, CardBody, Image, Button } from "@chakra-ui/react";
 import banner from "../../../assets/images/banner1.png";
 import Cal from "../../../assets/images/calendar.png";
 import Loc from "../../../assets/images/location.png";
-import Time from "../../../assets/images/time.png"
+import Time from "../../../assets/images/time.png";
+import Plus from "../../../assets/images/plus.png";
+import Minus from "../../../assets/images/minus.png";
 
 const Widget = () => {
   return (
@@ -19,7 +15,7 @@ const Widget = () => {
       <Card w="full" margin="20px 0 20px 0" bgColor="#1E1E1E">
         <CardBody>
           <Box display="flex" gap="16px">
-            <Box display={{base: "none", md: "block"}}>
+            <Box display={{ base: "none", md: "block" }}>
               <Image w="300px" borderRadius="10px" src={banner} />
             </Box>
             <Box display="flex" flexDirection="column" gap="10px">
@@ -54,18 +50,28 @@ const Widget = () => {
             alignItems="center"
             justifyContent="space-between"
           >
-            <Box w="100px" >
-              <Text color="#bcbcbc" fontSize="16px" fontWeight="600" overflow='hidden' textOverflow='ellipsis'>
+            <Box w="100px">
+              <Text
+                color="#bcbcbc"
+                fontSize="16px"
+                fontWeight="600"
+                overflow="hidden"
+                textOverflow="ellipsis"
+              >
                 Ticket Type
               </Text>
             </Box>
-            <Box display="flex" alignItems="center" gap={{base: "30px", sm:"70px"}}>
+            <Box
+              display="flex"
+              alignItems="center"
+              gap={{ base: "30px", sm: "70px" }}
+            >
               <Box w="120px" textAlign="right">
                 <Text color="#bcbcbc" fontSize="16px" fontWeight="600">
                   Price
                 </Text>
               </Box>
-              <Box w="80px" textAlign="right">
+              <Box w="100px" textAlign="right">
                 <Text color="#bcbcbc" fontSize="16px" fontWeight="600">
                   Quantity
                 </Text>
@@ -83,16 +89,45 @@ const Widget = () => {
                 Regular
               </Text>
             </Box>
-            <Box display="flex" alignItems="center"  gap={{base: "30px", sm:"70px"}}>
+            <Box
+              display="flex"
+              alignItems="center"
+              gap={{ base: "30px", sm: "70px" }}
+            >
               <Box w="120px" textAlign="right">
                 <Text color="#bcbcbc" fontSize="16px">
                   200.000
                 </Text>
               </Box>
-              <Box w="80px" textAlign="right">
-                <Text color="#bcbcbc" fontSize="16px">
-                  x1
-                </Text>
+              <Box
+                w="100px"
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                <Button
+                  size="xs"
+                  variant="ghost"
+                  padding="0"
+                  _hover={{ bgColor: "none" }}
+                  _active={{ bgColor: "none" }}
+                >
+                  <Image src={Minus} />
+                </Button>
+                <Box>
+                  <Text color="#bcbcbc" fontSize="16px">
+                    1
+                  </Text>
+                </Box>
+                <Button
+                  size="xs"
+                  variant="ghost"
+                  padding="0"
+                  _hover={{ bgColor: "none" }}
+                  _active={{ bgColor: "none" }}
+                >
+                  <Image src={Plus} />
+                </Button>
               </Box>
             </Box>
           </Box>

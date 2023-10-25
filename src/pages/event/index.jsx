@@ -36,8 +36,8 @@ const Event = () => {
         bgColor="#121212"
         padding={{ base: "100px 24px  24px  24px", lg: "100px 80px 24px 80px" }}
       >
-        <BannerEvent banner={data.path} />
-        <VoucherEvent />
+        <BannerEvent banner={data.image} />
+        {/* <VoucherEvent /> */}
         <Box bgColor="#353535" w="full" h="2px" margin="24px 0 24px 0" />
         <Box display={{ base: "none", md: "block" }}>
           <Box
