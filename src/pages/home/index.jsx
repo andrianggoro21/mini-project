@@ -57,6 +57,7 @@ const Home = () => {
         <Heading as="h4" mt="1em" mb="1em" size="md" color="white">Card Destionation</Heading>
         <CardDestination/>
       </Box>
+      <Footer/>
     </Box>
   );
 };

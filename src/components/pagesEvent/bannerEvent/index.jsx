@@ -1,10 +1,10 @@
 import { Box, Image } from '@chakra-ui/react';
-import Banner1 from '../../../assets/images/banner1.png';
+// import Banner1 from '../../../assets/images/banner1.png';
 
-const BannerEvent = () => {
+const BannerEvent = ({banner}) => {
     return(
         <Box className='bannerImg' display='flex' justifyContent='center'>
-            <Image w='full' src={Banner1}/>
+            <Image w='full' h='700px' borderRadius='10px' src={banner}/>
         </Box>
 
     )

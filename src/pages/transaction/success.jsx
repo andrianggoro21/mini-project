@@ -1,15 +1,21 @@
-import { Box, Text} from "@chakra-ui/react";
+import { Box, Text, Button } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import Navbar from "../../components/navbar";
 import CardTicket from "../../components/pagesTransaction/cardTicket";
+import { nanoid } from 'nanoid';
+import { useState } from 'react';
 
 const Success = () => {
+  const [referralCode, setReferralCode] = useState('');
+  const generateReferralCode = () => {
+    const code = nanoid(6);
+    setReferralCode(code)
+  }
   return (
-    <Box maxW="100vw" minH="100vh">
+    <Box maxW="100vw" minH="100vh" bgColor="#121212">
       <Navbar />
       <Box
         className="transaction"
-        bgColor="#121212"
         padding={{ base: "24px", lg: "24px 80px 24px 80px" }}
       >
         <Box margin="24px 0 24px 0">
@@ -59,6 +65,10 @@ const Success = () => {
         </Box>
         <Box id="success">
           <CardTicket/>
+        </Box>
+        <Box>
+          <Button onClick={generateReferralCode} >Generate</Button>
+          <Text color='#ffffff'>{referralCode}</Text>
         </Box>
       </Box>
     </Box>

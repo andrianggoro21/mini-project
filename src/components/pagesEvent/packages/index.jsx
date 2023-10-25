@@ -4,8 +4,8 @@ import NotRefund from "../../../assets/images/not-refund.png";
 import Instant from "../../../assets/images/instant.png";
 import ValidDate from "../../../assets/images/valid-date.png";
 
-const Packages = () => {
-  const id = document.getElementById("nav-event");
+const Packages = ({date, regular, premium}) => {
+  console.log(regular);
   return (
     <Box>
       <Text
@@ -38,37 +38,7 @@ const Packages = () => {
           margin="16px 0 16px 0"
         >
           <Text>Thu</Text>
-          <Text>1 Oct 23</Text>
-        </Box>
-        <Box
-          color="#D9D9D9"
-          w="76px"
-          h="72px"
-          border="1px solid #585454"
-          borderRadius="16px"
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          flexDirection="column"
-          margin="16px 0 16px 0"
-        >
-          <Text>Thu</Text>
-          <Text>1 Oct 23</Text>
-        </Box>
-        <Box
-          color="#D9D9D9"
-          w="76px"
-          h="72px"
-          border="1px solid #585454"
-          borderRadius="16px"
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          flexDirection="column"
-          margin="16px 0 16px 0"
-        >
-          <Text>Sat</Text>
-          <Text>3 Oct 23</Text>
+          <Text>{date}</Text>
         </Box>
       </Box>
       <Box
@@ -119,11 +89,11 @@ const Packages = () => {
               IDR 300.000
             </Text>
             <Text color="#ffffff" fontSize="18px" fontWeight="600">
-              IDR 200.000
+              IDR {regular}
             </Text>
           </Box>
           <Box>
-            <Link to="/attedance">
+            <Link to="/attendance">
               <Button bgColor="#3C891C" color="#ffffff" padding="10px">
                 Select Tickect
               </Button>
@@ -179,11 +149,11 @@ const Packages = () => {
               IDR 500.000
             </Text>
             <Text color="#ffffff" fontSize="18px" fontWeight="600">
-              IDR 400.000
+              IDR {premium}
             </Text>
           </Box>
           <Box>
-            <Link to="/attedance">
+            <Link to="/attendance">
               <Button bgColor="#3C891C" color="#ffffff" padding="10px">
                 Select Tickect
               </Button>

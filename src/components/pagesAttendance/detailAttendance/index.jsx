@@ -24,7 +24,7 @@ const DetailAttendance = () => {
         bgColor="#1E1E1E"
       >
         <Box>
-          <form>
+          {/* <form> */}
             <FormControl>
               <Box display="flex" alignItems="center" gap="14px">
                 <Input
@@ -40,7 +40,7 @@ const DetailAttendance = () => {
                 </Button>
               </Box>
             </FormControl>
-          </form>
+          {/* </form> */}
         </Box>
         <Text color="#ffffff" fontSize="18px" fontWeight="700">
           Price Details
@@ -86,14 +86,14 @@ const DetailAttendance = () => {
             I agree to the applicable Terms & Conditions
           </Text>
         </Box>
-        <Link to="/transaction/waiting">
+        <Link to="#">
           <Box
             w="full"
             display="flex"
             alignItems="center"
             justifyContent="center"
           >
-            <Button w="full" bgColor="#3C891C" color="#ffffff">
+            <Button type="submit" w="full" bgColor="#3C891C" color="#ffffff">
               Bayar Tiket
             </Button>
           </Box>
