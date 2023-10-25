@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { FaUserSecret, FaUser } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 function ModalRegister() {
   const [isOpen, setIsOpen] = useState(false);
@@ -55,6 +56,7 @@ function ModalRegister() {
           <ModalBody colorScheme="white" textAlign="center">
             <Box display="flex" flexDirection="row" justifyContent="center">
               <Box w="40em" m={2}>
+              <Link to="/register">
                 <Button h="5em" background="#374431" variant="solid">
                   <FaUserSecret size="50px" />
                 </Button>
@@ -62,8 +64,10 @@ function ModalRegister() {
                   {isAdmin}
                   <Text fontWeight="semibold">Anda adalah E.O</Text>
                 </Box>
+                </Link>
               </Box>
               <Box w="40em" m={2}>
+              <Link to="/register">
                 <Button h="5em" background="#374431">
                   <FaUser size={50} />
                 </Button>
@@ -71,6 +75,7 @@ function ModalRegister() {
                   {isUsers}
                   <Text fontWeight="semibold">Anda adalah User.</Text>
                 </Box>
+                </Link>
               </Box>
             </Box>
           </ModalBody>

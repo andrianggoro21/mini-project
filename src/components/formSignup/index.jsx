@@ -57,7 +57,7 @@ const FormRegister = () => {
       });
       setRegistrationSuccess(true);
       setRegistrationError(false);
-      // Navigate("/login");
+      Navigate("/login");
     } catch (err) {
       console.error("Registration Error:", err);
       setRegistrationSuccess(false);

@@ -30,10 +30,10 @@ function App() {
         <Route path="/transaction/waiting" element={<Waiting />} />
         <Route path="/transaction/success" element={<Success />} />
         <Route path="/attendance" element={<Attendance />} />
-        <Route path="/testmodal" element={<loginModal/>} />
         <Route element={<FormRegister />} path="/register" />
         <Route element={<ModalRegister />} path="/modal-register" />
         {/* <Route element={<ModalLogin />} path="/modal-login" /> */}
+        {/* <Route path="/login" element={<Navbar role="users" />} /> */}
         <Route element={<BoxLogin />} path="/login" />
       </Routes>
       <Footer />

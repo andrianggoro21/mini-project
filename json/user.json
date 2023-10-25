@@ -11,48 +11,6 @@
       "email": "asrar@example.com",
       "password": "Asrar1234@",
       "id": 2
-    },
-    {
-      "name": "kinur",
-      "email": "kinur@example.com",
-      "password": "Kinur1234@",
-      "id": 3
-    },
-    {
-      "name": "kinur",
-      "email": "kinur@example.com",
-      "password": "Kinur1234@",
-      "id": 4
-    },
-    {
-      "name": "kinur",
-      "email": "kinur@example.com",
-      "password": "Kinur1234@",
-      "id": 5
-    },
-    {
-      "name": "kinur",
-      "email": "kinur@example.com",
-      "password": "Kinur1234@",
-      "id": 6
-    },
-    {
-      "name": "kinur",
-      "email": "kinur@example.com",
-      "password": "Kinur1234@",
-      "id": 7
-    },
-    {
-      "name": "kinur",
-      "email": "kinur@example.com",
-      "password": "Kinur1234@",
-      "id": 8
-    },
-    {
-      "name": "putu",
-      "email": "putu@example.com",
-      "password": "Putu1234@",
-      "id": 9
     }
   ]
 }
