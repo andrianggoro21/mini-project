@@ -25,7 +25,7 @@ const Carousel = () => {
       <Box>
         <Slider {...settings}>
             {slides.map((banner, index) => (
-            <Box key={index}>
+            <Box w="full" key={index}>
                 <Image src={banner}/>
             </Box>
             ))}
