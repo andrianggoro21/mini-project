@@ -10,7 +10,7 @@ import {
   FormLabel,
   InputGroup,
   InputRightElement,
-  Image
+  Image,
 } from "@chakra-ui/react";
 import * as Yup from "yup";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -18,20 +18,15 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { useFormik } from "formik";
 import Regis from "../../assets/images/Registration.png";
-import Logo from '../../assets/images/logo.png';
-import Event from '../../assets/images/EVENT.IN.png'
+import Logo from "../../assets/images/logo.png";
+import Event from "../../assets/images/EVENT.IN.png";
 
 // Login Schema Yup
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
     .email("Invalid email address format")
     .required("Email is required"),
-  password: Yup.string()
-  .matches(
-    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/,
-    `Password must be 6 characters minimum, at least contain one lowercase, one uppercase, one number, and one symbol`
-  )
-  .required("Password is required"),
+  password: Yup.string().required("Password is required"),
 });
 
 const BoxLogin = () => {
@@ -59,6 +54,7 @@ const BoxLogin = () => {
   const check = (email, password) => {
     if (allEmail.includes(email)) {
       const newEmail = users[allEmail.indexOf(email)];
+      console.log(newEmail.password.includes(password));
       if (newEmail.password.includes(password)) {
         localStorage.setItem("account", allEmail.indexOf(email));
         alert("succes");
@@ -95,15 +91,21 @@ const BoxLogin = () => {
       bgPosition="center"
       bgRepeat="no-repeat"
       minH="100vh"
-      gap={{base:"0.5em", lg:"20em"}}
+      gap={{ base: "0.5em", lg: "20em" }}
       display="flex"
       alignItems="center"
       justifyContent="center"
-      flexDirection={{base:"column", md:"row"}}
+      flexDirection={{ base: "column", md: "row" }}
     >
-      <Box gap="1em" w="auto" display='flex' alignItems='center' justifyContent='center'>
+      <Box
+        gap="1em"
+        w="auto"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
         <Image w="7em" src={Logo} />
-        <Image display={{base:"none", md:"block" }} src={Event} />
+        <Image display={{ base: "none", md: "block" }} src={Event} />
       </Box>
       <Box
         bg="transparent"
@@ -115,7 +117,6 @@ const BoxLogin = () => {
         display="flex"
         alignItems="center"
         justifyContent="center"
-        
       >
         <Box
           className="form"
@@ -125,7 +126,6 @@ const BoxLogin = () => {
           flexDirection="column"
           w="900px"
           maxW="400px"
-
         >
           <Stack w="full">
             <Heading
@@ -134,7 +134,7 @@ const BoxLogin = () => {
               alignItems="center"
               justifyContent="center"
               mb={4}
-              size='3xl'
+              size="3xl"
               fontWeight="bold"
             >
               Login

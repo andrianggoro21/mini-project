@@ -1,238 +1,40 @@
 {
   "event": [
     {
-      "event_name": "asdjasodjasod",
-      "location_event": "djoasidjaosd",
+      "event_name": "ambyar",
+      "category_event": "music",
+      "location_event": "jogja",
+      "time_event": "18:30:00",
+      "start_date_event": "2023-10-26",
+      "last_date_event": "2023-10-27",
+      "description_event": "ngkjergerjkjrebjeberfberkbe",
+      "highlight_event": "bhdbfhbhbhbj",
+      "included_event": "eberbererberhgbegherbgehj",
       "id": 1
-    },
-    {
-      "event_name": "oififoeifjreoifjreoifjreof",
-      "location_event": "wejweofjweo",
-      "description_event": "iojwfoweifjwoei",
-      "highlight_event": "jweofjweofijoo",
-      "included_event": "jwfeofjwoefj",
-      "id": 2
-    },
-    {
-      "event_name": "oififoeifjreoifjreoifjreof",
-      "location_event": "wejweofjweo",
-      "start_date_event": "2023-10-25",
-      "description_event": "iojwfoweifjwoei",
-      "highlight_event": "jweofjweofijoo",
-      "included_event": "jwfeofjwoefj",
-      "id": 3
-    },
-    {
-      "event_name": "oififoeifjreoifjreoifjreof",
-      "location_event": "wejweofjweo",
-      "start_date_event": "2023-10-25",
-      "last_date_event": "2023-10-31",
-      "description_event": "iojwfoweifjwoei",
-      "highlight_event": "jweofjweofijoo",
-      "included_event": "jwfeofjwoefj",
-      "id": 4
-    },
-    {
-      "event_name": "oififoeifjreoifjreoifjreof",
-      "location_event": "wejweofjweo",
-      "time_event": "16:38",
-      "start_date_event": "2023-10-25",
-      "last_date_event": "2023-10-31",
-      "description_event": "iojwfoweifjwoei",
-      "highlight_event": "jweofjweofijoo",
-      "included_event": "jwfeofjwoefj",
-      "id": 5
-    },
-    {
-      "event_name": "oififoeifjreoifjreoifjreof",
-      "category_event": "music",
-      "location_event": "wejweofjweo",
-      "time_event": "16:38",
-      "start_date_event": "2023-10-25",
-      "last_date_event": "2023-10-31",
-      "description_event": "iojwfoweifjwoei",
-      "highlight_event": "jweofjweofijoo",
-      "included_event": "jwfeofjwoefj",
-      "id": 6
-    },
-    {
-      "event_name": "asdjasod",
-      "category_event": "music",
-      "location_event": "joiasdxoasi",
-      "time_event": "12:12",
-      "start_date_event": "2023-10-25",
-      "last_date_event": "2023-10-26",
-      "description_event": "fuwihfwhiu",
-      "highlight_event": "whiwudhedhqi",
-      "included_event": "uedhuedhewii",
-      "id": 7
-    },
-    {
-      "event_name": "uiwehwr",
-      "category_event": "horror",
-      "location_event": "uehuy23ehyu",
-      "time_event": "16:50",
-      "start_date_event": "2023-10-25",
-      "last_date_event": "2023-10-26",
-      "description_event": "wdxqjhdniu",
-      "highlight_event": "cdwiufwefuh",
-      "included_event": "uihfeurwfuhwie",
-      "id": 8
     }
   ],
   "ticket": [
     {
-      "select_event": "oififoeifjreoifjreoifjreof",
-      "id": 1
-    },
-    {
-      "select_event": "oififoeifjreoifjreoifjreof",
-      "type_ticket": "Free",
-      "id": 2
-    },
-    {
-      "select_event": "oififoeifjreoifjreoifjreof",
-      "type_ticket": "Free",
-      "id": 3
-    },
-    {
-      "select_event": "uiwehwr",
-      "type_ticket": "Paid",
-      "id": 4
-    },
-    {
-      "select_event": "oififoeifjreoifjreoifjreof",
-      "type_ticket": "Free",
-      "price_free_ticket": "0",
-      "id": 5
-    },
-    {
-      "select_event": "asdjasod",
-      "type_ticket": "Free",
-      "price_free_ticket": "0",
-      "id": 6
-    },
-    {
-      "select_event": "uiwehwr",
-      "type_ticket": "Free",
-      "price_free_ticket": "0",
-      "id": 7
-    },
-    {
-      "select_event": "uiwehwr",
-      "type_ticket": "Free",
-      "price_free_ticket": "0",
-      "capacity_event": 70,
-      "id": 8
-    },
-    {
-      "select_event": "uiwehwr",
-      "type_ticket": "Paid",
-      "price_free_ticket": "0",
-      "price_reguler_ticket": 10000,
-      "capacity_event": 2,
-      "id": 9
-    },
-    {
-      "select_event": "oififoeifjreoifjreoifjreof",
-      "type_ticket": "Paid",
-      "price_reguler_ticket": 2000,
-      "capacity_event": 100,
-      "id": 10
-    },
-    {
-      "select_event": "oififoeifjreoifjreoifjreof",
-      "type_ticket": "Paid",
-      "price_reguler_ticket": 2000,
-      "price_vip_ticket": 3000,
-      "discount": 1000,
-      "max_refferal": 50,
-      "capacity_event": 100,
-      "id": 11
-    },
-    {
-      "select_event": "oififoeifjreoifjreoifjreof",
-      "type_ticket": "Paid",
-      "price_reguler_ticket": 2000,
-      "price_vip_ticket": 3000,
-      "discount": 1000,
-      "max_refferal": 50,
-      "capacity_event": 100,
-      "id": 12
-    },
-    {
-      "select_event": "oififoeifjreoifjreoifjreof",
-      "type_ticket": "Paid",
-      "price_reguler_ticket": 2000,
-      "price_vip_ticket": 3000,
-      "discount": 1000,
-      "max_refferal": 50,
-      "capacity_event": 100,
-      "id": 13
-    },
-    {
-      "select_event": "oififoeifjreoifjreoifjreof",
-      "type_ticket": "Paid",
-      "price_reguler_ticket": 2000,
-      "price_vip_ticket": 3000,
-      "discount": 1000,
-      "max_refferal": 50,
-      "capacity_event": 100,
-      "id": 14
-    },
-    {
-      "select_event": "oififoeifjreoifjreoifjreof",
-      "type_ticket": "Paid",
-      "price_reguler_ticket": 2000,
-      "price_vip_ticket": 3000,
-      "discount": 1000,
-      "max_refferal": 50,
-      "capacity_event": 100,
-      "id": 15
-    },
-    {
-      "select_event": "uiwehwr",
-      "type_ticket": "paid",
-      "price_free_ticket": "",
-      "price_reguler_ticket": 100,
-      "price_vip_ticket": 200,
-      "discount": 10,
-      "max_refferal": 5,
-      "capacity_event": 90,
-      "id": 16
-    },
-    {
-      "select_event": "uiwehwr",
-      "type_ticket": "paid",
-      "price_free_ticket": "",
-      "price_reguler_ticket": 100,
-      "price_vip_ticket": 200,
-      "discount": 10,
-      "max_refferal": 5,
-      "capacity_event": 1000,
-      "id": 17
-    },
-    {
-      "select_event": "oififoeifjreoifjreoifjreof",
+      "select_event": "ambyar",
       "type_ticket": "free",
       "price_free_ticket": "-",
       "price_reguler_ticket": "-",
       "price_vip_ticket": "-",
       "discount": "-",
       "max_refferal": "-",
-      "capacity_event": 10,
-      "id": 18
+      "capacity_event": 4,
+      "id": 1
     },
     {
-      "select_event": "asdjasodjasod",
+      "select_event": "ambyar",
       "type_ticket": "paid",
       "price_free_ticket": "-",
-      "price_reguler_ticket": 5000,
-      "price_vip_ticket": 20000,
-      "discount": 3000,
+      "price_reguler_ticket": 200000,
+      "price_vip_ticket": 500000,
+      "discount": 100000,
       "max_refferal": 10,
-      "capacity_event": 250,
-      "id": 19
+      "capacity_event": 10,
+      "id": 2
     }
   ]
 }
