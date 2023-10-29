@@ -23,11 +23,10 @@ import { HamburgerIcon, CloseIcon, AddIcon } from "react-icons";
 import { ReactChildren, ReactChild, useEffect, useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { CgClose } from "react-icons/cg";
-import { GrClose } from "react-icons/gr";
 import { RiSearchLine } from "react-icons/ri";
-import React, { useState } from "react";
 import ModalLogin from "../modalLogin";
 import ModalRegister from "../modalSignup";
+
 
 const Links = ["Home", "Find Events", "Transaction"];
 
@@ -49,11 +48,17 @@ const NavLink = (props) => {
 };
 
 const Navbar = (props) => {
-  const { isOpen = { props }, onOpen, onClose } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [height, setHeight] = useState("");
 
   const listenScrollEvent = () => {
     window.scrollY > 10 ? setHeight("60px") : setHeight("72px");
+  };
+
+
+  const handleLoginClick = () => {
+    setIsModalOpen(true);
   };
 
   useEffect(() => {
@@ -151,7 +156,6 @@ const Navbar = (props) => {
           display={{ md: "none" }}
         >
           <VStack as={"nav"} spacing={4} color="white">
-            <Search />
             {Links.map((link) => (
               <NavLink key={link}>{link}</NavLink>
             ))}

@@ -105,9 +105,9 @@ const CardEvent = () => {
                   {/* {item.eo_user} */}
                 </Text>
               </Flex>
+              </Flex>
             </Stack>
-          </Link>
-        ))}
+       )) }
       </Box>
       {loadMoreVisible && (
         <Button
