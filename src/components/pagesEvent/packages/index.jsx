@@ -5,7 +5,6 @@ import Instant from "../../../assets/images/instant.png";
 import ValidDate from "../../../assets/images/valid-date.png";
 
 const Packages = ({date, regular, premium}) => {
-  console.log(regular);
   return (
     <Box>
       <Text

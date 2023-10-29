@@ -12,7 +12,7 @@ import Widget from "../../components/pagesAttendance/widgetAttendance";
 import FormAttendance from "../../components/pagesAttendance/formAttendance";
 import DetailAttendance from "../../components/pagesAttendance/detailAttendance";
 import Footer from "../../components/footer";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -37,6 +37,23 @@ const AttendanceSchema = Yup.object().shape({
 
 const Attedance = () => {
   // const [input, setInput] = useState();
+  const [data, setData] = useState([]);
+  
+  const id = localStorage.getItem("cardId");
+  
+  const getEvent = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8888/event/${id}`);
+      setData(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getEvent();
+  }, []);
+
   const quantity = useSelector((state) => state.quantity.value);
   const dispatch = useDispatch();
 
@@ -92,29 +109,29 @@ const Attedance = () => {
                   <CardBody>
                     <Box display="flex" gap="16px">
                       <Box display={{ base: "none", md: "block" }}>
-                        <Image w="300px" borderRadius="10px" src={banner} />
+                        <Image w="300px" h="120px" borderRadius="10px" src={data.image} />
                       </Box>
                       <Box display="flex" flexDirection="column" gap="10px">
                         <Text color="#ffffff" fontSize="16px" fontWeight="700">
-                          Ambyar Concert Yogyakarta 2023
+                          {data.title}
                         </Text>
                         <Box display="flex" flexDirection="column" gap="6px">
                           <Box display="flex" alignItems="center" gap="10px">
                             <Image src={Cal} />
                             <Text color="#bcbcbc" fontSize="14px">
-                              1 - 4 October 2023
+                              {data.date}
                             </Text>
                           </Box>
                           <Box display="flex" alignItems="center" gap="10px">
                             <Image src={Time} />
                             <Text color="#bcbcbc" fontSize="14px">
-                              15:00 - 23:00 WIB
+                              {data.hours}
                             </Text>
                           </Box>
                           <Box display="flex" alignItems="center" gap="10px">
                             <Image src={Loc} />
                             <Text color="#bcbcbc" fontSize="14px">
-                              Yogyakarta, Indonesia
+                              {data.location}
                             </Text>
                           </Box>
                         </Box>

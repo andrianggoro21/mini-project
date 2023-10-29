@@ -5,7 +5,6 @@ import {
   Image,
   Stack,
   Divider,
-  Link,
   Avatar,
   Heading,
   Text,
@@ -15,7 +14,7 @@ import {
   HStack,
   VStack,
 } from "@chakra-ui/react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { GrLocation } from "react-icons/gr";
 import { cards } from "../../database/cards";
 import { useEffect, useState } from "react";
@@ -106,8 +105,8 @@ const CardEvent = () => {
                   {/* {item.eo_user} */}
                 </Text>
               </Flex>
-            </Flex>
-          </Stack>
+            </Stack>
+          </Link>
         ))}
       </Box>
       {loadMoreVisible && (

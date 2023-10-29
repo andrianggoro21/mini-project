@@ -1,0 +1,33 @@
+{
+    "tickets": [
+        {
+            "Ticket_id": 1,
+            "event_id": 1,
+            "typeTicket_id": 1,
+            "diskon": 0,
+            "maxReferral": 0
+        },
+        {
+            "Ticket_id": 2,
+            "event_id": 2,
+            "typeTicket_id": 2,
+            "diskon": 200000,
+            "maxReferral": 10
+        },
+        {
+            "Ticket_id": 3,
+            "event_id": 3,
+            "typeTicket_id": 1,
+            "diskon": 0,
+            "maxReferral": 0
+        },
+        {
+            "Ticket_id": 4,
+            "event_id": 4,
+            "typeTicket_id": 2,
+            "diskon": 200000,
+            "maxReferral": 10
+        }
+        
+    ]
+}
