@@ -10,29 +10,46 @@ import {
   Flex,
   VStack,
   Text,
+  IconButton,
 } from "@chakra-ui/react";
 import { useMediaQuery } from "@chakra-ui/react";
+import {MdOutlineArrowBackIos, MdArrowForwardIos} from "react-icons/md"
+
+function NextArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <Flex justifyContent="flex-end" pr={0} position="absolute" inset={0} alignItems="center">
+    <IconButton 
+    isRound={true}
+    variant='solid'
+    bg="whiteAlpha.500" backdropFilter="auto" backdropBlur="6px"
+    aria-label='Done'
+    fontSize='20px' icon={<MdArrowForwardIos backdropFilter="auto" backdropBlur="6px" color="white" boxSize={100} size={25} onClick={onClick}/>} />
+    </Flex>
+  );
+}
+
+function PrevArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <Flex justifyContent="flex" overflow="hidden" pl={0} position="absolute" inset={0} alignItems="center">
+    <IconButton 
+    zIndex={1}
+    isRound={true}
+    variant='solid'
+    bg="whiteAlpha.500" backdropFilter="auto" backdropBlur="6px"
+    aria-label='Done'
+    fontSize='20px' icon={<MdOutlineArrowBackIos backdropFilter="auto" backdropBlur="6px" color="white" boxSize={100} size={25} onClick={onClick}/>} />
+    </Flex>
+  );
+}
+
 
 const CardCategory = () => {
-  const settingsMobile = {
-    focusOnSelect: true,
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-  };
-
-  const settingsDesktop = {
-    focusOnSelect: true,
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 6,
-    slidesToScroll: 1,
-  };
-
   const settings = {
+    className: "center",
+      centerMode: true,
+      centerPadding: "40px",
     focusOnSelect: true,
     dots: false,
     infinite: true,
@@ -40,26 +57,56 @@ const CardCategory = () => {
     slidesToShow: 6,
     slidesToScroll: 1,
     initialSlide: 0,
+    nextArrow: <NextArrow/>,
+    prevArrow: <PrevArrow/>,
     responsive: [
+      // {
+      //   breakpoint: 1248,
+      //   settings: {
+      //     centerPadding: "0px",
+      //     slidesToShow: 6,
+      //     slidesToScroll: 1,
+      //     infinite: true,
+      //   },
+      // },
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 3,
+          centerPadding: "40px",
+          slidesToShow: 5,
           slidesToScroll: 1,
           infinite: true,
         },
       },
       {
-        breakpoint: 600,
+        breakpoint: 768,
         settings: {
-          slidesToShow: 2,
+          centerPadding: "30px",
+          slidesToShow: 4,
           slidesToScroll: 1,
           initialSlide: 2,
         },
       },
       {
-        breakpoint: 480,
+        breakpoint: 580,
         settings: {
+          centerPadding: "20px",
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 400,
+        settings: {
+          centerPadding: "10px",
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 300,
+        settings: {
+          centerPadding: 0,
           slidesToShow: 1,
           slidesToScroll: 1,
         },
@@ -108,19 +155,18 @@ const CardCategory = () => {
     <>
         <Slider {...settings}>
           {categoryCard.map((item, index) => (
-            <Box p="1em 0em 1em 0em">
+            <VStack justifyContent="space-between" p="1em 0em 1em 0em" w="full">
               <Flex
                 justifyContent="center"
                 key={index}
                 rounded="50%"
-                overflow="hidden"
               >
-                <Image w="172px" h="172px" src={item.path} />
+                <Image w={{base: "100px", lg: "172px"}} src={item.path} />
               </Flex>
               <Text textAlign="center" fontWeight="medium" color="white">
                 {item.name_category}
               </Text>
-            </Box>
+            </VStack>
           ))}
         </Slider>
     </>

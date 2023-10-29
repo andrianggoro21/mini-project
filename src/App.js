@@ -17,13 +17,17 @@ import BoxLogin from "./components/formLogin";
 import ModalRegister from "./components/modalSignup";
 import FormRegister from "./components/formSignup";
 import ModalLogin from "./components/modalLogin";
+import ScrollToTop from "./components/scrollToTop";
+import SearchPage from "./pages/search";
 
 function App() {
   return (
     <>
+<ScrollToTop/>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/search" element={<SearchPage/>} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/event-form" element={<CreateEvent />} />
         <Route path="/event" element={<Event />} />

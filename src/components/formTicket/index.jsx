@@ -34,37 +34,40 @@ import * as Yup from "yup";
 const TicketSchema = Yup.object().shape({
   select_event: Yup.string().required("Select event name is required"),
   type_ticket: Yup.string().required("Type of Ticket is required"),
-  price_free_ticket: Yup.string(),
-  price_reguler_ticket: Yup.string().required(
+  free_price_ticket: Yup.string(),
+  reguler_price: Yup.string().required(
     "Price Reguler Ticket is required"
-  ),
-  price_vip_ticket: Yup.string().required("Price VIP Ticket is required"),
+    ),
+    reguler_capacity: Yup.string().required("Capacity Event is required"),
+  vip_price_ticket: Yup.string().required("Price VIP Ticket is required"),
   discount: Yup.string().required("Discount is required"),
   max_refferal: Yup.string().required("Max Refferal is required"),
-  capacity_event: Yup.string().required("Capacity Event is required"),
+  event_capacity: Yup.string().required("Capacity Event is required"),
 });
 
 const FormTicket = () => {
   const formTicket = async (
     select_event,
     type_ticket,
-    price_free_ticket,
-    price_reguler_ticket,
-    price_vip_ticket,
+    free_price_ticket,
+    reguler_price,
+    reguler_capacity,
+    vip_price_ticket,
     discount,
     max_refferal,
-    capacity_event
+    event_capacity
   ) => {
     try {
       await axios.post("http://localhost:3000/ticket", {
         select_event,
         type_ticket,
-        price_free_ticket,
-        price_reguler_ticket,
-        price_vip_ticket,
+        free_price_ticket,
+        reguler_price,
+        reguler_capacity,
+        vip_price_ticket,
         discount,
         max_refferal,
-        capacity_event,
+        event_capacity,
       });
       alert("Create Ticket Success");
     } catch (err) {
@@ -76,12 +79,13 @@ const FormTicket = () => {
     initialValues: {
       select_event: "",
       type_ticket: "",
-      price_free_ticket: "-",
-      price_reguler_ticket: "-",
-      price_vip_ticket: "-",
-      discount: "-",
-      max_refferal: "-",
-      capacity_event: "",
+      free_price_ticket: "",
+      reguler_price: "",
+      reguler_capacity: "",
+      vip_price_ticket: "",
+      discount: "",
+      max_refferal: "",
+      event_capacity: "",
     },
 
     validationSchema: TicketSchema,
@@ -89,32 +93,16 @@ const FormTicket = () => {
       formTicket(
         values.select_event,
         values.type_ticket,
-        values.price_free_ticket,
-        values.price_reguler_ticket,
-        values.price_vip_ticket,
+        values.free_price_ticket,
+        values.reguler_price,
+        values.reguler_capacity,
+        values.vip_price_ticket,
         values.discount,
         values.max_refferal,
-        values.capacity_event
+        values.event_capacity,
       );
     },
   });
-
-  const [selected_event, setSelectedEvent] = useState("");
-  const [selected_ticket, setSelectedTicket] = useState("");
-  const [price, setPrice] = useState("");
-
-  const handleSelectEvent = (event) => {
-    setSelectedEvent(event.target.value);
-  };
-
-  const handleSelectTicket = (event) => {
-    setSelectedTicket(event.target.value);
-    setPrice("");
-  };
-
-  const handlePriceTicket = (event) => {
-    setPrice(event.target.value);
-  };
 
   const [data, setEventData] = useState([]);
   const getEventData = async () => {
@@ -167,28 +155,26 @@ const FormTicket = () => {
               }
             >
               <FormLabel>Event</FormLabel>
-              <InputGroup>
-                <Select
-                  name="select_event"
-                  background="#262626"
-                  color="#585454"
-                  border="0"
-                  placeholder="Select the event name"
-                  value={formik.values.select_event}
-                  onChange={formik.handleChange}
-                >
-                  {data.length > 0 &&
-                    data.map((item, index) => (
-                      <option
-                        key={index}
-                        value={item.event_name}
-                        style={{ color: "black" }}
-                      >
-                        {item.event_name}
-                      </option>
-                    ))}
-                </Select>
-              </InputGroup>
+              <Select
+                name="select_event"
+                background="#262626"
+                color="#585454"
+                border="0"
+                placeholder="Select the event name"
+                value={formik.values.select_event}
+                onChange={formik.handleChange}
+              >
+                {data.length > 0 &&
+                  data.map((item, index) => (
+                    <option
+                      key={index}
+                      value={item.event_name}
+                      style={{ color: "black" }}
+                    >
+                      {item.event_name}
+                    </option>
+                  ))}
+              </Select>
               {formik.touched.select_event && formik.errors.select_event && (
                 <FormErrorMessage>
                   {formik.errors.select_event}
@@ -201,34 +187,32 @@ const FormTicket = () => {
               }
             >
               <FormLabel>Type of Ticket</FormLabel>
-              <InputGroup>
-                <Select
-                  disabled={
-                    data.find(
-                      (item) => item.event_name === formik.values.select_event
-                    )
-                      ? false
-                      : true
-                  }
-                  name="type_ticket"
-                  background="#262626"
-                  color="#585454"
-                  border="0"
-                  placeholder="Select option"
-                  value={formik.values.type_ticket}
-                  onChange={formik.handleChange}
-                >
-                  {type_ticket.map((item, index) => (
-                    <option
-                      key={index}
-                      value={item.value}
-                      style={{ color: "black" }}
-                    >
-                      {item.label}
-                    </option>
-                  ))}
-                </Select>
-              </InputGroup>
+              <Select
+                disabled={
+                  data.find(
+                    (item) => item.event_name === formik.values.select_event
+                  )
+                    ? false
+                    : true
+                }
+                name="type_ticket"
+                background="#262626"
+                color="#585454"
+                border="0"
+                placeholder="Select option"
+                value={formik.values.type_ticket}
+                onChange={formik.handleChange}
+              >
+                {type_ticket.map((item, index) => (
+                  <option
+                    key={index}
+                    value={item.value}
+                    style={{ color: "black" }}
+                  >
+                    {item.label}
+                  </option>
+                ))}
+              </Select>
               {formik.touched.type_ticket && formik.errors.type_ticket && (
                 <FormErrorMessage>{formik.errors.type_ticket}</FormErrorMessage>
               )}
@@ -243,8 +227,8 @@ const FormTicket = () => {
                 <FormControl
                   h="auto"
                   isInvalid={
-                    formik.touched.price_free_ticket &&
-                    formik.errors.price_free_ticket
+                    formik.touched.free_price_ticket &&
+                    formik.errors.free_price_ticket
                   }
                 >
                   <FormLabel textAlign="justify">
@@ -262,49 +246,50 @@ const FormTicket = () => {
                       border="0"
                       disabled="true"
                       placeholder="0"
-                      name="price_free_ticket"
+                      name="free_price_ticket"
                       value="0"
                       onChange={formik.handleChange}
                     />
                   </InputGroup>
-                  {formik.touched.price_free_ticket &&
-                    formik.errors.price_free_ticket && (
+                  {formik.touched.free_price_ticket &&
+                    formik.errors.free_price_ticket && (
                       <FormErrorMessage>
-                        {formik.errors.price_free_ticket}
+                        {formik.errors.free_price_ticket}
                       </FormErrorMessage>
                     )}
                 </FormControl>
                 <FormControl
                   h="auto"
-                  isInvalid={formik.touched.capacity && formik.errors.capacity}
+                  isInvalid={formik.touched.event_capacity && formik.errors.event_capacity}
                 >
                   <FormLabel textAlign="justify">Capacity</FormLabel>
-                  <InputGroup>
-                    <Input
-                      background="#262626"
-                      border="0"
-                      type="number"
-                      placeholder="Input capacity here"
-                      name="capacity_event"
-                      value={formik.values.capacity_event}
-                      onChange={formik.handleChange}
-                    />
-                  </InputGroup>
-                  {formik.touched.capacity_event &&
-                    formik.errors.capacity_event && (
+
+                  <Input
+                    background="#262626"
+                    border="0"
+                    type="number"
+                    placeholder="Input capacity here"
+                    name="event_capacity"
+                    value={formik.values.event_capacity}
+                    onChange={formik.handleChange}
+                  />
+
+                  {formik.touched.event_capacity &&
+                    formik.errors.event_capacity && (
                       <FormErrorMessage>
-                        {formik.errors.capacity_event}
+                        {formik.errors.event_capacity}
                       </FormErrorMessage>
                     )}
                 </FormControl>
               </>
             ) : formik.values.type_ticket === "paid" ? (
               <>
+                <Box display="flex"flexDirection={{base: "column", lg:"row"}} position="relative" gap="1em">
                 <FormControl
                   h="auto"
                   isInvalid={
-                    formik.touched.price_reguler_ticket &&
-                    formik.errors.price_reguler_ticket
+                    formik.touched.reguler_price &&
+                    formik.errors.reguler_price
                   }
                 >
                   <FormLabel textAlign="justify">
@@ -322,23 +307,53 @@ const FormTicket = () => {
                       border="0"
                       type="number"
                       placeholder="Input price of reguler ticket here"
-                      name="price_reguler_ticket"
-                      value={formik.values.price_reguler_ticket}
+                      name="reguler_price"
+                      value={formik.values.reguler_price}
                       onChange={formik.handleChange}
                     />
                   </InputGroup>
-                  {formik.touched.price_reguler_ticket &&
-                    formik.errors.price_reguler_ticket && (
+                  {formik.touched.reguler_price &&
+                    formik.errors.reguler_price && (
                       <FormErrorMessage>
-                        {formik.errors.price_reguler_ticket}
+                        {formik.errors.reguler_price}
                       </FormErrorMessage>
                     )}
                 </FormControl>
                 <FormControl
                   h="auto"
                   isInvalid={
-                    formik.touched.price_vip_ticket &&
-                    formik.errors.price_vip_ticket
+                    formik.touched.reguler_capacity &&
+                    formik.errors.reguler_capacity
+                  }
+                >
+                  <FormLabel>
+                    Capacity
+                  </FormLabel>
+                    <Input
+                      background="#262626"
+                      border="0"
+                      type="number"
+                      placeholder="Input price of reguler ticket here"
+                      name="reguler_capacity"
+                      value={formik.values.reguler_capacity}
+                      onChange={formik.handleChange}
+                    />
+                  {formik.touched.reguler_capacity &&
+                    formik.errors.reguler_capacity && (
+                      <FormErrorMessage>
+                        {formik.errors.reguler_capacity}
+                      </FormErrorMessage>
+                    )}
+                </FormControl>
+
+                </Box>
+                <Box display="flex"flexDirection={{base: "column", lg:"row"}} position="relative" gap="1em">
+
+                <FormControl
+                  h="auto"
+                  isInvalid={
+                    formik.touched.vip_price_ticket &&
+                    formik.errors.vip_price_ticket
                   }
                 >
                   <FormLabel textAlign="justify">
@@ -356,12 +371,38 @@ const FormTicket = () => {
                       border="0"
                       type="number"
                       placeholder="Input price of VIP ticket here"
-                      name="price_vip_ticket"
-                      value={formik.values.price_vip_ticket}
+                      name="vip_price_ticket"
+                      value={formik.values.vip_price_ticket}
                       onChange={formik.handleChange}
                     />
                   </InputGroup>
                 </FormControl>
+                <FormControl
+                  h="auto"
+                  isInvalid={
+                    formik.touched.vip_price_ticket &&
+                    formik.errors.vip_price_ticket
+                  }
+                >
+                  <FormLabel>
+                    Capacity
+                  </FormLabel>
+                  <InputGroup>
+                    <InputLeftElement>
+                      <Text>IDR</Text>
+                    </InputLeftElement>
+                    <Input
+                      background="#262626"
+                      border="0"
+                      type="number"
+                      placeholder="Input price of VIP ticket here"
+                      name="vip_price_ticket"
+                      value={formik.values.vip_price_ticket}
+                      onChange={formik.handleChange}
+                    />
+                  </InputGroup>
+                </FormControl>
+                </Box>
                 <FormControl
                   h="auto"
                   isInvalid={formik.touched.discount && formik.errors.discount}
@@ -391,34 +432,16 @@ const FormTicket = () => {
                   }
                 >
                   <FormLabel textAlign="justify">Max Refferal</FormLabel>
-                  <InputGroup>
-                    <Input
-                      background="#262626"
-                      border="0"
-                      type="number"
-                      placeholder="Input maximal refferal here"
-                      name="max_refferal"
-                      value={formik.values.max_refferal}
-                      onChange={formik.handleChange}
-                    />
-                  </InputGroup>
-                </FormControl>
-                <FormControl
-                  h="auto"
-                  isInvalid={formik.touched.capacity && formik.errors.capacity}
-                >
-                  <FormLabel textAlign="justify">Capacity</FormLabel>
-                  <InputGroup>
-                    <Input
-                      background="#262626"
-                      border="0"
-                      type="number"
-                      placeholder="Input capacity here"
-                      name="capacity_event"
-                      value={formik.values.capacity}
-                      onChange={formik.handleChange}
-                    />
-                  </InputGroup>
+
+                  <Input
+                    background="#262626"
+                    border="0"
+                    type="number"
+                    placeholder="Input maximal refferal here"
+                    name="max_refferal"
+                    value={formik.values.max_refferal}
+                    onChange={formik.handleChange}
+                  />
                 </FormControl>
               </>
             ) : null}

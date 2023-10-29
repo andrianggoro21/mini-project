@@ -20,7 +20,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, AddIcon } from "react-icons";
-import { ReactChildren, ReactChild } from "react";
+import { ReactChildren, ReactChild, useEffect, useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { CgClose } from "react-icons/cg";
 import { GrClose } from "react-icons/gr";
@@ -32,10 +32,8 @@ import ModalRegister from "../modalSignup";
 const Links = ["Home", "Find Events", "Transaction"];
 
 const NavLink = (props) => {
-  // const { props.children }
   return (
     <Box
-      as="a"
       px={2}
       py={1}
       rounded={"md"}
@@ -50,26 +48,33 @@ const NavLink = (props) => {
   );
 };
 
-const Navbar = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const Navbar = (props) => {
+  const { isOpen = { props }, onOpen, onClose } = useDisclosure();
+  const [height, setHeight] = useState("");
 
-  const handleLoginClick = () => {
-    setIsModalOpen(true);
+  const listenScrollEvent = () => {
+    window.scrollY > 10 ? setHeight("60px") : setHeight("72px");
   };
+
+  useEffect(() => {
+    window.addEventListener("scroll", listenScrollEvent);
+  });
   return (
     <>
       <Box
+        transition="all 0.3s ease-out"
         display="flex"
+        alignItems="center"
         justifyContent="space-between"
-        position="fixed"
+        position="sticky"
         top="0"
-        px={4}
+        px={8}
         background="#000"
-        zIndex="1000"
+        zIndex="99"
         w="100%"
-        height="72px"
-        mb="20em"
+        height={height}
+        overflow="hidden"
+        backdropFilter={8}
       >
         <Flex
           w="full"
@@ -93,7 +98,7 @@ const Navbar = () => {
           </HStack>
           <HStack w="auto" gap="2em" display={{ base: "none", lg: "flex" }}>
             {/* <Divider background="white" orientation="vertical" /> */}
-
+                
             <InputGroup
               color="white"
               rounded="1px"
@@ -140,20 +145,13 @@ const Navbar = () => {
           p={8}
           w="full"
           h="full"
-          mt="4.5em"
+          // mt="4.5em"
+          // pb="10em"
           zIndex="10"
           display={{ md: "none" }}
         >
           <VStack as={"nav"} spacing={4} color="white">
-            <InputGroup color="white" rounded="1px" w="312px">
-              <InputLeftElement
-                children={<RiSearchLine />}
-                pointerEvents="none"
-                top="50%"
-                transform="translateY(-50%)"
-              />
-              <Input type="text" placeholder="Find your events here" />
-            </InputGroup>
+            <Search />
             {Links.map((link) => (
               <NavLink key={link}>{link}</NavLink>
             ))}
