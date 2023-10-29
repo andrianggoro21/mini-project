@@ -5,6 +5,8 @@ import FilterLocation from "../../components/filterLocation";
 import CardEvent from "../../components/cardEvent";
 import CardDestination from "../../components/cardDestination";
 import Footer from "../../components/footer";
+import SearchBar from "../../components/search";
+
 import {
   Box,
   Text,
@@ -16,7 +18,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 
-const Home = () => {
+const Home = (isOpen) => {
   return (
     <Box
       m="0"
@@ -27,10 +29,13 @@ const Home = () => {
       maxW="100vw"
       background="#121212"
       boxSizing="inherit"
+      // pt="72px"
+      scrollBehavior="smooth"
     >
       {/* <Navbar /> */}
-      <Box as="main" pl="2em" pr="2em">
         <Carousel />
+        <SearchBar/>
+      <Box as="main" pl="2em" pr="2em">
         <Heading as="h4" mt="1em" size="md" color="white">
           Category Events
         </Heading>
@@ -39,21 +44,9 @@ const Home = () => {
           Popular Events
         </Heading>
         <FilterLocation />
-        <VStack gap="2em">
+        {/* <VStack gap="2em"> */}
           <CardEvent />
-          <Button
-            variant={"unstyled"}
-            border="1px solid #3C891C"
-            size={"sm"}
-            w={{base: "220px", md:"330px"}}
-            h="60px"
-            mr={4}
-            fontSize="16px"
-            color="#7ED957"
-          >
-            Explore more events
-          </Button>
-        </VStack>
+        {/* </VStack> */}
         <Heading as="h4" mt="1em" mb="1em" size="md" color="white">Card Destionation</Heading>
         <CardDestination/>
       </Box>
