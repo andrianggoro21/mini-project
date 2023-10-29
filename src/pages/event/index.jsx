@@ -14,12 +14,13 @@ import Footer from "../../components/footer";
 
 const Event = () => {
   const [data, setData] = useState([]);
+  
+  const id = localStorage.getItem("cardId");
+  
   const getEvent = async () => {
     try {
-      const response = await axios.get("http://localhost:8888/event/1");
+      const response = await axios.get(`http://localhost:8888/event/${id}`);
       setData(response.data);
-      console.log(response.data);
-      console.log(response.data.include);
     } catch (err) {
       console.log(err);
     }

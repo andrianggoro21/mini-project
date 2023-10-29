@@ -17,10 +17,12 @@ import BoxLogin from "./components/formLogin";
 import ModalRegister from "./components/modalSignup";
 import FormRegister from "./components/formSignup";
 import ModalLogin from "./components/modalLogin";
+import ScrollToTop from "./components/scrollToTop";
 
 function App() {
   return (
     <>
+      <ScrollToTop />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -35,8 +37,8 @@ function App() {
         {/* <Route element={<ModalLogin />} path="/modal-login" /> */}
         {/* <Route path="/login" element={<Navbar role="users" />} /> */}
         <Route element={<BoxLogin />} path="/login" />
-        <Route path="/dashboard/event-form" element={<CreateEvent/>}/>
-        <Route path="/dashboard/ticket-form" element={<CreateTicket/>}/>
+        <Route path="/dashboard/event-form" element={<CreateEvent />} />
+        <Route path="/dashboard/ticket-form" element={<CreateTicket />} />
       </Routes>
       {/* <Footer /> */}
     </>
