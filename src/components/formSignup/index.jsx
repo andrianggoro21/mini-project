@@ -47,6 +47,8 @@ const FormRegister = () => {
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
   const [registrationError, setRegistrationError] = useState(false);
 
+  const roles = localStorage.getItem("roleId");
+
   // input data
   const register = async (values) => {
     try {
@@ -54,6 +56,8 @@ const FormRegister = () => {
         name: values.name,
         email: values.email,
         password: values.password,
+        roleId: roles,
+
       });
       setRegistrationSuccess(true);
       setRegistrationError(false);

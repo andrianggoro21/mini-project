@@ -159,25 +159,22 @@ const Navbar = () => {
             ))}
             <Divider background="white" orientation="horizontal" />
             <Flex alignItems={"center"} justifyContent="center" gap="1.5em">
-              <Button
-                variant={"unstyled"}
-                border="1px solid #3C891C"
-                size={"sm"}
-                w="120px"
-                h="40px"
-              >
-                Sign Up
-              </Button>
-              <Button
-                variant={"solid"}
-                backgroundColor="#3C891C"
-                size={"sm"}
-                w="120px"
-                h="40px"
-              >
-                Log In
-              </Button>
+               <Box>
+              <ModalRegister
+                onClick={handleLoginClick}
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(true)}
+              />
+            </Box>
+            <Box>
+              <ModalLogin
+                onClick={handleLoginClick}
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(true)}
+              />
+            </Box>
             </Flex>
+           
           </VStack>
         </Flex>
       ) : null}
