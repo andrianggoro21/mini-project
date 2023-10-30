@@ -17,11 +17,14 @@ import BoxLogin from "./components/formLogin";
 import ModalRegister from "./components/modalSignup";
 import FormRegister from "./components/formSignup";
 import ModalLogin from "./components/modalLogin";
+import Auth from "./components/auth";
+
 
 function App() {
   return (
     <>
       <Navbar />
+      <Auth>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />} />
@@ -30,12 +33,13 @@ function App() {
         <Route path="/transaction/waiting" element={<Waiting />} />
         <Route path="/transaction/success" element={<Success />} />
         <Route path="/attendance" element={<Attendance />} />
-        <Route element={<FormRegister />} path="/register" />
-        <Route element={<ModalRegister />} path="/modal-register" />
+        <Route exact path="/register" element={<FormRegister />}  />
+        <Route exact path="/modal-register" element={<ModalRegister />} />
         {/* <Route element={<ModalLogin />} path="/modal-login" /> */}
         {/* <Route path="/login" element={<Navbar role="users" />} /> */}
-        <Route element={<BoxLogin />} path="/login" />
+        <Route exact path="/login"  element={<BoxLogin />} />
       </Routes>
+      </Auth>
       <Footer />
     </>
   );

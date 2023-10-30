@@ -20,6 +20,8 @@ import { useFormik } from "formik";
 import Regis from "../../assets/images/Registration.png";
 import Logo from '../../assets/images/logo.png';
 import Event from '../../assets/images/EVENT.IN.png'
+import { login } from "../../redux/reducer/authReducer";
+import { useDispatch } from "react-redux";
 
 // Login Schema Yup
 const LoginSchema = Yup.object().shape({
@@ -27,10 +29,6 @@ const LoginSchema = Yup.object().shape({
     .email("Invalid email address format")
     .required("Email is required"),
   password: Yup.string()
-  .matches(
-    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$/,
-    `Password must be 6 characters minimum, at least contain one lowercase, one uppercase, one number, and one symbol`
-  )
   .required("Password is required"),
 });
 
@@ -38,20 +36,21 @@ const BoxLogin = () => {
   const [users, setUsers] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
   const Navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  // ambil data
-  const fatchDataLogin = async () => {
-    try {
-      const response = await axios.get("http://localhost:3000/users");
-      setUsers(response.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // // ambil data
+  // const fatchDataLogin = async () => {
+  //   try {
+  //     const response = await axios.get("http://localhost:8080/users");
+  //     setUsers(response.data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  useEffect(() => {
-    fatchDataLogin();
-  }, []);
+  // useEffect(() => {
+  //   fatchDataLogin();
+  // }, []);
 
   const allEmail = users.map((item) => item.email);
 
@@ -78,9 +77,10 @@ const BoxLogin = () => {
       password: "",
     },
     validationSchema: LoginSchema,
-    onSubmit: (values) => {
-      check(values.email, values.password);
-      email(values.email);
+    onSubmit: async (values) => {
+      dispatch(login(values.email, values.password));
+      // check(values.email, values.password);
+      // email(values.email);
     },
   });
 

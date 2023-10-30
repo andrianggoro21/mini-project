@@ -35,6 +35,7 @@ function ModalRegister() {
     
     openModal();
     localStorage.setItem("roleId", role);
+    console.log(`Clicked with value: ${role}`);
   };
 
   return (
@@ -45,7 +46,7 @@ function ModalRegister() {
         size={"sm"}
         w="120px"
         h="40px"
-        onClick={() => handleLogin("login")}
+        onClick={() => handleLogin("register")}
       >
         Sign Up
       </Button>

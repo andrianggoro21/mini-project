@@ -52,13 +52,14 @@ const FormRegister = () => {
   // input data
   const register = async (values) => {
     try {
-      await axios.post("http://localhost:3000/users", {
+     const { data } =  await axios.post("http://localhost:8080/auth/register", {
         name: values.name,
         email: values.email,
         password: values.password,
         roleId: roles,
 
       });
+      alert(data?.message);
       setRegistrationSuccess(true);
       setRegistrationError(false);
       Navigate("/login");
