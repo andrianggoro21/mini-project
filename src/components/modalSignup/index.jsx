@@ -35,7 +35,6 @@ function ModalRegister() {
     
     openModal();
     localStorage.setItem("roleId", role);
-    console.log(`Clicked with value: ${role}`);
   };
 
   return (

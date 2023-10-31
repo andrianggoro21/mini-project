@@ -50,13 +50,18 @@ const FormRegister = () => {
   const roles = localStorage.getItem("roleId");
 
   // input data
-  const register = async (values) => {
+  const register = async (name, email, password) => {
+    console.log(email);
+      console.log(name);
+      console.log(password);
+      console.log(roles);
     try {
-     const { data } =  await axios.post("http://localhost:8080/auth/register", {
-        name: values.name,
-        email: values.email,
-        password: values.password,
-        roleId: roles,
+     const { data } =  await axios.post("http://localhost:8080/user/register", {
+        name,
+        email,
+        password,
+        roles
+        
 
       });
       alert(data?.message);
@@ -79,8 +84,9 @@ const FormRegister = () => {
     },
     validationSchema: RegisterSchema,
     onSubmit: (values) => {
+      
       if (formik.isValid) {
-        register(values);
+        register(values.name, values.email, values.password);
       }
     },
   });
