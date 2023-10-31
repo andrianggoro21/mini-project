@@ -25,6 +25,7 @@ import { useSelector, useDispatch } from "react-redux";
 function App() {
   const dispatch = useDispatch();
   const { user, isLogin } = useSelector((state) => state.AuthReducer);
+  console.log(user);
   return (
     <>
       {isLogin ? <NavbarUser /> : <Navbar />}

@@ -37,23 +37,24 @@ export const AuthReducer = createSlice({
   },
 });
 
-export const login = (email, password) => {
-  return async (dispatch) => {
-    try {
-      const res = await axios.post("http://localhost:8080/user/login", {
-        email,
-        password,
-      });
-      // console.log(res);
-      localStorage.setItem("token", res?.data?.data?.token);
-      dispatch(setUser(res?.data?.data?.user));
-      dispatch(loginSuccess());
-      // alert(res?.data?.message);
-    } catch (err) {
-      alert(err?.response?.data);
-    }
-  };
-};
+// export const login = (email, password) => {
+//   return async (dispatch) => {
+//     try {
+//       const res = await axios.post("http://localhost:8080/user/login", {
+//         email,
+//         password,
+//       });
+//       // console.log(res);
+//       localStorage.setItem("token", res?.data?.data?.token);
+//       dispatch(setUser(res?.data?.data?.user));
+//       dispatch(loginSuccess());
+//       // alert(res?.data?.message);
+//     } catch (err) {
+//       // alert(err?.response?.data);
+//       throw err
+//     }
+//   };
+// };
 
 export const keepLogin = () => {
   return async (dispatch) => {

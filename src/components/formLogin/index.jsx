@@ -20,12 +20,13 @@ import { useFormik } from "formik";
 import Regis from "../../assets/images/Registration.png";
 import Logo from '../../assets/images/logo.png';
 import Event from '../../assets/images/EVENT.IN.png'
-import { login } from "../../redux/reducer/authReducer";
+import { loginSuccess, setUser } from "../../redux/reducer/authReducer";
 import { useDispatch } from "react-redux";
 import { useToast } from '@chakra-ui/react'
 import { ToastContainer, toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
+import { async } from "q";
 
 // Login Schema Yup
 const LoginSchema = Yup.object().shape({
@@ -44,29 +45,23 @@ const BoxLogin = () => {
 
   const toast = useToast()
 
-  const notify = () => {
-    toast("Default Notification !");
-
-    toast.success("Success Notification !", {
-      position: toast.POSITION.TOP_CENTER
-    });
-
-    toast.error("Error Notification !", {
-      position: toast.POSITION.TOP_LEFT
-    });
-
-    toast.warn("Warning Notification !", {
-      position: toast.POSITION.BOTTOM_LEFT
-    });
-
-    toast.info("Info Notification !", {
-      position: toast.POSITION.BOTTOM_CENTER
-    });
-
-    toast("Custom Style Notification with css class!", {
-      position: toast.POSITION.BOTTOM_RIGHT,
-      className: 'foo-bar'
-    });
+  const login = async (email, password) => {
+      try {
+        const res = await axios.post("http://localhost:8080/user/login", {
+          email,
+          password,
+        });
+        // console.log(res);
+        localStorage.setItem("token", res?.data?.data?.token);
+        dispatch(setUser(res?.data?.data?.user));
+        dispatch(loginSuccess());
+        alert(res?.data?.message);
+        Navigate("/")
+      } catch (err) {
+        console.log(err);
+        alert(err?.response?.data);
+        // throw err
+      }
   };
 
   // // ambil data
@@ -110,7 +105,7 @@ const BoxLogin = () => {
     validationSchema: LoginSchema,
     onSubmit: async (values) => {
       dispatch(login(values.email, values.password));
-      Navigate("/")
+      
       // check(values.email, values.password);
       // email(values.email);
     },
@@ -220,16 +215,16 @@ const BoxLogin = () => {
                 mt={4}
                 size="lg"
                 w="100%"
-                onClick={() =>
-                  toast({
-                    title: 'Account created.',
-                    description: "We've created your account for you.",
-                    status: 'success',
-                    duration: 5000,
-                    isClosable: false,
-                    position: 'top',
-                  })
-                }
+                // onClick={() =>
+                //   toast({
+                //     title: 'Account created.',
+                //     description: "We've created your account for you.",
+                //     status: 'success',
+                //     duration: 5000,
+                //     isClosable: false,
+                //     position: 'top',
+                //   })
+                // }
               >
                 Log in
               </Button>
