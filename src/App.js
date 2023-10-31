@@ -14,31 +14,36 @@ import CreateTicket from "./pages/createTicket";
 import ListEvent from "./components/listEvent";
 import BoxLogin from "./components/formLogin";
 
+
 import ModalRegister from "./components/modalSignup";
 import FormRegister from "./components/formSignup";
 import ModalLogin from "./components/modalLogin";
 import Auth from "./components/auth";
-
+import NavbarUser from "./components/navbarUser";
+import { useSelector, useDispatch } from "react-redux";
 
 function App() {
+  const dispatch = useDispatch();
+  const { user, isLogin } = useSelector((state) => state.AuthReducer);
   return (
     <>
-      <Navbar />
+      {isLogin ? <NavbarUser /> : <Navbar />}
+      {/* <Navbar /> */}
       <Auth>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/dashboard/event-form" element={<CreateEvent />} />
-        <Route path="/event" element={<Event />} />
-        <Route path="/transaction/waiting" element={<Waiting />} />
-        <Route path="/transaction/success" element={<Success />} />
-        <Route path="/attendance" element={<Attendance />} />
-        <Route exact path="/register" element={<FormRegister />}  />
-        <Route exact path="/modal-register" element={<ModalRegister />} />
-        {/* <Route element={<ModalLogin />} path="/modal-login" /> */}
-        {/* <Route path="/login" element={<Navbar role="users" />} /> */}
-        <Route exact path="/login"  element={<BoxLogin />} />
-      </Routes>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard/event-form" element={<CreateEvent />} />
+          <Route path="/event" element={<Event />} />
+          <Route path="/transaction/waiting" element={<Waiting />} />
+          <Route path="/transaction/success" element={<Success />} />
+          <Route path="/attendance" element={<Attendance />} />
+          <Route exact path="/register" element={<FormRegister />} />
+          <Route exact path="/modal-register" element={<ModalRegister />} />
+          {/* <Route element={<ModalLogin />} path="/modal-login" /> */}
+          {/* <Route path="/login" element={<Navbar role="users" />} /> */}
+          <Route exact path="/login" element={<BoxLogin />} />
+        </Routes>
       </Auth>
       <Footer />
     </>

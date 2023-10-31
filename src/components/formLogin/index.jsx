@@ -22,6 +22,10 @@ import Logo from '../../assets/images/logo.png';
 import Event from '../../assets/images/EVENT.IN.png'
 import { login } from "../../redux/reducer/authReducer";
 import { useDispatch } from "react-redux";
+import { useToast } from '@chakra-ui/react'
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 // Login Schema Yup
 const LoginSchema = Yup.object().shape({
@@ -33,10 +37,37 @@ const LoginSchema = Yup.object().shape({
 });
 
 const BoxLogin = () => {
-  const [users, setUsers] = useState([]);
+  // const [users, setUsers] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
   const Navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const toast = useToast()
+
+  const notify = () => {
+    toast("Default Notification !");
+
+    toast.success("Success Notification !", {
+      position: toast.POSITION.TOP_CENTER
+    });
+
+    toast.error("Error Notification !", {
+      position: toast.POSITION.TOP_LEFT
+    });
+
+    toast.warn("Warning Notification !", {
+      position: toast.POSITION.BOTTOM_LEFT
+    });
+
+    toast.info("Info Notification !", {
+      position: toast.POSITION.BOTTOM_CENTER
+    });
+
+    toast("Custom Style Notification with css class!", {
+      position: toast.POSITION.BOTTOM_RIGHT,
+      className: 'foo-bar'
+    });
+  };
 
   // // ambil data
   // const fatchDataLogin = async () => {
@@ -52,24 +83,24 @@ const BoxLogin = () => {
   //   fatchDataLogin();
   // }, []);
 
-  const allEmail = users.map((item) => item.email);
+  // const allEmail = users.map((item) => item.email);
 
-  // pengecekan data login dengan data json server
-  const check = (email, password) => {
-    if (allEmail.includes(email)) {
-      const newEmail = users[allEmail.indexOf(email)];
-      if (newEmail.password.includes(password)) {
-        localStorage.setItem("account", allEmail.indexOf(email));
-        alert("succes");
-        Navigate("/");
-      } else {
-        alert("Password salah");
-      }
-    } else {
-      alert("Email Belum Terdaftar");
-      Navigate("/register");
-    }
-  };
+  // // pengecekan data login dengan data json server
+  // const check = (email, password) => {
+  //   if (allEmail.includes(email)) {
+  //     const newEmail = users[allEmail.indexOf(email)];
+  //     if (newEmail.password.includes(password)) {
+  //       localStorage.setItem("account", allEmail.indexOf(email));
+  //       alert("succes");
+  //       Navigate("/");
+  //     } else {
+  //       alert("Password salah");
+  //     }
+  //   } else {
+  //     alert("Email Belum Terdaftar");
+  //     Navigate("/register");
+  //   }
+  // };
 
   const formik = useFormik({
     initialValues: {
@@ -79,6 +110,7 @@ const BoxLogin = () => {
     validationSchema: LoginSchema,
     onSubmit: async (values) => {
       dispatch(login(values.email, values.password));
+      Navigate("/")
       // check(values.email, values.password);
       // email(values.email);
     },
@@ -188,9 +220,20 @@ const BoxLogin = () => {
                 mt={4}
                 size="lg"
                 w="100%"
+                onClick={() =>
+                  toast({
+                    title: 'Account created.',
+                    description: "We've created your account for you.",
+                    status: 'success',
+                    duration: 5000,
+                    isClosable: false,
+                    position: 'top',
+                  })
+                }
               >
                 Log in
               </Button>
+              <ToastContainer />
             </form>
           </Stack>
           <Box marginTop="20px" display="flex" gap=".4em">
