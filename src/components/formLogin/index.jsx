@@ -26,7 +26,7 @@ import { useToast } from '@chakra-ui/react'
 import { ToastContainer, toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
-import { async } from "q";
+
 
 // Login Schema Yup
 const LoginSchema = Yup.object().shape({
@@ -60,6 +60,7 @@ const BoxLogin = () => {
       } catch (err) {
         console.log(err);
         alert(err?.response?.data);
+        Navigate("/register")
         // throw err
       }
   };
@@ -215,16 +216,16 @@ const BoxLogin = () => {
                 mt={4}
                 size="lg"
                 w="100%"
-                // onClick={() =>
-                //   toast({
-                //     title: 'Account created.',
-                //     description: "We've created your account for you.",
-                //     status: 'success',
-                //     duration: 5000,
-                //     isClosable: false,
-                //     position: 'top',
-                //   })
-                // }
+                onClick={() =>
+                  toast({
+                    title: 'Login Success',
+                    description: "Welcome to your Event.In 👋",
+                    status: 'success',
+                    duration: 4000,
+                    isClosable: false,
+                    position: 'top',
+                  })
+                }
               >
                 Log in
               </Button>

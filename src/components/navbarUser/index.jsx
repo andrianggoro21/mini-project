@@ -31,6 +31,7 @@ import ModalRegister from "../modalSignup";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutSuccess } from "../../redux/reducer/authReducer";
 
+
 const Links = ["Home", "Find Events", "Transaction"];
 
 const NavLink = (props) => {
@@ -73,7 +74,7 @@ const NavbarUser = () => {
         background="#000"
         zIndex="1000"
         w="100%"
-        height="72px"
+        height="76px"
         mb="20em"
       >
         <Flex
@@ -96,40 +97,21 @@ const NavbarUser = () => {
               ))}
             </HStack>
           </HStack>
-          {/* <HStack w="auto" gap="2em" display={{ base: "none", lg: "flex" }}>
-            
 
-            <InputGroup
-              color="white"
-              rounded="1px"
-              w="241px"
-              
+          <Box display='flex' flexDirection="column" alignItems='center'>
+         
+            <Avatar bg="teal.500" size={"sm"} />
+           {/* <Text> Halo i'm User </Text> */}
+            <Box >
+            <Button flexDirection='column'
+              display="contents" color="whatsapp.400"
+              onClick={() => dispatch(logoutSuccess())}
             >
-              <InputLeftElement
-                children={<RiSearchLine />}
-                pointerEvents="none"
-                top="50%"
-                transform="translateY(-50%)"
-              />
-              <Input type="text" placeholder="Find your events here" />
-            </InputGroup>
-            <Box>
-              <ModalRegister
-                onClick={handleLoginClick}
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(true)}
-              />
+              Logout
+            </Button>
             </Box>
-            <Box>
-              <ModalLogin
-                onClick={handleLoginClick}
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(true)}
-              />
-            </Box>
-          </HStack> */}
-          <Box>Halo saya user</Box>
-          <Button onClick={() => dispatch(logoutSuccess())}>Logout</Button>
+          </Box>
+
           <IconButton
             variant="unstyled"
             size={"md"}
@@ -165,22 +147,21 @@ const NavbarUser = () => {
             ))}
             <Divider background="white" orientation="horizontal" />
             <Flex alignItems={"center"} justifyContent="center" gap="1.5em">
-               <Box>
-              <ModalRegister
-                onClick={handleLoginClick}
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(true)}
-              />
-            </Box>
-            <Box>
-              <ModalLogin
-                onClick={handleLoginClick}
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(true)}
-              />
-            </Box>
+              <Box>
+                <ModalRegister
+                  onClick={handleLoginClick}
+                  isOpen={isModalOpen}
+                  onClose={() => setIsModalOpen(true)}
+                />
+              </Box>
+              <Box>
+                <ModalLogin
+                  onClick={handleLoginClick}
+                  isOpen={isModalOpen}
+                  onClose={() => setIsModalOpen(true)}
+                />
+              </Box>
             </Flex>
-           
           </VStack>
         </Flex>
       ) : null}
