@@ -28,9 +28,9 @@ const NavDashboard = () => {
   const [event, setEvent] = useState([]);
   const getEvent = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/event");
-      setEvent(response.data);
-      console.log(response.data);
+      const response = await axios.get("http://localhost:8080/event/list-event");
+      setEvent(response.data.data);
+      console.log(response.data.data);
     } catch (err) {
       console.log(err);
     }

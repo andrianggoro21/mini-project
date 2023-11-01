@@ -20,9 +20,10 @@ const ListEvent = () => {
   const [event, setEvent] = useState([]);
   const getEvent = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/event");
-      setEvent(response.data);
-      console.log(response.data);
+      const response = await axios.get("http://localhost:8080/event/list-event");
+      setEvent(response.data.data);
+      console.log(response.data.data);
+      console.log(response.data.data[0].eventcategory.categoryName);
     } catch (err) {
       console.log(err);
     }
@@ -59,15 +60,15 @@ const ListEvent = () => {
               <Td>
                 <Checkbox size="md" colorScheme="green"/>
               </Td>
-              <Td>{item.event_name}</Td>
-              <Td>{item.category_event}</Td>
-              <Td>{item.location_event}</Td>
+              <Td>{item.eventName}</Td>
+              <Td>{item.eventcategory?.categoryName}</Td>
+              {/* <Td>{item.eventlocation.locationName}</Td> */}
               <Td>4</Td>
-              <Td>{item.start_date_event}</Td>
-              <Td>{item.last_date_event}</Td>
-              <Td>{item.description_event}</Td>
-              <Td>{item.highlight_event}</Td>
-              <Td>{item.included_event}</Td>
+              <Td>{item.startDate}</Td>
+              <Td>{item.endDate}</Td>
+              <Td>{item.description}</Td>
+              <Td>{item.highlight}</Td>
+              <Td>{item.include}</Td>
               <Td>
                 <Flex alignItems={"center"} justifyContent="center" gap=".5em">
                   <Button

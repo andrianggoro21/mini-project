@@ -33,19 +33,46 @@ import * as Yup from "yup";
 
 const TicketSchema = Yup.object().shape({
   select_event: Yup.string().required("Select event name is required"),
-  type_ticket: Yup.string().required("Type of Ticket is required"),
-  free_price_ticket: Yup.string(),
-  reguler_price: Yup.string().required(
-    "Price Reguler Ticket is required"
-    ),
-    reguler_capacity: Yup.string().required("Capacity Event is required"),
-  vip_price_ticket: Yup.string().required("Price VIP Ticket is required"),
-  discount: Yup.string().required("Discount is required"),
-  max_refferal: Yup.string().required("Max Refferal is required"),
-  event_capacity: Yup.string().required("Capacity Event is required"),
+  // type_ticket: Yup.string().required("Type of Ticket is required"),
+  // free_price_ticket: Yup.string(),
+  // reguler_price: Yup.string().required(
+  //   "Price Reguler Ticket is required"
+  //   ),
+  //   reguler_capacity: Yup.string().required("Capacity Event is required"),
+  // vip_price_ticket: Yup.string().required("Price VIP Ticket is required"),
+  // discount: Yup.string().required("Discount is required"),
+  // max_refferal: Yup.string().required("Max Refferal is required"),
+  // event_capacity: Yup.string().required("Capacity Event is required"),
 });
 
 const FormTicket = () => {
+  const [event, setEvent] = useState([]);
+  const [ticketType, setTicketType] = useState([]);
+
+  const getEvent = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/ticket/get-event");
+      setEvent(response.data.data);
+      // console.log(response.data.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
+  const getTicketType = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/ticket/get-ticket-type");
+      setTicketType(response.data.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    getEvent();
+    getTicketType();
+  }, []);
+
   const formTicket = async (
     select_event,
     type_ticket,
@@ -58,7 +85,8 @@ const FormTicket = () => {
     event_capacity
   ) => {
     try {
-      await axios.post("http://localhost:3000/ticket", {
+      // await axios.post("http://localhost:8000/ticket", {
+      await axios.post("http://localhost:8000/ticket", {
         select_event,
         type_ticket,
         free_price_ticket,
@@ -87,9 +115,10 @@ const FormTicket = () => {
       max_refferal: "",
       event_capacity: "",
     },
-
+    
     validationSchema: TicketSchema,
     onSubmit: (values) => {
+      console.log(values.select_event);
       formTicket(
         values.select_event,
         values.type_ticket,
@@ -100,16 +129,16 @@ const FormTicket = () => {
         values.discount,
         values.max_refferal,
         values.event_capacity,
-      );
-    },
-  });
-
+        );
+      },
+    });
+    
   const [data, setEventData] = useState([]);
   const getEventData = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/event");
+      const response = await axios.get("http://localhost:8000/event");
       setEventData(response.data);
-      console.log(response.data);
+      // console.log(response.data);
     } catch (err) {
       console.log(err);
     }
@@ -164,14 +193,14 @@ const FormTicket = () => {
                 value={formik.values.select_event}
                 onChange={formik.handleChange}
               >
-                {data.length > 0 &&
-                  data.map((item, index) => (
+                {event.length > 0 &&
+                  event.map((item, index) => (
                     <option
                       key={index}
-                      value={item.event_name}
+                      value={item.id}
                       style={{ color: "black" }}
                     >
-                      {item.event_name}
+                      {item.eventName}
                     </option>
                   ))}
               </Select>
@@ -189,8 +218,8 @@ const FormTicket = () => {
               <FormLabel>Type of Ticket</FormLabel>
               <Select
                 disabled={
-                  data.find(
-                    (item) => item.event_name === formik.values.select_event
+                  event.find(
+                    (item) => item.id == formik.values.select_event
                   )
                     ? false
                     : true
@@ -203,13 +232,13 @@ const FormTicket = () => {
                 value={formik.values.type_ticket}
                 onChange={formik.handleChange}
               >
-                {type_ticket.map((item, index) => (
+                {ticketType.map((item, index) => (
                   <option
                     key={index}
-                    value={item.value}
+                    value={item.id}
                     style={{ color: "black" }}
                   >
-                    {item.label}
+                    {item.typeName}
                   </option>
                 ))}
               </Select>
@@ -222,7 +251,7 @@ const FormTicket = () => {
             </Text>
           </Stack>
           <Stack spacing={5} w={{ base: "full", lg: "50%" }}>
-            {formik.values.type_ticket === "free" ? (
+            {formik.values.type_ticket == 1 ? ( // id dengan value 1 yaitu tipe tiket "free"
               <>
                 <FormControl
                   h="auto"
@@ -282,7 +311,7 @@ const FormTicket = () => {
                     )}
                 </FormControl>
               </>
-            ) : formik.values.type_ticket === "paid" ? (
+            ) : formik.values.type_ticket == 2 ? ( // id dengan value 2 yaitu tipe tiket "paid"
               <>
                 <Box display="flex"flexDirection={{base: "column", lg:"row"}} position="relative" gap="1em">
                 <FormControl
