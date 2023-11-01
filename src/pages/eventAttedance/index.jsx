@@ -16,7 +16,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { Card, CardBody, Image } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
 import banner from "../../assets/images/banner1.png";
@@ -26,21 +26,32 @@ import Time from "../../assets/images/time.png";
 import Plus from "../../assets/images/plus.png";
 import Minus from "../../assets/images/minus.png";
 import { increment, decrement } from "../../redux/reducers/attendance";
+import { nanoid } from "nanoid";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@chakra-ui/react";
 
 const AttendanceSchema = Yup.object().shape({
-  fullname: Yup.string().required("Fullname is required"),
+  fullName: Yup.string().required("Fullname is required"),
   email: Yup.string()
     .email("Invalid email address format")
     .required("Email is required"),
-  noTelp: Yup.number().required("Password is required"),
+  phoneNumber: Yup.number().required("Password is required"),
 });
 
 const Attedance = () => {
-  // const [input, setInput] = useState();
+  const [total, setTotal] = useState();
   const [data, setData] = useState([]);
-  
+  const Navigate = useNavigate();
+  const toast = useToast();
+
+  const [referralCode, setReferralCode] = useState("");
+  const generateReferralCode = () => {
+    const code = nanoid(6);
+    setReferralCode(code);
+  };
+
   const id = localStorage.getItem("cardId");
-  
+
   const getEvent = async () => {
     try {
       const response = await axios.get(`http://localhost:8888/event/${id}`);
@@ -57,14 +68,37 @@ const Attedance = () => {
   const quantity = useSelector((state) => state.quantity.value);
   const dispatch = useDispatch();
 
-  const inputAttendance = async (fullname, email, noTelp) => {
+  const priceTotalTicket = () => {
+    setTotal(200000 * quantity);
+  };
+
+  useEffect(() => {
+    priceTotalTicket();
+  }, [quantity]);
+
+  const inputAttendance = async (fullName, email, phoneNumber) => {
     try {
-      await axios.post("http://localhost:7777/attendance", {
-        fullname,
+      const res = await axios.post("http://localhost:8080/attendance", {
+        ticketId: 1,
+        userId: 1,
+        fullName,
         email,
-        noTelp,
+        phoneNumber,
+        referralCode,
+        ticketTotal: quantity,
+        priceTotal: total,
       });
-      alert("Input Success");
+      localStorage.setItem("attendance", res?.data?.data?.id);
+      // alert("Input Success");
+      toast({
+        position: 'top-right',
+        title: "Input Success",
+        description: "Personal details have been received",
+        status: "success",
+        duration: 5000,
+        isClosable: false,
+      });
+      Navigate("/transaction/waiting");
     } catch (err) {
       console.log(err);
     }
@@ -72,14 +106,14 @@ const Attedance = () => {
 
   const formik = useFormik({
     initialValues: {
-      fullname: "",
+      fullName: "",
       email: "",
-      noTelp: "",
+      phoneNumber: "",
     },
 
     validationSchema: AttendanceSchema,
     onSubmit: (values) => {
-      inputAttendance(values.fullname, values.email, values.noTelp);
+      inputAttendance(values.fullName, values.email, values.phoneNumber);
       // formik.values.posting = "";
     },
   });
@@ -109,7 +143,12 @@ const Attedance = () => {
                   <CardBody>
                     <Box display="flex" gap="16px">
                       <Box display={{ base: "none", md: "block" }}>
-                        <Image w="300px" h="120px" borderRadius="10px" src={data.image} />
+                        <Image
+                          w="300px"
+                          h="120px"
+                          borderRadius="10px"
+                          src={data.image}
+                        />
                       </Box>
                       <Box display="flex" flexDirection="column" gap="10px">
                         <Text color="#ffffff" fontSize="16px" fontWeight="700">
@@ -262,7 +301,7 @@ const Attedance = () => {
                       <FormControl
                         isRequired
                         isInvalid={
-                          formik.touched.fullname && formik.errors.fullname
+                          formik.touched.fullName && formik.errors.fullName
                         }
                       >
                         <FormLabel color="#bcbcbc">Full Name</FormLabel>
@@ -273,13 +312,13 @@ const Attedance = () => {
                           border="none"
                           _placeholder={{ color: "#585454" }}
                           focusBorderColor="#262626"
-                          name="fullname"
-                          value={formik.values.fullname}
+                          name="fullName"
+                          value={formik.values.fullName}
                           onChange={formik.handleChange}
                         />
-                        {formik.touched.fullname && formik.errors.fullname && (
+                        {formik.touched.fullName && formik.errors.fullName && (
                           <FormErrorMessage>
-                            {formik.errors.fullname}
+                            {formik.errors.fullName}
                           </FormErrorMessage>
                         )}
                       </FormControl>
@@ -312,7 +351,8 @@ const Attedance = () => {
                       <FormControl
                         isRequired
                         isInvalid={
-                          formik.touched.noTelp && formik.errors.noTelp
+                          formik.touched.phoneNumber &&
+                          formik.errors.phoneNumber
                         }
                       >
                         <FormLabel color="#bcbcbc">Phone Number</FormLabel>
@@ -323,15 +363,16 @@ const Attedance = () => {
                           border="none"
                           _placeholder={{ color: "#585454" }}
                           focusBorderColor="#262626"
-                          name="noTelp"
-                          value={formik.values.noTelp}
+                          name="phoneNumber"
+                          value={formik.values.phoneNumber}
                           onChange={formik.handleChange}
                         />
-                        {formik.touched.noTelp && formik.errors.noTelp && (
-                          <FormErrorMessage>
-                            {formik.errors.noTelp}
-                          </FormErrorMessage>
-                        )}
+                        {formik.touched.phoneNumber &&
+                          formik.errors.phoneNumber && (
+                            <FormErrorMessage>
+                              {formik.errors.phoneNumber}
+                            </FormErrorMessage>
+                          )}
                       </FormControl>
                     </Box>
                     {/* <Button
@@ -396,7 +437,7 @@ const Attedance = () => {
                       fontSize="16px"
                     >
                       <Text>Total Ticket Price</Text>
-                      <Text>200.000</Text>
+                      <Text>{total}</Text>
                     </Box>
                     <Box
                       display="flex"
@@ -424,7 +465,7 @@ const Attedance = () => {
                     fontWeight="600"
                   >
                     <Text>Total Payment</Text>
-                    <Text>200.000</Text>
+                    <Text>{total}</Text>
                   </Box>
                   <Box
                     bgColor="#353535"
@@ -460,6 +501,7 @@ const Attedance = () => {
                     w="full"
                     bgColor="#3C891C"
                     color="#ffffff"
+                    onClick={generateReferralCode}
                   >
                     Bayar Tiket
                   </Button>
