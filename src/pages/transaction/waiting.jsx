@@ -1,3 +1,4 @@
+
 import { Box, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import Navbar from "../../components/navbar";
@@ -5,6 +6,9 @@ import CardTransaction from "../../components/pagesTransaction/cardTransaction";
 
 
 const Waiting = () => {
+
+ 
+
   return (
     <Box maxW="100vw" minH="100vh">
       <Navbar />

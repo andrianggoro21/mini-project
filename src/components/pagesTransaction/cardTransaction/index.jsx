@@ -8,8 +8,22 @@ import {
 } from "@chakra-ui/react";
 import Banner1 from "../../../assets/images/banner1.png";
 import Loc from "../../../assets/images/location.png";
+import axios from "axios";
 
 const CardTransaction = () => {
+
+  const attendance = localStorage.getItem("attendance");
+  const inputTransaction = async () => {
+    try {
+      await axios.post("http://localhost:8080/transaction", {
+        attendanceId: attendance,
+        transactionStatusId: 2,
+      });
+      alert("Input Success");
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <Box>
       <Card className="card" maxW="xs" borderRadius="10px" bgColor="#1E1E1E">
@@ -32,6 +46,7 @@ const CardTransaction = () => {
                 variant="outline"
                 color="#7ED957"
                 colorScheme="#7ED957"
+                onClick={inputTransaction}
               >
                 Upload File
               </Button>
