@@ -188,6 +188,195 @@
       "max_refferal": "",
       "event_capacity": 500,
       "id": 2
+    },
+    {
+      "eventId": "1",
+      "id": 3
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "id": 4
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "id": 5
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "geratis",
+      "id": 6
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "geratis",
+      "id": 7
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "geratis",
+      "id": 8
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "freee",
+      "id": 9
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "freee",
+      "id": 10
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "freee",
+      "price": "",
+      "id": 11
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "free",
+      "price": 0,
+      "id": 12
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "free",
+      "price": 0,
+      "id": 13
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "free",
+      "price": 0,
+      "capacity": 57,
+      "id": 14
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "free",
+      "price": 0,
+      "capacity": 65,
+      "id": 15
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "gratiss",
+      "price": 0,
+      "capacity": 71,
+      "id": 16
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "gratiss",
+      "price": 0,
+      "capacity": 71,
+      "id": 17
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "gratiss",
+      "price": 0,
+      "capacity": 71,
+      "id": 18
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "gratiz",
+      "price": 0,
+      "capacity": 71,
+      "id": 19
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "gratiz",
+      "price": 0,
+      "capacity": 71,
+      "id": 20
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "gratiz",
+      "price": 0,
+      "capacity": 71,
+      "id": 21
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "gratiz",
+      "price": 0,
+      "capacity": 71,
+      "id": 22
+    },
+    {
+      "eventId": "2",
+      "ticketTypeId": "2",
+      "id": 23
+    },
+    {
+      "eventId": "2",
+      "ticketTypeId": "2",
+      "ticketName": "VIP",
+      "id": 24
+    },
+    {
+      "eventId": "2",
+      "ticketTypeId": "2",
+      "ticketName": "VIP",
+      "price": 300000,
+      "id": 25
+    },
+    {
+      "eventId": "3",
+      "ticketTypeId": "2",
+      "ticketName": "Reguler",
+      "price": 2000,
+      "id": 26
+    },
+    {
+      "eventId": "3",
+      "ticketTypeId": "2",
+      "ticketName": "Reguler",
+      "price": 2000,
+      "capacity": 497,
+      "id": 27
+    },
+    {
+      "eventId": "3",
+      "ticketTypeId": "2",
+      "ticketName": "Reguler",
+      "price": 2000,
+      "capacity": 497,
+      "discount": 100,
+      "id": 28
+    },
+    {
+      "eventId": "3",
+      "ticketTypeId": "2",
+      "ticketName": "Reguler",
+      "price": 2000,
+      "capacity": 497,
+      "discount": 100,
+      "maxReferral": 10,
+      "id": 29
     }
   ]
 }
