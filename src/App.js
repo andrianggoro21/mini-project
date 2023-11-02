@@ -14,7 +14,6 @@ import CreateTicket from "./pages/createTicket";
 import ListEvent from "./components/listEvent";
 import BoxLogin from "./components/formLogin";
 
-
 import ModalRegister from "./components/modalSignup";
 import FormRegister from "./components/formSignup";
 import ModalLogin from "./components/modalLogin";
@@ -30,26 +29,7 @@ function App() {
   console.log(user);
   return (
     <>
-<ScrollToTop/>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/search" element={<SearchPage/>} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/dashboard/event-form" element={<CreateEvent />} />
-        <Route path="/event" element={<Event />} />
-        <Route path="/transaction/waiting" element={<Waiting />} />
-        <Route path="/transaction/success" element={<Success />} />
-        <Route path="/attendance" element={<Attendance />} />
-        <Route element={<FormRegister />} path="/register" />
-        <Route element={<ModalRegister />} path="/modal-register" />
-        {/* <Route element={<ModalLogin />} path="/modal-login" /> */}
-        {/* <Route path="/login" element={<Navbar role="users" />} /> */}
-        <Route element={<BoxLogin />} path="/login" />
-        <Route path="/dashboard/event-form" element={<CreateEvent />} />
-        <Route path="/dashboard/ticket-form" element={<CreateTicket />} />
-      </Routes>
-      {/* <Footer /> */}
+      <ScrollToTop />
       {isLogin ? <NavbarUser /> : <Navbar />}
       {/* <Navbar /> */}
       <Auth>
