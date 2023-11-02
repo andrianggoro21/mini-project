@@ -58,17 +58,18 @@ const Attedance = () => {
     getEvent();
   }, []);
 
-  const quantity = useSelector((state) => state.quantity.value);
+  const quantity1 = useSelector((state) => state.quantity.value);
+  const quantity2 = useSelector((state) => state.quantity.valueV);
  
   const dispatch = useDispatch();
 
   const priceTotalTicket = () => {
-    setTotal(200000 * quantity);
+    setTotal(200000 * quantity1);
   };
 
   useEffect(() => {
     priceTotalTicket();
-  }, [quantity]);
+  }, [quantity1]);
 
   const inputAttendance = async (fullName, email, phoneNumber) => {
     try {
@@ -79,7 +80,7 @@ const Attedance = () => {
         email,
         phoneNumber,
         referralCode,
-        ticketTotal: quantity,
+        ticketTotal: quantity1,
         priceTotal: total,
       });
       localStorage.setItem("attendance", res?.data?.data?.id);
@@ -171,12 +172,14 @@ const Attedance = () => {
                         </Box>
                       </Box>
                     </Box>
+
                     <Box
                       bgColor="#353535"
                       w="full"
                       h="2px"
                       margin="32px 0 14px 0"
                     />
+                    {/* ini perbaikan */}
                     <Box
                       display="flex"
                       alignItems="center"
@@ -262,7 +265,7 @@ const Attedance = () => {
                           </Button>
                           <Box>
                             <Text color="#bcbcbc" fontSize="16px">
-                              {quantity}
+                              {quantity1}
                             </Text>
                           </Box>
                           <Button

@@ -3,8 +3,11 @@ import { Link } from "react-router-dom";
 import NotRefund from "../../../assets/images/not-refund.png";
 import Instant from "../../../assets/images/instant.png";
 import ValidDate from "../../../assets/images/valid-date.png";
+import { useSelector, useDispatch } from "react-redux";
+import { decrementVvip, incrementVvip, increment, decrement } from "../../../redux/reducers/attendance";
 
 const Packages = ({date, regular, premium}) => {
+  const dispatch = useDispatch();
   return (
     <Box>
       <Text
@@ -93,7 +96,7 @@ const Packages = ({date, regular, premium}) => {
           </Box>
           <Box>
             <Link to="/attendance">
-              <Button bgColor="#3C891C" color="#ffffff" padding="10px">
+              <Button bgColor="#3C891C" color="#ffffff" padding="10px" onClick={dispatch(increment())}>
                 Select Tickect
               </Button>
             </Link>
@@ -153,7 +156,7 @@ const Packages = ({date, regular, premium}) => {
           </Box>
           <Box>
             <Link to="/attendance">
-              <Button bgColor="#3C891C" color="#ffffff" padding="10px">
+              <Button bgColor="#3C891C" color="#ffffff" padding="10px" onClick={dispatch(incrementVvip())}>
                 Select Tickect
               </Button>
             </Link>
