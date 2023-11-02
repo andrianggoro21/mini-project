@@ -15,7 +15,7 @@ import Footer from "../../components/footer";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useFormik } from "formik";
-import * as Yup from "yup";
+
 import { Link, Navigate } from "react-router-dom";
 import { Card, CardBody, Image } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
@@ -29,14 +29,7 @@ import { increment, decrement } from "../../redux/reducers/attendance";
 import { nanoid } from "nanoid";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
-
-const AttendanceSchema = Yup.object().shape({
-  fullName: Yup.string().required("Fullname is required"),
-  email: Yup.string()
-    .email("Invalid email address format")
-    .required("Email is required"),
-  phoneNumber: Yup.number().required("Password is required"),
-});
+import AttendanceSchema from "../../schema";
 
 const Attedance = () => {
   const [total, setTotal] = useState();
@@ -66,6 +59,7 @@ const Attedance = () => {
   }, []);
 
   const quantity = useSelector((state) => state.quantity.value);
+ 
   const dispatch = useDispatch();
 
   const priceTotalTicket = () => {
@@ -91,7 +85,7 @@ const Attedance = () => {
       localStorage.setItem("attendance", res?.data?.data?.id);
       // alert("Input Success");
       toast({
-        position: 'top-right',
+        position: "top-right",
         title: "Input Success",
         description: "Personal details have been received",
         status: "success",
@@ -113,6 +107,7 @@ const Attedance = () => {
 
     validationSchema: AttendanceSchema,
     onSubmit: (values) => {
+      console.log(values.fullName);
       inputAttendance(values.fullName, values.email, values.phoneNumber);
       // formik.values.posting = "";
     },
@@ -291,100 +286,111 @@ const Attedance = () => {
                   Personal Details
                 </Text>
                 <Box
-                  padding="24px"
-                  borderRadius="10px"
-                  margin="20px 0 40px 0"
-                  bgColor="#1E1E1E"
-                >
-                  <Box display="flex" flexDirection="column" gap="32px">
-                    <Box>
-                      <FormControl
-                        isRequired
-                        isInvalid={
-                          formik.touched.fullName && formik.errors.fullName
-                        }
-                      >
-                        <FormLabel color="#bcbcbc">Full Name</FormLabel>
-                        <Input
-                          placeholder="Full Name"
-                          color="#ffffff"
-                          bgColor="#262626"
-                          border="none"
-                          _placeholder={{ color: "#585454" }}
-                          focusBorderColor="#262626"
-                          name="fullName"
-                          value={formik.values.fullName}
-                          onChange={formik.handleChange}
-                        />
-                        {formik.touched.fullName && formik.errors.fullName && (
-                          <FormErrorMessage>
-                            {formik.errors.fullName}
-                          </FormErrorMessage>
-                        )}
-                      </FormControl>
-                    </Box>
-                    <Box>
-                      <FormControl
-                        isRequired
-                        isInvalid={formik.touched.email && formik.errors.email}
-                      >
-                        <FormLabel color="#bcbcbc">Email</FormLabel>
-                        <Input
-                          placeholder="Email"
-                          color="#ffffff"
-                          bgColor="#262626"
-                          border="none"
-                          _placeholder={{ color: "#585454" }}
-                          focusBorderColor="#262626"
-                          name="email"
-                          value={formik.values.email}
-                          onChange={formik.handleChange}
-                        />
-                        {formik.touched.email && formik.errors.email && (
-                          <FormErrorMessage>
-                            {formik.errors.email}
-                          </FormErrorMessage>
-                        )}
-                      </FormControl>
-                    </Box>
-                    <Box>
-                      <FormControl
-                        isRequired
-                        isInvalid={
-                          formik.touched.phoneNumber &&
-                          formik.errors.phoneNumber
-                        }
-                      >
-                        <FormLabel color="#bcbcbc">Phone Number</FormLabel>
-                        <Input
-                          placeholder="Phone Number"
-                          color="#ffffff"
-                          bgColor="#262626"
-                          border="none"
-                          _placeholder={{ color: "#585454" }}
-                          focusBorderColor="#262626"
-                          name="phoneNumber"
-                          value={formik.values.phoneNumber}
-                          onChange={formik.handleChange}
-                        />
-                        {formik.touched.phoneNumber &&
-                          formik.errors.phoneNumber && (
+                    padding="24px"
+                    borderRadius="10px"
+                    margin="20px 0 40px 0"
+                    bgColor="#1E1E1E"
+                  >
+                    {/* <Box color="#ffffff" fontSize="16px" fontWeight="500" margin>
+                      <Text >
+                        Data 1
+                      </Text>
+                    </Box> */}
+                    <Box display="flex" flexDirection="column" gap="32px">
+                      <Box>
+                        <FormControl
+                          isRequired
+                          isInvalid={
+                            formik.touched.fullName && formik.errors.fullName
+                          }
+                        >
+                          <FormLabel color="#bcbcbc">Full Name</FormLabel>
+                          <Input
+                            placeholder="Full Name"
+                            color="#ffffff"
+                            bgColor="#262626"
+                            border="none"
+                            _placeholder={{ color: "#585454" }}
+                            focusBorderColor="#262626"
+                            name="fullName"
+                            value={formik.values.fullName}
+                            onChange={formik.handleChange}
+                          />
+                          {formik.touched.fullName &&
+                            formik.errors.fullName && (
+                              <FormErrorMessage>
+                                {formik.errors.fullName}
+                              </FormErrorMessage>
+                            )}
+                        </FormControl>
+                      </Box>
+                      <Box>
+                        <FormControl
+                          isRequired
+                          isInvalid={
+                            formik.touched.email && formik.errors.email
+                          }
+                        >
+                          <FormLabel color="#bcbcbc">Email</FormLabel>
+                          <Input
+                            placeholder="Email"
+                            color="#ffffff"
+                            bgColor="#262626"
+                            border="none"
+                            _placeholder={{ color: "#585454" }}
+                            focusBorderColor="#262626"
+                            name="email"
+                            value={formik.values.email}
+                            onChange={formik.handleChange}
+                          />
+                          {formik.touched.email && formik.errors.email && (
                             <FormErrorMessage>
-                              {formik.errors.phoneNumber}
+                              {formik.errors.email}
                             </FormErrorMessage>
                           )}
-                      </FormControl>
+                        </FormControl>
+                      </Box>
+                      <Box>
+                        <FormControl
+                          isRequired
+                          isInvalid={
+                            formik.touched.phoneNumber &&
+                            formik.errors.phoneNumber
+                          }
+                        >
+                          <FormLabel color="#bcbcbc">Phone Number</FormLabel>
+                          <Input
+                            placeholder="Phone Number"
+                            color="#ffffff"
+                            bgColor="#262626"
+                            border="none"
+                            _placeholder={{ color: "#585454" }}
+                            focusBorderColor="#262626"
+                            name="phoneNumber"
+                            value={formik.values.phoneNumber}
+                            onChange={formik.handleChange}
+                          />
+                          {formik.touched.phoneNumber &&
+                            formik.errors.phoneNumber && (
+                              <FormErrorMessage>
+                                {formik.errors.phoneNumber}
+                              </FormErrorMessage>
+                            )}
+                        </FormControl>
+                      </Box>
+                      {/* <Button
+                        bgColor="#3C891C"
+                        color="#ffffff"
+                        fontSize="14px"
+                        type="submit"
+                      >
+                        submit
+                      </Button> */}
                     </Box>
-                    {/* <Button
-                      bgColor="#3C891C"
-                      color="#ffffff"
-                      fontSize="14px"
-                      type="submit"
-                    >
-                      submit
-                    </Button> */}
                   </Box>
-                </Box>
+                {/* {form.map((item, index) => (
+                  
+                ))} */}
               </Box>
             </Box>
             <Box>

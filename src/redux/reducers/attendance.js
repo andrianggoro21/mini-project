@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   value: 1,
+  ticket: [1]
 };
 
 export const quantitySlice = createSlice({
@@ -13,6 +14,7 @@ export const quantitySlice = createSlice({
         state.value = 3;
       } else {
         state.value += 1;
+        state.ticket.push(state.value)
       }
     },
     decrement: (state) => {
@@ -20,6 +22,7 @@ export const quantitySlice = createSlice({
         state.value = 1;
       } else {
         state.value -= 1;
+        state.ticket.pop();
       }
     },
   },
