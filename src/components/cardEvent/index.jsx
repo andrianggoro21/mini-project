@@ -30,11 +30,11 @@ const CardEvent = () => {
 
   const getEvent = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/event", {
-        headers: { "Cache-Control": "no-cache" },
+      const response = await axios.get("http://localhost:8080/event/list-event", {
+        // headers: { "Cache-Control": "no-cache" },
       });
-      setEvent(response.data);
-      console.log(response.data);
+      setEvent(response.data.data);
+      console.log(response.data.data.tickets);
     } catch (err) {
       console.log(err);
     }
@@ -84,14 +84,14 @@ const CardEvent = () => {
             ></Box>
             <Flex flexDirection="column" p="1em" gap="1em">
               <Stack spacing="3">
-                <Heading size="sm">{item.event_name}</Heading>
+                <Heading size="sm">{item.eventName}</Heading>
                 <HStack>
                   <Icon as={GrLocation} />
-                  <Text>{item.location_event}</Text>
+                  <Text>{item.eventlocation.locationName}</Text>
                 </HStack>
                 <Text color="" fontSize="xl">
-                  {/* {item.price} */}
-                  Rp. 100.000
+                  {item?.tickets?.price}
+                  {/* Rp. 100.000 */}
                 </Text>
               </Stack>
               <Divider />

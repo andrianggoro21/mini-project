@@ -18,10 +18,10 @@ import { useEffect, useState } from "react";
 
 const ListTicket = () => {
     const [ticket, setTicket] = useState([]);
-    const getTicket = async () => {
+    const fetchTicket = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/ticket");
-        setTicket(response.data);
+        const response = await axios.get("http://localhost:8080/ticket/list-ticket");
+        setTicket(response.data.data);
         console.log(response.data);
       } catch (err) {
         console.log(err);
@@ -29,7 +29,7 @@ const ListTicket = () => {
     };
     
     useEffect(() => {
-      getTicket();
+      fetchTicket();
     }, []);
     return (
         
@@ -43,12 +43,10 @@ const ListTicket = () => {
             </Th>
             <Th>Event Name</Th>
             <Th>Type of Ticket</Th>
-            <Th>Price of Free Ticket</Th>
-            <Th>Price of Reguler Ticket</Th>
-            <Th>Price of VIP Ticket</Th>
-            <Th>Discount</Th>
-            <Th>Max Refferal</Th>
+            <Th>Price of Ticket</Th>
             <Th>Capacity</Th>
+            <Th>Discount</Th>
+            <Th>Max Referral</Th>
             <Th>Action</Th>
           </Tr>
         </Thead>
@@ -58,14 +56,12 @@ const ListTicket = () => {
             <Td>
               <Checkbox size="md" colorScheme="green"/>
             </Td>
-            <Td>{item.select_event}</Td>
-            <Td>{item.type_ticket}</Td>
-            <Td>IDR {item.price_free_ticket}</Td>
-            <Td>IDR {item.price_reguler_ticket}</Td>
-            <Td>IDR {item.price_vip_ticket}</Td>
+            <Td>{item.event.eventName}</Td>
+            <Td>{item.tickettype.typeName}</Td>
+            <Td>IDR {item.price}</Td>
+            <Td>{item.capacity}</Td>
             <Td>IDR {item.discount}</Td>
-            <Td>{item.max_refferal}</Td>
-            <Td>{item.capacity_event}</Td>
+            <Td>{item.maxReferral}</Td>
             <Td>
               <Flex alignItems={"center"} justifyContent="center" gap=".5em">
                 <Button

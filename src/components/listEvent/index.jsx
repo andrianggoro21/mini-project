@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 
 const ListEvent = () => {
   const [event, setEvent] = useState([]);
-  const getEvent = async () => {
+  const fetchEvent = async () => {
     try {
       const response = await axios.get("http://localhost:8080/event/list-event");
       setEvent(response.data.data);
@@ -30,7 +30,7 @@ const ListEvent = () => {
   };
   
   useEffect(() => {
-    getEvent();
+    fetchEvent();
   }, []);
 
   return (
@@ -62,7 +62,7 @@ const ListEvent = () => {
               </Td>
               <Td>{item.eventName}</Td>
               <Td>{item.eventcategory?.categoryName}</Td>
-              {/* <Td>{item.eventlocation.locationName}</Td> */}
+              <Td>{item.eventlocation?.locationName}</Td>
               <Td>4</Td>
               <Td>{item.startDate}</Td>
               <Td>{item.endDate}</Td>
