@@ -5,6 +5,7 @@ import {
   Image,
   Stack,
   Divider,
+  Link,
   Avatar,
   Heading,
   Text,
@@ -14,7 +15,7 @@ import {
   HStack,
   VStack,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { GrLocation } from "react-icons/gr";
 import { cards } from "../../database/cards";
 import { useEffect, useState } from "react";
@@ -27,20 +28,24 @@ const CardEvent = () => {
 
   const sliceCard = event.slice(0, element);
 
-  const getEvent = async () => {
+  const fetchEvent = async () => {
     try {
       const response = await axios.get("http://localhost:8080/event/list-event", {
         // headers: { "Cache-Control": "no-cache" },
       });
       setEvent(response.data.data);
-      console.log(response.data.data.tickets);
+      console.log(process.env.REACT_APP_IMAGE_URL)
+      console.log(event);
+
+      // console.log(response.data.data[4].image);
+      // console.log(response.data.data[0].tickets[0].price);
     } catch (err) {
       console.log(err);
     }
   };
 
   useEffect(() => {
-    getEvent();
+    fetchEvent();
   }, []);
 
   const loadMoreData = () => {
@@ -64,7 +69,7 @@ const CardEvent = () => {
         }}
         gap="1em"
       >
-        {sliceCard.map((item, index) => (
+        {sliceCard?.map((item, index) => (
           <Stack
             // maxW="sm"
             rounded="lg"
@@ -79,17 +84,25 @@ const CardEvent = () => {
               overflow="hidden"
               background-size="contain"
               background-repeat="no-repeat"
-              backgroundImage="url(./images/banner.jpg)"
-            ></Box>
+              // backgroundImage="url(`${process.env.REACT_APP_IMAGE_URL})"
+              // backgroundImage="url(./images/banner.jpg)"
+            >
+              <Image
+              // height="120px"
+              width="full"
+              src={`${process.env.REACT_APP_IMAGE_URL}/events/${item?.image}`}
+              alt="event pict"
+            />
+            </Box>
             <Flex flexDirection="column" p="1em" gap="1em">
               <Stack spacing="3">
                 <Heading size="sm">{item.eventName}</Heading>
                 <HStack>
                   <Icon as={GrLocation} />
-                  <Text>{item.eventlocation.locationName}</Text>
+                  <Text>{item.eventlocation?.locationName}</Text>
                 </HStack>
                 <Text color="" fontSize="xl">
-                  {item?.tickets?.price}
+                  {item.tickets[index]?.price}
                   {/* Rp. 100.000 */}
                 </Text>
               </Stack>
@@ -105,9 +118,9 @@ const CardEvent = () => {
                   {/* {item.eo_user} */}
                 </Text>
               </Flex>
-              </Flex>
-            </Stack>
-       )) }
+            </Flex>
+          </Stack>
+        ))}
       </Box>
       {loadMoreVisible && (
         <Button
