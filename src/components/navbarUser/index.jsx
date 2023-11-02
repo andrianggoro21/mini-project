@@ -18,19 +18,20 @@ import {
   Input,
   Divider,
   VStack,
+  MenuList,
+  MenuItem,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, AddIcon } from "react-icons";
 import { ReactChildren, ReactChild } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { CgClose } from "react-icons/cg";
-import { GrClose } from "react-icons/gr";
+import { BiChevronDownCircle } from "react-icons/bi";
 import { RiSearchLine } from "react-icons/ri";
 import React, { useState } from "react";
 import ModalLogin from "../modalLogin";
 import ModalRegister from "../modalSignup";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutSuccess } from "../../redux/reducer/authReducer";
-
 
 const Links = ["Home", "Find Events", "Transaction"];
 
@@ -97,19 +98,32 @@ const NavbarUser = () => {
               ))}
             </HStack>
           </HStack>
-
-          <Box display='flex' flexDirection="column" alignItems='center'>
-         
-            <Avatar bg="teal.500" size={"sm"} />
-           {/* <Text> Halo i'm User </Text> */}
-            <Box >
-            <Button flexDirection='column'
-              display="contents" color="whatsapp.400"
-              onClick={() => dispatch(logoutSuccess())}
-            >
-              Logout
-            </Button>
-            </Box>
+          <Box>
+            <Flex alignItems="center">
+              <Menu>
+                <MenuButton
+                  as={Avatar}
+                  size="sm"
+                  src="https://i.pinimg.com/736x/7f/79/6d/7f796d57218d9cd81a92d9e6e8e51ce4--free-avatars-online-profile.jpg"
+                />
+                <MenuList border="none" bg="#696666">
+                  <MenuItem bg="#696666">
+                    <Text marginLeft="auto">Halo saya User</Text>
+                  </MenuItem>
+                  <MenuItem bg="#696666">
+                    <Link color="whatsapp.400" href="/navDashboard">
+                      Dashboard
+                    </Link>
+                  </MenuItem>
+                  <MenuItem bg="#696666"
+                    color="whatsapp.400"
+                    onClick={() => dispatch(logoutSuccess())}
+                  >
+                    Log Out
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+            </Flex>
           </Box>
 
           <IconButton
