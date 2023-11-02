@@ -18,55 +18,85 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { useFormik } from "formik";
 import Regis from "../../assets/images/Registration.png";
-import Logo from "../../assets/images/logo.png";
-import Event from "../../assets/images/EVENT.IN.png";
+import Logo from '../../assets/images/logo.png';
+import Event from '../../assets/images/EVENT.IN.png'
+import { loginSuccess, setUser } from "../../redux/reducer/authReducer";
+import { useDispatch } from "react-redux";
+import { useToast } from '@chakra-ui/react'
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
+
 
 // Login Schema Yup
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
     .email("Invalid email address format")
     .required("Email is required"),
-  password: Yup.string().required("Password is required"),
+  password: Yup.string()
+  .required("Password is required"),
 });
 
 const BoxLogin = () => {
-  const [users, setUsers] = useState([]);
+  // const [users, setUsers] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
   const Navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  // ambil data
-  const fatchDataLogin = async () => {
-    try {
-      const response = await axios.get("http://localhost:3000/users");
-      setUsers(response.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const toast = useToast()
 
-  useEffect(() => {
-    fatchDataLogin();
-  }, []);
-
-  const allEmail = users.map((item) => item.email);
-
-  // pengecekan data login dengan data json server
-  const check = (email, password) => {
-    if (allEmail.includes(email)) {
-      const newEmail = users[allEmail.indexOf(email)];
-      console.log(newEmail.password.includes(password));
-      if (newEmail.password.includes(password)) {
-        localStorage.setItem("account", allEmail.indexOf(email));
-        alert("succes");
-        Navigate("/");
-      } else {
-        alert("Password salah");
+  const login = async (email, password) => {
+      try {
+        const res = await axios.post("http://localhost:8080/user/login", {
+          email,
+          password,
+        });
+        // console.log(res);
+        localStorage.setItem("token", res?.data?.data?.token);
+        dispatch(setUser(res?.data?.data?.user));
+        dispatch(loginSuccess());
+        alert(res?.data?.message);
+        Navigate("/")
+      } catch (err) {
+        console.log(err);
+        alert(err?.response?.data);
+        Navigate("/register")
+        // throw err
       }
-    } else {
-      alert("Email Belum Terdaftar");
-      Navigate("/register");
-    }
   };
+
+  // // ambil data
+  // const fatchDataLogin = async () => {
+  //   try {
+  //     const response = await axios.get("http://localhost:8080/users");
+  //     setUsers(response.data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fatchDataLogin();
+  // }, []);
+
+  // const allEmail = users.map((item) => item.email);
+
+  // // pengecekan data login dengan data json server
+  // const check = (email, password) => {
+  //   if (allEmail.includes(email)) {
+  //     const newEmail = users[allEmail.indexOf(email)];
+  //     if (newEmail.password.includes(password)) {
+  //       localStorage.setItem("account", allEmail.indexOf(email));
+  //       alert("succes");
+  //       Navigate("/");
+  //     } else {
+  //       alert("Password salah");
+  //     }
+  //   } else {
+  //     alert("Email Belum Terdaftar");
+  //     Navigate("/register");
+  //   }
+  // };
 
   const formik = useFormik({
     initialValues: {
@@ -74,9 +104,11 @@ const BoxLogin = () => {
       password: "",
     },
     validationSchema: LoginSchema,
-    onSubmit: (values) => {
-      check(values.email, values.password);
-      email(values.email);
+    onSubmit: async (values) => {
+      dispatch(login(values.email, values.password));
+      
+      // check(values.email, values.password);
+      // email(values.email);
     },
   });
 
@@ -188,9 +220,20 @@ const BoxLogin = () => {
                 mt={4}
                 size="lg"
                 w="100%"
+                onClick={() =>
+                  toast({
+                    title: 'Login Success',
+                    description: "Welcome to your Event.In 👋",
+                    status: 'success',
+                    duration: 4000,
+                    isClosable: false,
+                    position: 'top',
+                  })
+                }
               >
                 Log in
               </Button>
+              <ToastContainer />
             </form>
           </Stack>
           <Box marginTop="20px" display="flex" gap=".4em">

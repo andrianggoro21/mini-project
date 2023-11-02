@@ -21,18 +21,19 @@ function ModalLogin() {
 
   const onClose = () => setIsOpen(false);
   const openModal = () => setIsOpen(true);
-  
 
   const handleLogin = (role) => {
-    if (role === "admin") {
+    if (role === 2) {
       setIsAdmin(true);
       setIsUsers(false);
-    } else if (role === "users") {
+    } else if (role === 1) {
       setIsAdmin(false);
       setIsUsers(true);
     }
 
     openModal();
+    localStorage.setItem("roleId", role);
+    console.log(`Clicked with value: ${role}`);
   };
 
   return (
@@ -55,30 +56,45 @@ function ModalLogin() {
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody colorScheme="white" textAlign="center">
-              <Box display='flex' flexDirection='row' justifyContent='center'>
+            <Box display="flex" flexDirection="row" justifyContent="center">
               <Box w="40em" m={2}>
-              <Link to="/login">
-                <Button h="5em" background="#374431" variant="solid">
-                  <FaUserSecret size={50} />
-                </Button>
-                <Box m={2} color="white">
-                  {isAdmin}
-                  <Text fontWeight="semibold">Anda adalah E.O</Text>
-                </Box>
+                <Link to="/login">
+                  <Button
+                    h="5em"
+                    background="#374431"
+                    variant="solid"
+                    onClick={() => {
+                      handleLogin(2);
+                      onClose();
+                    }}
+                  >
+                    <FaUserSecret size={50} />
+                  </Button>
+                  <Box m={2} color="white">
+                    {isAdmin}
+                    <Text fontWeight="semibold">Anda adalah E.O</Text>
+                  </Box>
                 </Link>
               </Box>
               <Box w="40em" m={2}>
-              <Link to="/login">
-                <Button h="5em" background="#374431">
-                  <FaUser size={50} />
-                </Button>
+                <Link to="/login">
+                  <Button
+                    h="5em"
+                    background="#374431"
+                    onClick={() => {
+                      handleLogin(1);
+                      onClose();
+                    }}
+                  >
+                    <FaUser size={50} />
+                  </Button>
                   <Box m={2} color="white">
                     {isUsers}
-                      <Text fontWeight="semibold">Anda adalah User.</Text>
+                    <Text fontWeight="semibold">Anda adalah User.</Text>
                   </Box>
-                  </Link>
+                </Link>
               </Box>
-              </Box>
+            </Box>
           </ModalBody>
         </ModalContent>
       </Modal>

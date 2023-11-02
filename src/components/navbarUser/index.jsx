@@ -18,21 +18,28 @@ import {
   Input,
   Divider,
   VStack,
+  MenuList,
+  MenuItem,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, AddIcon } from "react-icons";
-import { ReactChildren, ReactChild, useEffect, useState } from "react";
+import { ReactChildren, ReactChild } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { CgClose } from "react-icons/cg";
+import { BiChevronDownCircle } from "react-icons/bi";
 import { RiSearchLine } from "react-icons/ri";
+import React, { useState } from "react";
 import ModalLogin from "../modalLogin";
 import ModalRegister from "../modalSignup";
-
+import { useSelector, useDispatch } from "react-redux";
+import { logoutSuccess } from "../../redux/reducer/authReducer";
 
 const Links = ["Home", "Find Events", "Transaction"];
 
 const NavLink = (props) => {
+  // const { props.children }
   return (
     <Box
+      as="a"
       px={2}
       py={1}
       rounded={"md"}
@@ -47,39 +54,29 @@ const NavLink = (props) => {
   );
 };
 
-const Navbar = (props) => {
+const NavbarUser = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [height, setHeight] = useState("");
 
-  const listenScrollEvent = () => {
-    window.scrollY > 10 ? setHeight("60px") : setHeight("72px");
-  };
-
+  // const { user, isLogin } = useSelector((state) => state.AuthReducer);
+  const dispatch = useDispatch();
 
   const handleLoginClick = () => {
     setIsModalOpen(true);
   };
-
-  useEffect(() => {
-    window.addEventListener("scroll", listenScrollEvent);
-  });
   return (
     <>
       <Box
-        transition="all 0.3s ease-out"
         display="flex"
-        alignItems="center"
         justifyContent="space-between"
-        position="sticky"
+        position="fixed"
         top="0"
-        px={8}
+        px={4}
         background="#000"
-        zIndex="99"
+        zIndex="1000"
         w="100%"
-        height={height}
-        overflow="hidden"
-        backdropFilter={8}
+        height="76px"
+        mb="20em"
       >
         <Flex
           w="full"
@@ -101,39 +98,34 @@ const Navbar = (props) => {
               ))}
             </HStack>
           </HStack>
-          <HStack w="auto" gap="2em" display={{ base: "none", lg: "flex" }}>
-            {/* <Divider background="white" orientation="vertical" /> */}
-                
-            <InputGroup
-              color="white"
-              rounded="1px"
-              w="241px"
-              // display="flex"
-              // flexDirection="row"
-            >
-              <InputLeftElement
-                children={<RiSearchLine />}
-                pointerEvents="none"
-                top="50%"
-                transform="translateY(-50%)"
-              />
-              <Input type="text" placeholder="Find your events here" />
-            </InputGroup>
-            <Box>
-              <ModalRegister
-                onClick={handleLoginClick}
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(true)}
-              />
-            </Box>
-            <Box>
-              <ModalLogin
-                onClick={handleLoginClick}
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(true)}
-              />
-            </Box>
-          </HStack>
+          <Box>
+            <Flex alignItems="center">
+              <Menu>
+                <MenuButton
+                  as={Avatar}
+                  size="sm"
+                  src="https://i.pinimg.com/736x/7f/79/6d/7f796d57218d9cd81a92d9e6e8e51ce4--free-avatars-online-profile.jpg"
+                />
+                <MenuList border="none" bg="#696666">
+                  <MenuItem bg="#696666">
+                    <Text marginLeft="auto">Halo saya User</Text>
+                  </MenuItem>
+                  <MenuItem bg="#696666">
+                    <Link color="whatsapp.400" href="/navDashboard">
+                      Dashboard
+                    </Link>
+                  </MenuItem>
+                  <MenuItem bg="#696666"
+                    color="whatsapp.400"
+                    onClick={() => dispatch(logoutSuccess())}
+                  >
+                    Log Out
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+            </Flex>
+          </Box>
+
           <IconButton
             variant="unstyled"
             size={"md"}
@@ -150,33 +142,40 @@ const Navbar = (props) => {
           p={8}
           w="full"
           h="full"
-          // mt="4.5em"
-          // pb="10em"
+          mt="4.5em"
           zIndex="10"
           display={{ md: "none" }}
         >
           <VStack as={"nav"} spacing={4} color="white">
+            <InputGroup color="white" rounded="1px" w="312px">
+              <InputLeftElement
+                children={<RiSearchLine />}
+                pointerEvents="none"
+                top="50%"
+                transform="translateY(-50%)"
+              />
+              <Input type="text" placeholder="Find your events here" />
+            </InputGroup>
             {Links.map((link) => (
               <NavLink key={link}>{link}</NavLink>
             ))}
             <Divider background="white" orientation="horizontal" />
             <Flex alignItems={"center"} justifyContent="center" gap="1.5em">
-               <Box>
-              <ModalRegister
-                onClick={handleLoginClick}
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(true)}
-              />
-            </Box>
-            <Box>
-              <ModalLogin
-                onClick={handleLoginClick}
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(true)}
-              />
-            </Box>
+              <Box>
+                <ModalRegister
+                  onClick={handleLoginClick}
+                  isOpen={isModalOpen}
+                  onClose={() => setIsModalOpen(true)}
+                />
+              </Box>
+              <Box>
+                <ModalLogin
+                  onClick={handleLoginClick}
+                  isOpen={isModalOpen}
+                  onClose={() => setIsModalOpen(true)}
+                />
+              </Box>
             </Flex>
-           
           </VStack>
         </Flex>
       ) : null}
@@ -184,4 +183,4 @@ const Navbar = (props) => {
   );
 };
 
-export default Navbar;
+export default NavbarUser;

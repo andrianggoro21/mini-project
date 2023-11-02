@@ -24,7 +24,7 @@ import Event from "../../assets/images/EVENT.IN.png";
 
 //resgiter schema yup
 const RegisterSchema = Yup.object().shape({
-  name: Yup.string()
+  fullname: Yup.string()
     .min(4, "Name must be 4 characters minimum")
     .required("Name is required"),
   email: Yup.string()
@@ -47,14 +47,22 @@ const FormRegister = () => {
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
   const [registrationError, setRegistrationError] = useState(false);
 
+  const roleId = localStorage.getItem("roleId");
+
   // input data
-  const register = async (values) => {
+  const register = async (fullname, email, password) => {
+    console.log(email);
+      console.log(fullname);
+      console.log(password);
+      console.log(roleId);
     try {
-      await axios.post("http://localhost:3000/users", {
-        name: values.name,
-        email: values.email,
-        password: values.password,
+     const { data } =  await axios.post("http://localhost:8080/user/register", {
+        fullname,
+        email,
+        password,
+        roleId
       });
+      alert(data?.message);
       setRegistrationSuccess(true);
       setRegistrationError(false);
       Navigate("/login");
@@ -67,15 +75,16 @@ const FormRegister = () => {
 
   const formik = useFormik({
     initialValues: {
-      name: "",
+      fullname: "",
       email: "",
       password: "",
       confirmPassword: "",
     },
     validationSchema: RegisterSchema,
     onSubmit: (values) => {
+      
       if (formik.isValid) {
-        register(values);
+        register(values.fullname, values.email, values.password);
       }
     },
   });
@@ -135,20 +144,20 @@ const FormRegister = () => {
               Sign up
             </Heading>
             <form onSubmit={formik.handleSubmit}>
-              <FormControl isInvalid={formik.errors.name}>
+              <FormControl isInvalid={formik.errors.fullname}>
                 <FormLabel textColor="#696666">Name:</FormLabel>
                 <Input
                   bgColor="#262626"
-                  id="name"
+                  id="fullname"
                   placeholder="Enter your name"
                   type="text"
-                  name="name"
-                  value={formik.values.name}
+                  name="fullname"
+                  value={formik.values.fullname}
                   onChange={formik.handleChange}
                   border="none"
                   textColor="whatsapp.400"
                 />
-                <FormErrorMessage>{formik.errors.name}</FormErrorMessage>
+                <FormErrorMessage>{formik.errors.fullname}</FormErrorMessage>
               </FormControl>
 
               <FormControl isInvalid={formik.errors.email} mt={4}>
