@@ -26,21 +26,21 @@ import ListTicket from "../../components/listTicket";
 
 const NavDashboard = () => {
   const [event, setEvent] = useState([]);
-  const getEvent = async () => {
+  const fetchEvent = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/event");
-      setEvent(response.data);
-      console.log(response.data);
+      const response = await axios.get("http://localhost:8080/event/list-event");
+      setEvent(response.data.data);
+      console.log(response.data.data);
     } catch (err) {
       console.log(err);
     }
   };
 
   const [ticket, setTicket] = useState([]);
-  const getTicket = async () => {
+  const fetchTicket = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/ticket");
-      setTicket(response.data);
+      const response = await axios.get("http://localhost:8080/ticket/list-ticket");
+      setTicket(response.data.data);
       console.log(response.data);
     } catch (err) {
       console.log(err);
@@ -48,8 +48,8 @@ const NavDashboard = () => {
   };
 
   useEffect(() => {
-    getEvent();
-    getTicket();
+    fetchEvent();
+    fetchTicket();
   }, []);
   return (
     <>
@@ -95,6 +95,7 @@ const NavDashboard = () => {
                 </Button>
               </Link>
             </Flex>
+            {/* <ListTicket /> */}
             {ticket.length > 0 ? (
               <ListTicket />
             ) : (

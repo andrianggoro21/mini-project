@@ -19,7 +19,6 @@ const CreateTicket = () => {
       position="relative"
       w="full"
       h="auto"
-      mt="4em"
       p="2em"
       background="#121212"
       color="white"

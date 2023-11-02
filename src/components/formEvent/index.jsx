@@ -27,45 +27,89 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useFormik } from "formik";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as Yup from "yup";
 
 const EventSchema = Yup.object().shape({
-  event_name: Yup.string().required("Event name is required"),
-  category_event: Yup.string().required("Category event is required"),
-  location_event: Yup.string().required("Location is required"),
-  time_event: Yup.string().required("Duration is required"),
-  start_date_event: Yup.string().required("Start date is required"),
-  last_date_event: Yup.string().required("Last date required"),
-  description_event: Yup.string().required("Description is required"),
-  highlight_event: Yup.string().required("Highlight is required"),
-  included_event: Yup.string().required("Included is required"),
+  eventName: Yup.string().required("Event name is required"),
+  eventCategory: Yup.string().required("Category event is required"),
+  eventLocation: Yup.string().required("Location is required"),
+  eventTime: Yup.string().required("Duration is required"),
+  eventStartDate: Yup.string().required("Start date is required"),
+  eventLastDate: Yup.string().required("Last date required"),
+  eventDescription: Yup.string().required("Description is required"),
+  eventHighlight: Yup.string().required("Highlight is required"),
+  eventInclude: Yup.string().required("Included is required"),
+  // eventImage: Yup.string(),
 });
 
 const FormEvent = () => {
+  const [fieldImage, setFieldImage] = useState(null);
+  const [category, setCategory] = useState([]);
+  const [location, setLocation] = useState([]);
+  
+  const fetchCategory = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/event/list-category");
+      setCategory(response.data.data);
+      console.log(response.data.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
+  const fetchLocation = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/event/list-location");
+      setLocation(response.data.data);
+      console.log(response.data.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
+  useEffect(() => {
+    fetchCategory();
+    fetchLocation();
+  }, []);
+
   const formEvent = async (
-    event_name,
-    category_event,
-    location_event,
-    time_event,
-    start_date_event,
-    last_date_event,
-    description_event,
-    highlight_event,
-    included_event
+    eventName,
+    categoryId,
+    locationId,
+    time,
+    startDate,
+    endDate,
+    description,
+    highlight,
+    include,
   ) => {
     try {
-      await axios.post("http://localhost:3000/event", {
-        event_name,
-        category_event,
-        location_event,
-        time_event,
-        start_date_event,
-        last_date_event,
-        description_event,
-        highlight_event,
-        included_event,
-      });
+      let formData = new FormData();
+      formData.append("eventName", eventName);
+      formData.append("eventCategory", categoryId);
+      formData.append("eventLocation", locationId);
+      formData.append("eventTime", time);
+      formData.append("eventStartDate", startDate);
+      formData.append("eventLastDate", endDate);
+      formData.append("eventDescription", description);
+      formData.append("eventHighlight", highlight);
+      formData.append("eventInclude", include);
+      formData.append("image", fieldImage);
+      await axios.post("http://localhost:8080/event/add-event", 
+      // await axios.post("http://localhost:8000/event", {
+        // eventName,
+        // categoryId,
+        // locationId,
+        // time,
+        // startDate,
+        // endDate,
+        // description,
+        // highlight,
+        // include,
+        // fieldImage,
+        formData
+      );
       alert("Create Event Success");
     } catch (err) {
       // console.log(err);
@@ -75,63 +119,33 @@ const FormEvent = () => {
 
   const formik = useFormik({
     initialValues: {
-      event_name: "",
-      category_event: "",
-      location_event: "",
-      time_event: "",
-      start_date_event: "",
-      last_date_event: "",
-      description_event: "",
-      highlight_event: "",
-      included_event: "",
+      eventName: "",
+      eventCategory: "",
+      eventLocation: "",
+      eventTime: "",
+      eventStartDate: "",
+      eventLastDate: "",
+      eventDescription: "",
+      eventHighlight: "",
+      eventInclude: "",
+      eventImage: null,
     },
 
     validationSchema: EventSchema,
     onSubmit: (values) => {
       formEvent(
-        values.event_name,
-        values.category_event,
-        values.location_event,
-        values.time_event,
-        values.start_date_event,
-        values.last_date_event,
-        values.description_event,
-        values.highlight_event,
-        values.included_event
+        values.eventName,
+        values.eventCategory,
+        values.eventLocation,
+        values.eventTime,
+        values.eventStartDate,
+        values.eventLastDate,
+        values.eventDescription,
+        values.eventHighlight,
+        values.eventInclude,
       );
     },
   });
-
-  const list_category = [
-    {
-      label: "Music",
-      value: "music",
-    },
-    {
-      label: "Food and Drink",
-      value: "food_and_drink",
-    },
-    {
-      label: "Culture",
-      value: "culture",
-    },
-    {
-      label: "Art",
-      value: "art",
-    },
-    {
-      label: "Holiday",
-      value: "holiday",
-    },
-    {
-      label: "Sport",
-      value: "sport",
-    },
-    {
-      label: "Horror",
-      value: "horror",
-    },
-  ];
 
   return (
     <>
@@ -146,8 +160,8 @@ const FormEvent = () => {
           justifyContent="space-between"
         >
           <Stack spacing={5} w={{ base: "full", lg: "50%" }} h="full">
-            <Text>Upload Image</Text>
-            <Flex gap="1em">
+            {/* <Text>Upload Image</Text> */}
+            {/* <Flex gap="1em">
               <Box
                 display="flex"
                 alignItems="center"
@@ -185,18 +199,32 @@ const FormEvent = () => {
                   Remove
                 </Button>
               </Flex>
-            </Flex>
-            {/* <FormControl>
-              <InputGroup>
-              <Input
-                // background="#262626"
-                // color="#585454"
-                border="0"
-              id="image" type="file" name="image" />
-              </InputGroup>
-            </FormControl> */}
+            </Flex> */}
+            
             <FormControl
-              isInvalid={formik.touched.event_name && formik.errors.event_name}
+              isInvalid={formik.touched.eventImage && formik.errors.eventImage}
+            >
+              <FormLabel>Upload Image</FormLabel>
+              <InputGroup>
+                <Input
+                  background="#262626"
+                  color="#585454"
+                  border="0"
+                  placeholder="Upload Image"
+                  type="file"
+                  name="image"
+                  value={formik.values.eventImage}
+                  onChange={(event) => {
+                    setFieldImage(event.currentTarget.files[0]);}}
+                  // onChange={formik.handleChange}
+                ></Input>
+              </InputGroup>
+              {formik.touched.eventImage && formik.errors.eventImage && (
+                <FormErrorMessage>{formik.errors.eventImage}</FormErrorMessage>
+              )}
+            </FormControl>
+            <FormControl
+              isInvalid={formik.touched.eventName && formik.errors.eventName}
             >
               <FormLabel>Event Name</FormLabel>
               <InputGroup>
@@ -206,77 +234,94 @@ const FormEvent = () => {
                   border="0"
                   placeholder="Type event's here name here"
                   type="text"
-                  name="event_name"
-                  value={formik.values.event_name}
+                  name="eventName"
+                  value={formik.values.eventName}
                   onChange={formik.handleChange}
                 ></Input>
               </InputGroup>
-              {formik.touched.event_name && formik.errors.event_name && (
-                <FormErrorMessage>{formik.errors.event_name}</FormErrorMessage>
+              {formik.touched.eventName && formik.errors.eventName && (
+                <FormErrorMessage>{formik.errors.eventName}</FormErrorMessage>
               )}
             </FormControl>
             <FormControl
             // isInvalid={
-            //   formik.touched.category_event && formik.errors.category_event
+            //   formik.touched.eventCategory && formik.errors.eventCategory
             // }
             >
               <FormLabel>Category Event</FormLabel>
               <InputGroup>
                 <Select
-                  name="category_event"
+                  name="eventCategory"
                   background="#262626"
                   color="#585454"
                   border="0"
                   placeholder="Select category event"
-                  value={formik.values.category_event}
+                  value={formik.values.eventCategory}
                   onChange={formik.handleChange}
                 >
-                  {list_category.map((item, index) => (
+                  {category.map((item, index) => (
                     <option
                       key={index}
-                      value={item.value}
+                      value={item.id}
                       style={{ color: "black" }}
                     >
-                      {item.label}
+                      {item.categoryName}
                     </option>
                   ))}
                 </Select>
               </InputGroup>
-              {/* {formik.touched.category_event &&
-                formik.errors.category_event && (
+              {/* {formik.touched.eventCategory &&
+                formik.errors.eventCategory && (
                   <FormErrorMessage>
-                    {formik.errors.category_event}
+                    {formik.errors.eventCategory}
                   </FormErrorMessage>
                 )} */}
             </FormControl>
 
             <FormControl
               isInvalid={
-                formik.touched.location_event && formik.errors.location_event
+                formik.touched.eventLocation && formik.errors.eventLocation
               }
             >
               <FormLabel>Location</FormLabel>
               <InputGroup>
-                <Input
+                {/* <Input
                   background="#262626"
                   color="#585454"
                   border="0"
                   placeholder="Select the location of event"
                   type="text"
-                  name="location_event"
-                  value={formik.values.location_event}
+                  name="eventLocation"
+                  value={formik.values.eventLocation}
                   onChange={formik.handleChange}
-                ></Input>
+                ></Input> */}
+                <Select
+                  name="eventLocation"
+                  background="#262626"
+                  color="#585454"
+                  border="0"
+                  placeholder="Select category event"
+                  value={formik.values.eventLocation}
+                  onChange={formik.handleChange}
+                >
+                  {location.map((item, index) => (
+                    <option key={index} value={item.id} 
+                    style={{ color: "black" }}
+                    >
+                      {item.locationName}
+                    </option>
+                  ))}
+                </Select>
               </InputGroup>
-              {formik.touched.location_event &&
-                formik.errors.location_event && (
+              {formik.touched.eventLocation &&
+                formik.errors.eventLocation && (
                   <FormErrorMessage>
-                    {formik.errors.location_event}
+                    {formik.errors.eventLocation}
                   </FormErrorMessage>
                 )}
             </FormControl>
             <FormControl
-              isInvalid={formik.touched.time_event && formik.errors.time_event}
+              isInvalid={formik.touched.eventTime && formik.errors.eventTime}
             >
               <FormLabel>Time</FormLabel>
               <InputGroup>
@@ -287,47 +332,20 @@ const FormEvent = () => {
                   placeholder="Type time of event"
                   type="time"
                   step={1}
-                  name="time_event"
-                  value={formik.values.time_event}
+                  name="eventTime"
+                  value={formik.values.eventTime}
                   onChange={formik.handleChange}
                 ></Input>
               </InputGroup>
-              {formik.touched.time_event && formik.errors.time_event && (
-                <FormErrorMessage>{formik.errors.time_event}</FormErrorMessage>
+              {formik.touched.eventTime && formik.errors.eventTime && (
+                <FormErrorMessage>{formik.errors.eventTime}</FormErrorMessage>
               )}
             </FormControl>
             <Flex gap="1em">
               <FormControl
                 isInvalid={
-                  formik.touched.start_date_event &&
-                  formik.errors.start_date_event
-                }
-              >
-                <FormLabel>Start Date</FormLabel>
-                <InputGroup>
-                  <Input
-                    background="#262626"
-                    color="#585454"
-                    border="0"
-                    placeholder="Select the start date"
-                    type="date"
-                    name="start_date_event"
-                    value={formik.values.start_date_event}
-                    onChange={formik.handleChange}
-                  ></Input>
-                </InputGroup>
-                {formik.touched.start_date_event &&
-                  formik.errors.start_date_event && (
-                    <FormErrorMessage>
-                      {formik.errors.start_date_event}
-                    </FormErrorMessage>
-                  )}
-              </FormControl>
-
-              <FormControl
-                isInvalid={
-                  formik.touched.last_date_event &&
-                  formik.errors.last_date_event
+                  formik.touched.eventStartDate &&
+                  formik.errors.eventStartDate
                 }
               >
                 <FormLabel>Last Date</FormLabel>
@@ -338,15 +356,41 @@ const FormEvent = () => {
                     border="0"
                     placeholder="Select the last date"
                     type="date"
-                    name="last_date_event"
-                    value={formik.values.last_date_event}
+                    name="eventStartDate"
+                    value={formik.values.eventStartDate}
                     onChange={formik.handleChange}
                   ></Input>
                 </InputGroup>
-                {formik.touched.last_date_event &&
-                  formik.errors.last_date_event && (
+                {formik.touched.eventStartDate &&
+                  formik.errors.eventStartDate && (
                     <FormErrorMessage>
-                      {formik.errors.last_date_event}
+                      {formik.errors.eventStartDate}
+                    </FormErrorMessage>
+                  )}
+              </FormControl>
+              <FormControl
+                isInvalid={
+                  formik.touched.eventLastDate &&
+                  formik.errors.eventLastDate
+                }
+              >
+                <FormLabel>Last Date</FormLabel>
+                <InputGroup>
+                  <Input
+                    background="#262626"
+                    color="#585454"
+                    border="0"
+                    placeholder="Select the last date"
+                    type="date"
+                    name="eventLastDate"
+                    value={formik.values.eventLastDate}
+                    onChange={formik.handleChange}
+                  ></Input>
+                </InputGroup>
+                {formik.touched.eventLastDate &&
+                  formik.errors.eventLastDate && (
+                    <FormErrorMessage>
+                      {formik.errors.eventLastDate}
                     </FormErrorMessage>
                   )}
               </FormControl>
@@ -355,8 +399,8 @@ const FormEvent = () => {
           <Stack w={{ base: "full", lg: "50%" }} justifyContent="space-between">
             <FormControl
               isInvalid={
-                formik.touched.description_event &&
-                formik.errors.description_event
+                formik.touched.eventDescription &&
+                formik.errors.eventDescription
               }
             >
               <FormLabel>Description</FormLabel>
@@ -367,22 +411,22 @@ const FormEvent = () => {
                   border="0"
                   h="20.5em"
                   placeholder="Type description here"
-                  name="description_event"
-                  value={formik.values.description_event}
+                  name="eventDescription"
+                  value={formik.values.eventDescription}
                   onChange={formik.handleChange}
                 />
               </InputGroup>
-              {formik.touched.description_event &&
-                formik.errors.description_event && (
+              {formik.touched.eventDescription &&
+                formik.errors.eventDescription && (
                   <FormErrorMessage>
-                    {formik.errors.description_event}
+                    {formik.errors.eventDescription}
                   </FormErrorMessage>
                 )}
             </FormControl>
 
             <FormControl
               isInvalid={
-                formik.touched.highlight_event && formik.errors.highlight_event
+                formik.touched.eventHighlight && formik.errors.eventHighlight
               }
             >
               <FormLabel>Highlight</FormLabel>
@@ -393,21 +437,21 @@ const FormEvent = () => {
                   border="0"
                   h="7em"
                   placeholder="Type highlight here"
-                  name="highlight_event"
-                  value={formik.values.highlight_event}
+                  name="eventHighlight"
+                  value={formik.values.eventHighlight}
                   onChange={formik.handleChange}
                 />
               </InputGroup>
-              {formik.touched.highlight_event &&
-                formik.errors.highlight_event && (
+              {formik.touched.eventHighlight &&
+                formik.errors.eventHighlight && (
                   <FormErrorMessage>
-                    {formik.errors.highlight_event}
+                    {formik.errors.eventHighlight}
                   </FormErrorMessage>
                 )}
             </FormControl>
             <FormControl
               isInvalid={
-                formik.touched.included_event && formik.errors.included_event
+                formik.touched.eventInclude && formik.errors.eventInclude
               }
             >
               <FormLabel>What's Included</FormLabel>
@@ -418,15 +462,15 @@ const FormEvent = () => {
                   border="0"
                   h="7em"
                   placeholder="Type what's included here"
-                  name="included_event"
-                  value={formik.values.included_event}
+                  name="eventInclude"
+                  value={formik.values.eventInclude}
                   onChange={formik.handleChange}
                 />
               </InputGroup>
-              {formik.touched.included_event &&
-                formik.errors.included_event && (
+              {formik.touched.eventInclude &&
+                formik.errors.eventInclude && (
                   <FormErrorMessage>
-                    {formik.errors.included_event}
+                    {formik.errors.eventInclude}
                   </FormErrorMessage>
                 )}
             </FormControl>

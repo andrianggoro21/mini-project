@@ -11,30 +11,372 @@
       "highlight_event": "bhdbfhbhbhbj",
       "included_event": "eberbererberhgbegherbgehj",
       "id": 1
+    },
+    {
+      "event_name": "Konser Ambyar 2",
+      "category_event": "music",
+      "location_event": "Jogja",
+      "time_event": "18:20:00",
+      "start_date_event": "2023-10-29",
+      "last_date_event": "2023-10-31",
+      "description_event": "eoiwfjwoeidweorho",
+      "highlight_event": "oewfheihwi",
+      "included_event": "eowfhweiofhweidow",
+      "id": 2
+    },
+    {
+      "event_name": "Konser Ambyar 3",
+      "category_event": "music",
+      "location_event": "Jogja",
+      "time_event": "18:20:00",
+      "start_date_event": "2023-10-29",
+      "last_date_event": "2023-10-31",
+      "description_event": "eoiwfjwoeidweorho",
+      "highlight_event": "oewfheihwi",
+      "included_event": "eowfhweiofhweidow",
+      "id": 3
+    },
+    {
+      "event_name": "Konser Ambyar 4",
+      "category_event": "music",
+      "location_event": "Jogja",
+      "time_event": "18:20:00",
+      "start_date_event": "2023-10-29",
+      "last_date_event": "2023-10-31",
+      "description_event": "eoiwfjwoeidweorho",
+      "highlight_event": "oewfheihwi",
+      "included_event": "eowfhweiofhweidow",
+      "id": 4
+    },
+    {
+      "event_name": "Konser Ambyar 5",
+      "category_event": "music",
+      "location_event": "Jogja",
+      "time_event": "18:20:00",
+      "start_date_event": "2023-10-29",
+      "last_date_event": "2023-10-31",
+      "description_event": "eoiwfjwoeidweorho",
+      "highlight_event": "oewfheihwi",
+      "included_event": "eowfhweiofhweidow",
+      "id": 5
+    },
+    {
+      "event_name": "Konser Ambyar 6",
+      "category_event": "music",
+      "location_event": "Jogja",
+      "time_event": "18:20:00",
+      "start_date_event": "2023-10-29",
+      "last_date_event": "2023-10-31",
+      "description_event": "eoiwfjwoeidweorho",
+      "highlight_event": "oewfheihwi",
+      "included_event": "eowfhweiofhweidow",
+      "id": 6
+    },
+    {
+      "event_name": "Konser Ambyar 7",
+      "category_event": "music",
+      "location_event": "Jogja",
+      "time_event": "18:20:00",
+      "start_date_event": "2023-10-29",
+      "last_date_event": "2023-10-31",
+      "description_event": "eoiwfjwoeidweorho",
+      "highlight_event": "oewfheihwi",
+      "included_event": "eowfhweiofhweidow",
+      "id": 7
+    },
+    {
+      "event_name": "Konser Ambyar 8",
+      "category_event": "music",
+      "location_event": "Jogja",
+      "time_event": "18:20:00",
+      "start_date_event": "2023-10-29",
+      "last_date_event": "2023-10-31",
+      "description_event": "eoiwfjwoeidweorho",
+      "highlight_event": "oewfheihwi",
+      "included_event": "eowfhweiofhweidow",
+      "id": 8
+    },
+    {
+      "event_name": "Konser Ambyar 9",
+      "category_event": "music",
+      "location_event": "Jogja",
+      "time_event": "18:20:00",
+      "start_date_event": "2023-10-29",
+      "last_date_event": "2023-10-31",
+      "description_event": "eoiwfjwoeidweorho",
+      "highlight_event": "oewfheihwi",
+      "included_event": "eowfhweiofhweidow",
+      "id": 9
+    },
+    {
+      "event_name": "Konser Ambyar 10",
+      "category_event": "music",
+      "location_event": "Jogja",
+      "time_event": "18:20:00",
+      "start_date_event": "2023-10-29",
+      "last_date_event": "2023-10-31",
+      "description_event": "eoiwfjwoeidweorho",
+      "highlight_event": "oewfheihwi",
+      "included_event": "eowfhweiofhweidow",
+      "id": 10
+    },
+    {
+      "event_name": "Konser Ambyar 11",
+      "category_event": "music",
+      "location_event": "Jogja",
+      "time_event": "18:20:00",
+      "start_date_event": "2023-10-29",
+      "last_date_event": "2023-10-31",
+      "description_event": "eoiwfjwoeidweorho",
+      "highlight_event": "oewfheihwi",
+      "included_event": "eowfhweiofhweidow",
+      "id": 11
+    },
+    {
+      "event_name": "Konser Ambyar 12",
+      "category_event": "music",
+      "location_event": "Jogja",
+      "time_event": "18:20:00",
+      "start_date_event": "2023-10-29",
+      "last_date_event": "2023-10-31",
+      "description_event": "eoiwfjwoeidweorho",
+      "highlight_event": "oewfheihwi",
+      "included_event": "eowfhweiofhweidow",
+      "id": 12
+    },
+    {
+      "eventName": "Konser Ambyar 1",
+      "id": 13
+    },
+    {
+      "eventName": "Konser Ambyar 1",
+      "categoryId": "1",
+      "id": 14
+    },
+    {
+      "eventName": "Konser Ambyar 1",
+      "categoryId": "4",
+      "id": 15
+    },
+    {
+      "eventName": "Konser Ambyar 1",
+      "categoryId": "6",
+      "id": 16
     }
   ],
   "ticket": [
     {
-      "select_event": "ambyar",
+      "select_event": "1",
       "type_ticket": "free",
-      "price_free_ticket": "-",
-      "price_reguler_ticket": "-",
-      "price_vip_ticket": "-",
-      "discount": "-",
-      "max_refferal": "-",
-      "capacity_event": 4,
+      "free_price_ticket": "",
+      "reguler_price": "",
+      "reguler_capacity": "",
+      "vip_price_ticket": "",
+      "discount": "",
+      "max_refferal": "",
+      "event_capacity": 100,
       "id": 1
     },
     {
-      "select_event": "ambyar",
-      "type_ticket": "paid",
-      "price_free_ticket": "-",
-      "price_reguler_ticket": 200000,
-      "price_vip_ticket": 500000,
-      "discount": 100000,
-      "max_refferal": 10,
-      "capacity_event": 10,
+      "select_event": "5",
+      "type_ticket": "free",
+      "free_price_ticket": "",
+      "reguler_price": "",
+      "reguler_capacity": "",
+      "vip_price_ticket": "",
+      "discount": "",
+      "max_refferal": "",
+      "event_capacity": 500,
       "id": 2
+    },
+    {
+      "eventId": "1",
+      "id": 3
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "id": 4
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "id": 5
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "geratis",
+      "id": 6
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "geratis",
+      "id": 7
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "geratis",
+      "id": 8
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "freee",
+      "id": 9
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "freee",
+      "id": 10
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "freee",
+      "price": "",
+      "id": 11
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "free",
+      "price": 0,
+      "id": 12
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "free",
+      "price": 0,
+      "id": 13
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "free",
+      "price": 0,
+      "capacity": 57,
+      "id": 14
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "free",
+      "price": 0,
+      "capacity": 65,
+      "id": 15
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "gratiss",
+      "price": 0,
+      "capacity": 71,
+      "id": 16
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "gratiss",
+      "price": 0,
+      "capacity": 71,
+      "id": 17
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "gratiss",
+      "price": 0,
+      "capacity": 71,
+      "id": 18
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "gratiz",
+      "price": 0,
+      "capacity": 71,
+      "id": 19
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "gratiz",
+      "price": 0,
+      "capacity": 71,
+      "id": 20
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "gratiz",
+      "price": 0,
+      "capacity": 71,
+      "id": 21
+    },
+    {
+      "eventId": "1",
+      "ticketTypeId": "1",
+      "ticketName": "gratiz",
+      "price": 0,
+      "capacity": 71,
+      "id": 22
+    },
+    {
+      "eventId": "2",
+      "ticketTypeId": "2",
+      "id": 23
+    },
+    {
+      "eventId": "2",
+      "ticketTypeId": "2",
+      "ticketName": "VIP",
+      "id": 24
+    },
+    {
+      "eventId": "2",
+      "ticketTypeId": "2",
+      "ticketName": "VIP",
+      "price": 300000,
+      "id": 25
+    },
+    {
+      "eventId": "3",
+      "ticketTypeId": "2",
+      "ticketName": "Reguler",
+      "price": 2000,
+      "id": 26
+    },
+    {
+      "eventId": "3",
+      "ticketTypeId": "2",
+      "ticketName": "Reguler",
+      "price": 2000,
+      "capacity": 497,
+      "id": 27
+    },
+    {
+      "eventId": "3",
+      "ticketTypeId": "2",
+      "ticketName": "Reguler",
+      "price": 2000,
+      "capacity": 497,
+      "discount": 100,
+      "id": 28
+    },
+    {
+      "eventId": "3",
+      "ticketTypeId": "2",
+      "ticketName": "Reguler",
+      "price": 2000,
+      "capacity": 497,
+      "discount": 100,
+      "maxReferral": 10,
+      "id": 29
     }
   ]
 }
