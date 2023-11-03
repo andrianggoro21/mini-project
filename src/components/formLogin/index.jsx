@@ -43,7 +43,8 @@ const BoxLogin = () => {
   const Navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const toast = useToast()
+  const toast = useToast();
+  const statuses = ['success', 'error'];
 
   const login = async (email, password) => {
       try {
@@ -67,7 +68,15 @@ const BoxLogin = () => {
         Navigate("/")
       } catch (err) {
         console.log(err);
-        alert(err?.response?.data);
+        // alert(err?.response?.data);
+        toast({
+          title: 'The email you entered is not registered',
+          description: err?.response?.data,
+          status: 'error',
+          duration: 6000,
+          isClosable: false,
+          position: 'top',
+        })
         Navigate("/register")
         // throw err
       }
