@@ -52,7 +52,7 @@ const FormEvent = () => {
     try {
       const response = await axios.get("http://localhost:8080/event/list-category");
       setCategory(response.data.data);
-      console.log(response.data.data);
+      // console.log(response.data.data);
     } catch (err) {
       console.log(err);
     }
@@ -62,7 +62,7 @@ const FormEvent = () => {
     try {
       const response = await axios.get("http://localhost:8080/event/list-location");
       setLocation(response.data.data);
-      console.log(response.data.data);
+      // console.log(response.data.data);
     } catch (err) {
       console.log(err);
     }
@@ -96,7 +96,7 @@ const FormEvent = () => {
       formData.append("eventHighlight", highlight);
       formData.append("eventInclude", include);
       formData.append("image", fieldImage);
-      await axios.post("http://localhost:8080/event/add-event", 
+      const res = await axios.post("http://localhost:8080/event/add-event", 
       // await axios.post("http://localhost:8000/event", {
         // eventName,
         // categoryId,
@@ -111,6 +111,7 @@ const FormEvent = () => {
         formData
       );
       alert("Create Event Success");
+      console.log(res);
     } catch (err) {
       // console.log(err);
       alert("Error");

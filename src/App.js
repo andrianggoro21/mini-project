@@ -22,6 +22,8 @@ import SearchPage from "./pages/search";
 import Auth from "./components/auth";
 import NavbarUser from "./components/navbarUser";
 import { useSelector, useDispatch } from "react-redux";
+import Transaction from "./pages/transaction";
+import NewSuccess from "./pages/success"
 
 function App() {
   const dispatch = useDispatch();
@@ -38,9 +40,11 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard/event-form" element={<CreateEvent />} />
           <Route path="/event" element={<Event />} />
+          <Route path="/transaction" element={<Transaction />} />
           <Route path="/transaction/waiting" element={<Waiting />} />
           <Route path="/transaction/success" element={<Success />} />
           <Route path="/attendance" element={<Attendance />} />
+          <Route path="/success" element={<NewSuccess/>} />
           <Route exact path="/register" element={<FormRegister />} />
           <Route exact path="/modal-register" element={<ModalRegister />} />
           {/* <Route element={<ModalLogin />} path="/modal-login" /> */}

@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  value: 1,
+  value: 0,
   valueV: 0,
   ticket: [1]
-};
+}
 
 export const quantitySlice = createSlice({
   name: "quantity",
@@ -19,8 +19,8 @@ export const quantitySlice = createSlice({
       }
     },
     decrement: (state) => {
-      if (state.value === 1) {
-        state.value = 1;
+      if (state.value === 0) {
+        state.value = 0;
       } else {
         state.value -= 1;
         state.ticket.pop();
@@ -35,8 +35,8 @@ export const quantitySlice = createSlice({
       }
     },
     decrementVvip: (state) => {
-      if (state.valueV === 1) {
-        state.valueV = 1;
+      if (state.valueV === 0) {
+        state.valueV = 0;
       } else {
         state.valueV -= 1;
         state.ticket.pop();

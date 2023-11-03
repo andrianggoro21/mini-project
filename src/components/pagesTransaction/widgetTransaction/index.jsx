@@ -1,0 +1,211 @@
+import {
+  Box,
+  Text,
+  Card,
+  CardBody,
+  Image,
+  Button,
+  Input,
+} from "@chakra-ui/react";
+import banner from "../../../assets/images/banner1.png";
+import Cal from "../../../assets/images/calendar.png";
+import Loc from "../../../assets/images/location.png";
+import Time from "../../../assets/images/time.png";
+import Plus from "../../../assets/images/plus.png";
+import Minus from "../../../assets/images/minus.png";
+import Upload from "../../../assets/images/upload.png";
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+} from "@chakra-ui/react";
+import {
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  FormHelperText,
+} from "@chakra-ui/react";
+import Bca from "../../../assets/images/bca.png";
+import axios from "axios";
+import { useFormik } from "formik";
+import { useState } from "react";
+
+const WidgetTransaction = () => {
+  const [fieldImage, setFieldImage] = useState(null);
+  const [statusId, setStatusId] = useState(2)
+
+  const attendanceId = localStorage.getItem("attendance");
+
+  // const inputTransaction = async () => {
+  //   try {
+  //     await axios.post("http://localhost:8080/transaction", {
+  //       attendanceId: attendance,
+  //       transactionStatusId: 2,
+  //     });
+  //     alert("Input Success");
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+  const formTransaction = async (attendanceId, transactionStatusId) => {
+    try {
+      let formData = new FormData();
+      formData.append("attendanceId", attendanceId);
+      formData.append("transactionStatusId", transactionStatusId);
+      formData.append("image", fieldImage);
+     const res =  await axios.post(
+        "http://localhost:8080/transaction",
+        formData
+      );
+      alert("Create Event Success");
+      console.log(res);
+    } catch (err) {
+      // console.log(err);
+      alert("Error");
+    }
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      image: null,
+    },
+
+    // validationSchema: EventSchema,
+    onSubmit: (values) => {
+      formTransaction(attendanceId, statusId)
+    },
+  });
+  return (
+    <Box>
+      <Text color="#ffffff" fontSize="18px" fontWeight="700">
+        Transaction Details
+      </Text>
+      <Card w="full" margin="20px 0 20px 0" bgColor="#1E1E1E">
+        <CardBody>
+          <Box display="flex" gap="16px">
+            <Box display={{ base: "none", md: "block" }}>
+              <Image w="300px" borderRadius="10px" src={banner} />
+            </Box>
+            <Box display="flex" flexDirection="column" gap="10px">
+              <Text color="#ffffff" fontSize="16px" fontWeight="700">
+                Ambyar Concert Yogyakarta 2023
+              </Text>
+              <Box display="flex" flexDirection="column" gap="6px">
+                <Box display="flex" alignItems="center" gap="10px">
+                  <Image src={Cal} />
+                  <Text color="#bcbcbc" fontSize="14px">
+                    1 - 4 October 2023
+                  </Text>
+                </Box>
+                <Box display="flex" alignItems="center" gap="10px">
+                  <Image src={Time} />
+                  <Text color="#bcbcbc" fontSize="14px">
+                    15:00 - 23:00 WIB
+                  </Text>
+                </Box>
+                <Box display="flex" alignItems="center" gap="10px">
+                  <Image src={Loc} />
+                  <Text color="#bcbcbc" fontSize="14px">
+                    Yogyakarta, Indonesia
+                  </Text>
+                </Box>
+              </Box>
+            </Box>
+          </Box>
+          <Box bgColor="#353535" w="full" h="2px" margin="32px 0 14px 0" />
+          <Box color="#ffffff">
+            <Text>Personal Data</Text>
+          </Box>
+          <Box>
+            <TableContainer>
+              <Table variant="unstyled" color="#ffffff" fontSize="14px">
+                <Tbody display="flex" gap="20px">
+                  <Td display="flex" flexDirection="column" gap="10px">
+                    <Tr>Full Name</Tr>
+                    <Tr>Email</Tr>
+                    <Tr>Phone Number</Tr>
+                  </Td>
+                  <Td display="flex" flexDirection="column" gap="10px">
+                    <Tr>: Full Name</Tr>
+                    <Tr>: Email</Tr>
+                    <Tr>: Phone Number</Tr>
+                  </Td>
+                </Tbody>
+              </Table>
+            </TableContainer>
+          </Box>
+          <Box margin="20px 0 20px 0">
+            <Text color="#ffffff" marginBottom="15px">
+              Payment Method VA
+            </Text>
+            <Box color="#ffffff" display="flex" gap="24px">
+              <Image w="80px" src={Bca} />
+              <Text>1234081234567890</Text>
+            </Box>
+          </Box>
+          <Box margin="20px 0 20px 0">
+            <Text color="#ffffff" marginBottom="10px">
+              Upload File Payment
+            </Text>
+            <form onSubmit={formik.handleSubmit}>
+              <Box
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                gap="10px"
+                border="1px dashed #ffffff"
+                borderRadius="10px"
+                padding="20px"
+              >
+                <FormControl>
+                  <Box width="full" display="flex" justifyContent="center">
+                    <Box>
+                      <Image src={Upload} />
+                      <Input
+                        type="file"
+                        position="absolute"
+                        top="2"
+                        left="250"
+                        width="100px"
+                        height="50px"
+                        // opacity="0"
+                        name="image"
+                        value={formik.values.eventImage}
+                        onChange={(event) => {
+                          setFieldImage(event.currentTarget.files[0]);
+                        }}
+                      ></Input>
+                    </Box>
+                  </Box>
+                </FormControl>
+                <Button size="md" type="submit">
+                  Upload
+                </Button>
+              </Box>
+              <Box
+                margin="20px 0 0 0"
+                w="full"
+                display="flex"
+                alignItems="center"
+                justifyContent="flex-end"
+              >
+                <Button size="md" colorScheme="red">
+                  Cancel
+                </Button>
+              </Box>
+            </form>
+          </Box>
+
+          <Box bgColor="#353535" w="full" h="2px" margin="14px 0 14px 0" />
+        </CardBody>
+      </Card>
+    </Box>
+  );
+};
+export default WidgetTransaction;

@@ -7,6 +7,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { decrementVvip, incrementVvip, increment, decrement } from "../../../redux/reducers/attendance";
 
 const Packages = ({date, regular, premium}) => {
+  const jmlRegular = () => {
+    localStorage.setItem("regular", 1)
+  }
+  const JmlVvip = () => {
+    localStorage.setItem("vvip", 1)
+  }
+
   const dispatch = useDispatch();
   return (
     <Box>
@@ -96,7 +103,7 @@ const Packages = ({date, regular, premium}) => {
           </Box>
           <Box>
             <Link to="/attendance">
-              <Button bgColor="#3C891C" color="#ffffff" padding="10px" onClick={dispatch(increment())}>
+              <Button bgColor="#3C891C" color="#ffffff" padding="10px" onClick={dispatch(jmlRegular)}>
                 Select Tickect
               </Button>
             </Link>
@@ -156,7 +163,7 @@ const Packages = ({date, regular, premium}) => {
           </Box>
           <Box>
             <Link to="/attendance">
-              <Button bgColor="#3C891C" color="#ffffff" padding="10px" onClick={dispatch(incrementVvip())}>
+              <Button bgColor="#3C891C" color="#ffffff" padding="10px" onClick={dispatch(JmlVvip)}>
                 Select Tickect
               </Button>
             </Link>

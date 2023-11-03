@@ -4,13 +4,16 @@ import Point from "../../../assets/images/point.png";
 import Qr from "../../../assets/images/qrcode.png";
 import IconSuccess from "../../../assets/images/success.png";
 import { useSelector } from "react-redux";
+import QRCode from 'qrcode.react';
 
 const CardTicket = () => {
   const form = useSelector((state) => state.quantity.ticket);
+  const code = localStorage.getItem("qrcode")
   return (
     <>
       {form.map((item, index) => (
         <Box>
+          <Text color="#ffffff" fontSize='20px' fontWeight='700' marginBottom='20px'>Regular Ticket</Text>
           <Card maxW="sm" bgColor="#1E1E1E" padding="20px">
             <CardBody>
               <Box
@@ -54,12 +57,13 @@ const CardTicket = () => {
                 gap="14px"
               >
                 <Text color="#ffffff" fontSize="16px" fontWeight="400">
-                  Andri Anggoro
+                  {code}
                 </Text>
                 <Text color="#ffffff" fontSize="16px" fontWeight="400">
                   Regular
                 </Text>
-                <Image src={Qr} />
+                {/* <Image src={Qr} /> */}
+                <QRCode value={code} bgColor="#ffffff"/>
                 <Text color="#ffffff" fontSize="16px" fontWeight="400">
                   IDR 200.000
                 </Text>
