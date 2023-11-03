@@ -87,14 +87,15 @@ const FormEvent = () => {
     try {
       let formData = new FormData();
       formData.append("eventName", eventName);
-      formData.append("eventCategory", categoryId);
-      formData.append("eventLocation", locationId);
-      formData.append("eventTime", time);
-      formData.append("eventStartDate", startDate);
-      formData.append("eventLastDate", endDate);
-      formData.append("eventDescription", description);
-      formData.append("eventHighlight", highlight);
-      formData.append("eventInclude", include);
+      formData.append("categoryId", categoryId);
+      formData.append("locationId", locationId);
+      formData.append("locationId", locationId);
+      formData.append("time", time);
+      formData.append("startDate", startDate);
+      formData.append("endDate", endDate);
+      formData.append("description", description);
+      formData.append("highlight", highlight);
+      formData.append("include", include);
       formData.append("image", fieldImage);
       const res = await axios.post("http://localhost:8080/event/add-event", 
       // await axios.post("http://localhost:8000/event", {
