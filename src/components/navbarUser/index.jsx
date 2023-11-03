@@ -57,6 +57,7 @@ const NavLink = (props) => {
 const NavbarUser = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { user } = useSelector((state) => state.AuthReducer);
 
   // const { user, isLogin } = useSelector((state) => state.AuthReducer);
   const dispatch = useDispatch();
@@ -108,7 +109,7 @@ const NavbarUser = () => {
                 />
                 <MenuList border="none" bg="#696666">
                   <MenuItem bg="#696666">
-                    <Text marginLeft="auto">Halo saya User</Text>
+                    <Text fontWeight="bold">Halo saya {user.fullname} 👋</Text>
                   </MenuItem>
                   <MenuItem bg="#696666">
                     <Link color="whatsapp.400" href="/navDashboard">

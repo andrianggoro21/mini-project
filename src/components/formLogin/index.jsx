@@ -55,7 +55,15 @@ const BoxLogin = () => {
         localStorage.setItem("token", res?.data?.data?.token);
         dispatch(setUser(res?.data?.data?.user));
         dispatch(loginSuccess());
-        alert(res?.data?.message);
+        // alert(res?.data?.message);
+        toast({
+          title: 'Login Success',
+          description: res?.data?.message,
+          status: 'success',
+          duration: 4000,
+          isClosable: false,
+          position: 'top',
+        })
         Navigate("/")
       } catch (err) {
         console.log(err);
@@ -220,16 +228,7 @@ const BoxLogin = () => {
                 mt={4}
                 size="lg"
                 w="100%"
-                onClick={() =>
-                  toast({
-                    title: 'Login Success',
-                    description: "Welcome to your Event.In 👋",
-                    status: 'success',
-                    duration: 4000,
-                    isClosable: false,
-                    position: 'top',
-                  })
-                }
+       
               >
                 Log in
               </Button>
@@ -238,7 +237,7 @@ const BoxLogin = () => {
           </Stack>
           <Box marginTop="20px" display="flex" gap=".4em">
             <Text textColor="white">Don't have an account yet? </Text>
-            <Link to="/register">
+            <Link to="/navbar/">
               <Text color="#7ED957">Sign Up..</Text>{" "}
             </Link>
           </Box>

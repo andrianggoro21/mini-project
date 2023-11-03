@@ -3,7 +3,6 @@ import {
   Box,
   Button,
   HStack,
-  Link,
   Avatar,
   Menu,
   MenuButton,
@@ -26,7 +25,7 @@ import { CgClose } from "react-icons/cg";
 import { RiSearchLine } from "react-icons/ri";
 import ModalLogin from "../modalLogin";
 import ModalRegister from "../modalSignup";
-
+import { Link, Navigate } from "react-router-dom";
 
 const Links = ["Home", "Find Events", "Transaction"];
 
@@ -56,8 +55,7 @@ const Navbar = (props) => {
     window.scrollY > 10 ? setHeight("60px") : setHeight("72px");
   };
 
-
-  const handleLoginClick = () => {
+  const handleRegisterClick = () => {
     setIsModalOpen(true);
   };
 
@@ -103,7 +101,7 @@ const Navbar = (props) => {
           </HStack>
           <HStack w="auto" gap="2em" display={{ base: "none", lg: "flex" }}>
             {/* <Divider background="white" orientation="vertical" /> */}
-                
+
             <InputGroup
               color="white"
               rounded="1px"
@@ -121,17 +119,24 @@ const Navbar = (props) => {
             </InputGroup>
             <Box>
               <ModalRegister
-                onClick={handleLoginClick}
+                onClick={handleRegisterClick}
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(true)}
               />
             </Box>
             <Box>
-              <ModalLogin
-                onClick={handleLoginClick}
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(true)}
-              />
+              <Link to="/login">
+              <Button
+                size={"sm"}
+                fontWeight="bold"
+                h="40px"
+                w="120px"
+                variant="solid"
+                bgColor="#3C891C"
+              >
+                Log in
+              </Button>
+              </Link>
             </Box>
           </HStack>
           <IconButton
@@ -161,22 +166,28 @@ const Navbar = (props) => {
             ))}
             <Divider background="white" orientation="horizontal" />
             <Flex alignItems={"center"} justifyContent="center" gap="1.5em">
-               <Box>
-              <ModalRegister
-                onClick={handleLoginClick}
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(true)}
-              />
-            </Box>
-            <Box>
-              <ModalLogin
-                onClick={handleLoginClick}
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(true)}
-              />
-            </Box>
+              <Box>
+                <ModalRegister
+                  onClick={handleRegisterClick}
+                  isOpen={isModalOpen}
+                  onClose={() => setIsModalOpen(true)}
+                />
+              </Box>
+              <Box>
+              <Link to="/login">
+              <Button
+                size={"sm"}
+                fontWeight="bold"
+                h="40px"
+                w="120px"
+                variant="solid"
+                bgColor="#3C891C"
+              >
+                Log in
+              </Button>
+              </Link>
+              </Box>
             </Flex>
-           
           </VStack>
         </Flex>
       ) : null}
