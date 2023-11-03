@@ -58,7 +58,7 @@ const BoxLogin = () => {
         dispatch(loginSuccess());
         // alert(res?.data?.message);
         toast({
-          title: 'Login Success',
+          title: 'Login Success 😊 👋',
           description: res?.data?.message,
           status: 'success',
           duration: 4000,
@@ -70,7 +70,7 @@ const BoxLogin = () => {
         console.log(err);
         // alert(err?.response?.data);
         toast({
-          title: 'The email you entered is not registered',
+          title: 'The email you entered is not registered 🤭',
           description: err?.response?.data,
           status: 'error',
           duration: 6000,
