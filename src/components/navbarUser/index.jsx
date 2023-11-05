@@ -99,6 +99,23 @@ const NavbarUser = () => {
               ))}
             </HStack>
           </HStack>
+          <Flex w="auto" gap="2em" display={{ base: "none", lg: "flex" }}>
+            <InputGroup
+              color="white"
+              rounded="1px"
+              w="241px"
+              // display="flex"
+              // flexDirection="row"
+            >
+              <InputLeftElement
+                children={<RiSearchLine />}
+                pointerEvents="none"
+                top="50%"
+                transform="translateY(-50%)"
+              />
+              <Input type="text" placeholder="Find your events here" />
+            </InputGroup>
+          </Flex>
           <Box>
             <Flex alignItems="center">
               <Menu>
@@ -116,7 +133,8 @@ const NavbarUser = () => {
                       Dashboard
                     </Link>
                   </MenuItem>
-                  <MenuItem bg="#696666"
+                  <MenuItem
+                    bg="#696666"
                     color="whatsapp.400"
                     onClick={() => dispatch(logoutSuccess())}
                   >
@@ -126,7 +144,6 @@ const NavbarUser = () => {
               </Menu>
             </Flex>
           </Box>
-
           <IconButton
             variant="unstyled"
             size={"md"}
