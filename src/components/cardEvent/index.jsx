@@ -75,6 +75,7 @@ const CardEvent = () => {
             rounded="lg"
             background="#49494926"
             color="white"
+            overflow="hidden"
             key={index}
           >
             <Box
@@ -122,7 +123,7 @@ const CardEvent = () => {
           </Stack>
         ))}
       </Box>
-      {loadMoreVisible && (
+      {event.length > 0 && loadMoreVisible && (
         <Button
           variant={"unstyled"}
           border="1px solid #3C891C"

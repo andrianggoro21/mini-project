@@ -89,7 +89,6 @@ const FormEvent = () => {
       formData.append("eventName", eventName);
       formData.append("categoryId", categoryId);
       formData.append("locationId", locationId);
-      formData.append("locationId", locationId);
       formData.append("time", time);
       formData.append("startDate", startDate);
       formData.append("endDate", endDate);
@@ -333,7 +332,7 @@ const FormEvent = () => {
                   border="0"
                   placeholder="Type time of event"
                   type="time"
-                  step={1}
+                  // step={1}
                   name="eventTime"
                   value={formik.values.eventTime}
                   onChange={formik.handleChange}
@@ -350,7 +349,7 @@ const FormEvent = () => {
                   formik.errors.eventStartDate
                 }
               >
-                <FormLabel>Last Date</FormLabel>
+                <FormLabel>Start Date</FormLabel>
                 <InputGroup>
                   <Input
                     background="#262626"

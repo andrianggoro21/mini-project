@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Box, Stack, HStack, Heading, Image, Button, IconButton, Flex } from "@chakra-ui/react";
 import {IoIosArrowDropleft} from "react-icons/io";
 import {MdOutlineArrowBackIos, MdArrowForwardIos} from "react-icons/md"
+import axios from "axios";
 
 function NextArrow(props) {
   const { className, style, onClick } = props;
@@ -64,12 +65,32 @@ const Carousel = (props) => {
     "./images/banner.jpg",
   ];
 
+  const [eventImage, setEventImage] = useState([]);
+  
+  const fetchEventImage = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/event/carousel", {
+        // headers: { "Cache-Control": "no-cache" },
+      });
+      setEventImage(response.data.data);
+
+      // console.log(response.data.data[4].image);
+      // console.log(response.data.data[0].tickets[0].price);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchEventImage();
+  }, []);
+
   return (
     <>
       <Slider {...settings}>
-        {slides.map((banner, index) => (
+        {eventImage.map((item, index) => (
           <Box w="full" key={index}>
-            <Image w="full" h="568px" src={banner} />
+            <Image w="full" h="568px" src={`${process.env.REACT_APP_IMAGE_URL}/events/${item?.image}`} />
           </Box>
         ))}
       </Slider>
