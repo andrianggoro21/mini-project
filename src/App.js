@@ -13,7 +13,6 @@ import CreateEvent from "./pages/createEvent";
 import CreateTicket from "./pages/createTicket";
 import ListEvent from "./components/listEvent";
 import BoxLogin from "./components/formLogin";
-
 import ModalRegister from "./components/modalSignup";
 import FormRegister from "./components/formSignup";
 import ModalLogin from "./components/modalLogin";
