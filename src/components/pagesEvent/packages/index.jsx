@@ -6,7 +6,7 @@ import ValidDate from "../../../assets/images/valid-date.png";
 import { useSelector, useDispatch } from "react-redux";
 import { decrementVvip, incrementVvip, increment, decrement } from "../../../redux/reducers/attendance";
 
-const Packages = ({date, regular, premium}) => {
+const Packages = ({ticket}) => {
   const jmlRegular = () => {
     localStorage.setItem("regular", 1)
   }
@@ -47,10 +47,11 @@ const Packages = ({date, regular, premium}) => {
           margin="16px 0 16px 0"
         >
           <Text>Thu</Text>
-          <Text>{date}</Text>
+          <Text>halo</Text>
         </Box>
       </Box>
-      <Box
+      {ticket.map((item, index) => (
+        <Box
         bgColor="#1E1E1E"
         margin="25px 0 25px 0"
         borderRadius="10px"
@@ -58,7 +59,7 @@ const Packages = ({date, regular, premium}) => {
       >
         <Box display="flex" alignItems="center" gap="14px">
           <Text fontSize="18px" fontWeight="700" color="#ffffff">
-            Regular
+            {item.ticketName}
           </Text>
           <Box bgColor="#0F2903" padding="6px" borderRadius="10px">
             <Text fontSize="14px" fontWeight="600" color="#63C539">
@@ -98,7 +99,7 @@ const Packages = ({date, regular, premium}) => {
               IDR 300.000
             </Text>
             <Text color="#ffffff" fontSize="18px" fontWeight="600">
-              IDR {regular}
+              IDR {item.price}
             </Text>
           </Box>
           <Box>
@@ -110,7 +111,8 @@ const Packages = ({date, regular, premium}) => {
           </Box>
         </Box>
       </Box>
-      <Box
+      ))}
+      {/* <Box
         bgColor="#1E1E1E"
         margin="25px 0 25px 0"
         borderRadius="10px"
@@ -118,7 +120,68 @@ const Packages = ({date, regular, premium}) => {
       >
         <Box display="flex" alignItems="center" gap="14px">
           <Text fontSize="18px" fontWeight="700" color="#ffffff">
-            Premium
+            {regular}
+          </Text>
+          <Box bgColor="#0F2903" padding="6px" borderRadius="10px">
+            <Text fontSize="14px" fontWeight="600" color="#63C539">
+              Balcony Seat
+            </Text>
+          </Box>
+        </Box>
+        <Box color="#838383" margin="18px 0 18px 0">
+          <Box display="flex" alignItems="center" gap="10px">
+            <Image src={ValidDate} />
+            <Text fontSize="14px" fontWeight="400" color="#838383">
+              Valid on the selected date
+            </Text>
+          </Box>
+          <Box display="flex" alignItems="center" gap="10px">
+            <Image src={Instant} />
+            <Text
+              margin="16px 0 16px 0"
+              fontSize="14px"
+              fontWeight="400"
+              color="#838383"
+            >
+              Instant Confirmation
+            </Text>
+          </Box>
+          <Box display="flex" alignItems="center" gap="10px">
+            <Image src={NotRefund} />
+            <Text fontSize="14px" fontWeight="400" color="#838383">
+              Refund not allowed
+            </Text>
+          </Box>
+        </Box>
+        <Box bgColor="#2C2C2C" h="2px" w="full" margin="28px 0 28px 0" />
+        <Box display="flex" alignItems="center" justifyContent="space-between">
+          <Box>
+            <Text color="#DB6969" textDecoration="line-through">
+              IDR 300.000
+            </Text>
+            <Text color="#ffffff" fontSize="18px" fontWeight="600">
+              IDR {regularPrice}
+            </Text>
+          </Box>
+          <Box>
+            <Link to="/attendance">
+              <Button bgColor="#3C891C" color="#ffffff" padding="10px" onClick={dispatch(jmlRegular)}>
+                Select Tickect
+              </Button>
+            </Link>
+          </Box>
+        </Box>
+      </Box> */}
+
+      {/* <Box
+        bgColor="#1E1E1E"
+        margin="25px 0 25px 0"
+        borderRadius="10px"
+        padding="24px"
+      >
+        <Box display="flex" alignItems="center" gap="14px">
+          <Text fontSize="18px" fontWeight="700" color="#ffffff">
+            {vvip}
           </Text>
           <Box bgColor="#0F2903" padding="6px" borderRadius="10px">
             <Text fontSize="14px" fontWeight="600" color="#63C539">
@@ -158,7 +221,7 @@ const Packages = ({date, regular, premium}) => {
               IDR 500.000
             </Text>
             <Text color="#ffffff" fontSize="18px" fontWeight="600">
-              IDR {premium}
+              IDR {vvipPrice}
             </Text>
           </Box>
           <Box>
@@ -169,7 +232,8 @@ const Packages = ({date, regular, premium}) => {
             </Link>
           </Box>
         </Box>
-      </Box>
+      </Box> */}
+
     </Box>
   );
 };

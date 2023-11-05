@@ -34,25 +34,14 @@ import {
 import Bca from "../../../assets/images/bca.png";
 import axios from "axios";
 import { useFormik } from "formik";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const WidgetTransaction = () => {
+const WidgetTransaction = ({ event, attendance }) => {
   const [fieldImage, setFieldImage] = useState(null);
-  const [statusId, setStatusId] = useState(2)
-
+  const [statusId, setStatusId] = useState(2);
+  
   const attendanceId = localStorage.getItem("attendance");
 
-  // const inputTransaction = async () => {
-  //   try {
-  //     await axios.post("http://localhost:8080/transaction", {
-  //       attendanceId: attendance,
-  //       transactionStatusId: 2,
-  //     });
-  //     alert("Input Success");
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
   const formTransaction = async (attendanceId, transactionStatusId) => {
     try {
       let formData = new FormData();
@@ -90,29 +79,29 @@ const WidgetTransaction = () => {
         <CardBody>
           <Box display="flex" gap="16px">
             <Box display={{ base: "none", md: "block" }}>
-              <Image w="300px" borderRadius="10px" src={banner} />
+              <Image w="300px" borderRadius="10px" src={event?.image} />
             </Box>
             <Box display="flex" flexDirection="column" gap="10px">
               <Text color="#ffffff" fontSize="16px" fontWeight="700">
-                Ambyar Concert Yogyakarta 2023
+                {event?.eventName}
               </Text>
               <Box display="flex" flexDirection="column" gap="6px">
                 <Box display="flex" alignItems="center" gap="10px">
                   <Image src={Cal} />
                   <Text color="#bcbcbc" fontSize="14px">
-                    1 - 4 October 2023
+                    {event?.startDate}
                   </Text>
                 </Box>
                 <Box display="flex" alignItems="center" gap="10px">
                   <Image src={Time} />
                   <Text color="#bcbcbc" fontSize="14px">
-                    15:00 - 23:00 WIB
+                    {event?.time}
                   </Text>
                 </Box>
                 <Box display="flex" alignItems="center" gap="10px">
                   <Image src={Loc} />
                   <Text color="#bcbcbc" fontSize="14px">
-                    Yogyakarta, Indonesia
+                    {event?.eventlocation?.locationName}
                   </Text>
                 </Box>
               </Box>
@@ -132,9 +121,9 @@ const WidgetTransaction = () => {
                     <Tr>Phone Number</Tr>
                   </Td>
                   <Td display="flex" flexDirection="column" gap="10px">
-                    <Tr>: Full Name</Tr>
-                    <Tr>: Email</Tr>
-                    <Tr>: Phone Number</Tr>
+                    <Tr>: {attendance?.fullName}</Tr>
+                    <Tr>: {attendance?.email}</Tr>
+                    <Tr>: {attendance?.phoneNumber}</Tr>
                   </Td>
                 </Tbody>
               </Table>
@@ -171,7 +160,7 @@ const WidgetTransaction = () => {
                         type="file"
                         position="absolute"
                         top="2"
-                        left="250"
+                        left="75"
                         width="100px"
                         height="50px"
                         // opacity="0"

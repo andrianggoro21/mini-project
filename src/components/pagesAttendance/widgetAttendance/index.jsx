@@ -5,8 +5,10 @@ import Loc from "../../../assets/images/location.png";
 import Time from "../../../assets/images/time.png";
 import Plus from "../../../assets/images/plus.png";
 import Minus from "../../../assets/images/minus.png";
+import Ticket1 from "../ticket1";
+import Ticket2 from "../ticket2";
 
-const Widget = () => {
+const Widget = ({ event, ticket, quantity1, quantity2 }) => {
   return (
     <Box>
       <Text color="#ffffff" fontSize="18px" fontWeight="700">
@@ -16,35 +18,42 @@ const Widget = () => {
         <CardBody>
           <Box display="flex" gap="16px">
             <Box display={{ base: "none", md: "block" }}>
-              <Image w="300px" borderRadius="10px" src={banner} />
+              <Image
+                w="300px"
+                h="120px"
+                borderRadius="10px"
+                src={event?.image}
+              />
             </Box>
             <Box display="flex" flexDirection="column" gap="10px">
               <Text color="#ffffff" fontSize="16px" fontWeight="700">
-                Ambyar Concert Yogyakarta 2023
+                {event?.eventName}
               </Text>
               <Box display="flex" flexDirection="column" gap="6px">
                 <Box display="flex" alignItems="center" gap="10px">
                   <Image src={Cal} />
                   <Text color="#bcbcbc" fontSize="14px">
-                    1 - 4 October 2023
+                    {event?.startDate}
                   </Text>
                 </Box>
                 <Box display="flex" alignItems="center" gap="10px">
                   <Image src={Time} />
                   <Text color="#bcbcbc" fontSize="14px">
-                    15:00 - 23:00 WIB
+                    {event?.time}
                   </Text>
                 </Box>
                 <Box display="flex" alignItems="center" gap="10px">
                   <Image src={Loc} />
                   <Text color="#bcbcbc" fontSize="14px">
-                    Yogyakarta, Indonesia
+                    {event?.eventlocation?.locationName}
                   </Text>
                 </Box>
               </Box>
             </Box>
           </Box>
+
           <Box bgColor="#353535" w="full" h="2px" margin="32px 0 14px 0" />
+
           <Box
             display="flex"
             alignItems="center"
@@ -78,59 +87,27 @@ const Widget = () => {
               </Box>
             </Box>
           </Box>
-          <Box bgColor="#353535" w="full" h="2px" margin="14px 0 14px 0" />
-          <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="space-between"
-          >
-            <Box w="100px">
-              <Text color="#bcbcbc" fontSize="16px">
-                Regular
-              </Text>
+
+          {ticket.length == 1 ? (
+            <Ticket1
+              quantity={quantity1}
+              ticketName={ticket[0]?.ticketName}
+              price={ticket[0]?.price}
+            />
+          ) : (
+            <Box>
+              <Ticket1
+                quantity={quantity1}
+                ticketName={ticket[0]?.ticketName}
+                price={ticket[0]?.price}
+              />
+              <Ticket2
+                quantity={quantity2}
+                ticketName={ticket[1]?.ticketName}
+                price={ticket[1]?.price}
+              />
             </Box>
-            <Box
-              display="flex"
-              alignItems="center"
-              gap={{ base: "30px", sm: "70px" }}
-            >
-              <Box w="120px" textAlign="right">
-                <Text color="#bcbcbc" fontSize="16px">
-                  200.000
-                </Text>
-              </Box>
-              <Box
-                w="100px"
-                display="flex"
-                alignItems="center"
-                justifyContent="space-between"
-              >
-                <Button
-                  size="xs"
-                  variant="ghost"
-                  padding="0"
-                  _hover={{ bgColor: "none" }}
-                  _active={{ bgColor: "none" }}
-                >
-                  <Image src={Minus} />
-                </Button>
-                <Box>
-                  <Text color="#bcbcbc" fontSize="16px">
-                    1
-                  </Text>
-                </Box>
-                <Button
-                  size="xs"
-                  variant="ghost"
-                  padding="0"
-                  _hover={{ bgColor: "none" }}
-                  _active={{ bgColor: "none" }}
-                >
-                  <Image src={Plus} />
-                </Button>
-              </Box>
-            </Box>
-          </Box>
+          )}
         </CardBody>
       </Card>
     </Box>

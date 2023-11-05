@@ -14,13 +14,16 @@ import Footer from "../../components/footer";
 
 const Event = () => {
   const [data, setData] = useState([]);
-  
+  const [ticket, setTicket] = useState([])
+
   const id = localStorage.getItem("cardId");
-  
+
   const getEvent = async () => {
     try {
-      const response = await axios.get(`http://localhost:8888/event/${id}`);
-      setData(response.data);
+      const response = await axios.get(`http://localhost:8080/event/1`);
+      console.log(response.data.data);
+      setData(response?.data?.data);
+      setTicket(response?.data?.data?.tickets)
     } catch (err) {
       console.log(err);
     }
@@ -98,9 +101,9 @@ const Event = () => {
         </Box>
         <Box id="overview">
           <Overview
-            title={data.title}
-            location={data.location}
-            date={data.date}
+            title={data.eventName}
+            location={data?.eventlocation?.locationName}
+            date={data.startDate}
             eoUser={data.eo_user}
           />
         </Box>
@@ -114,11 +117,7 @@ const Event = () => {
         </Box>
         <Box bgColor="#353535" w="full" h="2px" margin="24px 0 24px 0" />
         <Box id="packages">
-          <Packages
-            date={
-              data.date
-            } /*regular={data.typeTicket.regular} premium={data.typeTicket.premium}*/
-          />
+          <Packages ticket={ticket}/>
         </Box>
         <Box bgColor="#353535" w="full" h="2px" margin="24px 0 24px 0" />
         <Box id="included">
@@ -126,7 +125,7 @@ const Event = () => {
         </Box>
       </Box>
       <BottomNav />
-      <Box display={{ base: "none", lg: "block"}} >
+      <Box display={{ base: "none", lg: "block" }}>
         <Footer />
       </Box>
     </Box>

@@ -10,12 +10,12 @@ import {
 import { Link } from "react-router-dom";
 import Ticket from "../../../assets/images/ticket.png";
 
-const DetailTransaction = () => {
+const DetailTransaction = ({ detail }) => {
   return (
     <Box
       w={{ base: "full", xl: "350px" }}
       h="300px"
-      position={{ base: "static", xl: "fixed" }}
+      // position={{ base: "static", xl: "fixed" }}
     >
       <Box
         padding="24px"
@@ -26,18 +26,23 @@ const DetailTransaction = () => {
         bgColor="#1E1E1E"
       >
         <Box>
-          <Box display="flex" alignItems="center" gap="20px">
+          {detail.map((item, index) => (
+            <Box>
+              <Box display="flex" alignItems="center" gap="20px">
             <Image src={Ticket} />
             <Box color="#ffffff">
-              <Text>Regular</Text>
+              <Text>{item?.ticket?.ticketName}</Text>
               <Box display="flex" gap="10px">
-                <Text>2 Tiket x</Text>
-                <Text>400000</Text>
+                <Text>{item?.ticketTotal} Ticket x</Text>
+                <Text>{item?.ticket?.price}</Text>
               </Box>
             </Box>
           </Box>
           <Box bgColor="#353535" w="full" h="2px" margin="14px 0 14px 0" />
-          <Box display="flex" alignItems="center" gap="20px">
+            </Box>
+          ))}
+          
+          {/* <Box display="flex" alignItems="center" gap="20px">
             <Image src={Ticket} />
             <Box color="#ffffff">
               <Text>VVIP</Text>
@@ -46,10 +51,10 @@ const DetailTransaction = () => {
                 <Text>600000</Text>
               </Box>
             </Box>
-          </Box>
+          </Box> */}
         </Box>
 
-        <Box bgColor="#353535" w="full" h="2px" margin="14px 0 14px 0" />
+        {/* <Box bgColor="#353535" w="full" h="2px" margin="14px 0 14px 0" /> */}
 
         <Text color="#ffffff" fontSize="18px" fontWeight="700">
           Price Details
