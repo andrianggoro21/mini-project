@@ -24,7 +24,7 @@ function ModalRegister() {
 
   const openModal = () => setIsOpen(true);
 
-  const handleLogin = (role) => {
+  const handleRegister = (role) => {
     if (role === 2) {
       setIsAdmin(true);
       setIsUsers(false);
@@ -45,7 +45,7 @@ function ModalRegister() {
         size={"sm"}
         w="120px"
         h="40px"
-        onClick={() => handleLogin("register")}
+        onClick={() => handleRegister("register")}
       >
         Sign Up
       </Button>
@@ -65,7 +65,7 @@ function ModalRegister() {
                     background="#374431"
                     variant="solid"
                     onClick={() => {
-                      handleLogin(2);
+                      handleRegister(2);
                       onClose();
                     }}
                   >
@@ -83,7 +83,7 @@ function ModalRegister() {
                     h="5em"
                     background="#374431"
                     onClick={() => {
-                      handleLogin(1);
+                      handleRegister(1);
                       onClose();
                     }}
                   >

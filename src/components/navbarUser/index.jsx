@@ -57,6 +57,7 @@ const NavLink = (props) => {
 const NavbarUser = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { user } = useSelector((state) => state.AuthReducer);
 
   // const { user, isLogin } = useSelector((state) => state.AuthReducer);
   const dispatch = useDispatch();
@@ -98,6 +99,23 @@ const NavbarUser = () => {
               ))}
             </HStack>
           </HStack>
+          <Flex w="auto" gap="2em" display={{ base: "none", lg: "flex" }}>
+            <InputGroup
+              color="white"
+              rounded="1px"
+              w="241px"
+              // display="flex"
+              // flexDirection="row"
+            >
+              <InputLeftElement
+                children={<RiSearchLine />}
+                pointerEvents="none"
+                top="50%"
+                transform="translateY(-50%)"
+              />
+              <Input type="text" placeholder="Find your events here" />
+            </InputGroup>
+          </Flex>
           <Box>
             <Flex alignItems="center">
               <Menu>
@@ -108,14 +126,15 @@ const NavbarUser = () => {
                 />
                 <MenuList border="none" bg="#696666">
                   <MenuItem bg="#696666">
-                    <Text marginLeft="auto">Halo saya User</Text>
+                    <Text fontWeight="bold">Halo saya {user.fullname} 👋</Text>
                   </MenuItem>
                   <MenuItem bg="#696666">
                     <Link color="whatsapp.400" href="/navDashboard">
                       Dashboard
                     </Link>
                   </MenuItem>
-                  <MenuItem bg="#696666"
+                  <MenuItem
+                    bg="#696666"
                     color="whatsapp.400"
                     onClick={() => dispatch(logoutSuccess())}
                   >
@@ -125,7 +144,6 @@ const NavbarUser = () => {
               </Menu>
             </Flex>
           </Box>
-
           <IconButton
             variant="unstyled"
             size={"md"}

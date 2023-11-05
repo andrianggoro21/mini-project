@@ -39,7 +39,8 @@ function ModalLogin() {
   return (
     <Box>
       <Button
-        variant="soilid"
+      fontWeight="bold"
+        variant="solid"
         bgColor="#3C891C"
         size={"sm"}
         w="120px"

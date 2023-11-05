@@ -12,6 +12,7 @@ import {
   InputRightElement,
   Image,
   FormErrorMessage,
+  useToast,
 } from "@chakra-ui/react";
 import * as Yup from "yup";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -47,6 +48,8 @@ const FormRegister = () => {
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
   const [registrationError, setRegistrationError] = useState(false);
 
+  const toast = useToast();
+
   const roleId = localStorage.getItem("roleId");
 
   // input data
@@ -62,7 +65,15 @@ const FormRegister = () => {
         password,
         roleId
       });
-      alert(data?.message);
+      // alert(data?.message);
+      toast({
+        title: 'Registration Success 😊 👋',
+        description: data?.message,
+        status: 'success',
+        duration: 4000,
+        isClosable: false,
+        position: 'top',
+      });
       setRegistrationSuccess(true);
       setRegistrationError(false);
       Navigate("/login");
