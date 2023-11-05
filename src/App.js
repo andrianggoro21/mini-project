@@ -37,6 +37,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard/event-form" element={<CreateEvent />} />
+          <Route path="/dashboard/ticket-form" element={<CreateTicket />} />
           <Route path="/event" element={<Event />} />
           <Route path="/transaction/waiting" element={<Waiting />} />
           <Route path="/transaction/success" element={<Success />} />
@@ -48,7 +49,7 @@ function App() {
           <Route exact path="/login" element={<BoxLogin />} />
         </Routes>
       </Auth>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

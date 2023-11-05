@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { useMediaQuery } from "@chakra-ui/react";
 import {MdOutlineArrowBackIos, MdArrowForwardIos} from "react-icons/md"
+import axios from "axios";
 
 function NextArrow(props) {
   const { className, style, onClick } = props;
@@ -151,20 +152,43 @@ const CardCategory = () => {
       path: "./images/category/art_category.png",
     },
   ];
+
+  const [category, setCategory] = useState([]);
+  
+  const fetchCategory = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/event/list-category", {
+        // headers: { "Cache-Control": "no-cache" },
+      });
+      setCategory(response.data.data);
+
+      // console.log(response.data.data[4].image);
+      // console.log(response.data.data[0].tickets[0].price);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategory();
+  }, []);
+
   return (
     <>
         <Slider {...settings}>
-          {categoryCard.map((item, index) => (
+          {category.map((item, index) => (
             <VStack justifyContent="space-between" p="1em 0em 1em 0em" w="full">
               <Flex
                 justifyContent="center"
                 key={index}
-                rounded="50%"
+                // rounded="50%"
+                w="full"
+                h="full"
               >
-                <Image w={{base: "100px", lg: "172px"}} src={item.path} />
+                <Image rounded="100%" w={{base: "100px", lg: "172px"}} h={{base: "100px", lg: "172px"}} src={`${process.env.REACT_APP_IMAGE_URL}/category/${item?.image}`} />
               </Flex>
               <Text textAlign="center" fontWeight="medium" color="white">
-                {item.name_category}
+                {item.categoryName}
               </Text>
             </VStack>
           ))}
