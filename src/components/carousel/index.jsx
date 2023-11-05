@@ -59,13 +59,14 @@ const Carousel = (props) => {
     ]
   };
 
-  const slides = [
-    "./images/banner.jpg",
-    "./images/banner.jpg",
-    "./images/banner.jpg",
-  ];
+  // const slides = [
+  //   "./images/banner.jpg",
+  //   "./images/banner.jpg",
+  //   "./images/banner.jpg",
+  // ];
 
   const [eventImage, setEventImage] = useState([]);
+  console.log(eventImage);
   
   const fetchEventImage = async () => {
     try {
@@ -73,7 +74,7 @@ const Carousel = (props) => {
         // headers: { "Cache-Control": "no-cache" },
       });
       setEventImage(response.data.data);
-
+      console.log(response.data.data);
       // console.log(response.data.data[4].image);
       // console.log(response.data.data[0].tickets[0].price);
     } catch (err) {

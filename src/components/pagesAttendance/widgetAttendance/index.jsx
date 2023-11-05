@@ -22,7 +22,7 @@ const Widget = ({ event, ticket, quantity1, quantity2 }) => {
                 w="300px"
                 h="120px"
                 borderRadius="10px"
-                src={event?.image}
+                src={`${process.env.REACT_APP_IMAGE_URL}/events/${event?.image}`}
               />
             </Box>
             <Box display="flex" flexDirection="column" gap="10px">

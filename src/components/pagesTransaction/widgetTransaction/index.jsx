@@ -79,7 +79,7 @@ const WidgetTransaction = ({ event, attendance }) => {
         <CardBody>
           <Box display="flex" gap="16px">
             <Box display={{ base: "none", md: "block" }}>
-              <Image w="300px" borderRadius="10px" src={event?.image} />
+              <Image w="300px" h="120px" borderRadius="10px" src={`${process.env.REACT_APP_IMAGE_URL}/events/${event?.image}`} />
             </Box>
             <Box display="flex" flexDirection="column" gap="10px">
               <Text color="#ffffff" fontSize="16px" fontWeight="700">

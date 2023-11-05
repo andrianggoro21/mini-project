@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
 import AttendanceSchema from "../../schema";
 import FormReferral from "../../components/pagesAttendance/fromReferral";
+import NavbarIsLogin from "../../components/isLoginNavbar";
 
 const Attedance = () => {
   const [total, setTotal] = useState();
@@ -26,6 +27,9 @@ const Attedance = () => {
   const [jmlVvip, setJmlVvip] = useState();
   const [event, setEvent] = useState([]);
   const [ticket, setTicket] = useState([]);
+  const [priceReg, setPriceReg] = useState([]);
+  const [priceV, setPriceVvip] = useState([]);
+  console.log(priceReg);
   const [referralCode, setReferralCode] = useState("");
 
   const Navigate = useNavigate();
@@ -36,14 +40,17 @@ const Attedance = () => {
     setReferralCode(code);
   };
 
-  const id = localStorage.getItem("cardId");
-
   const getEvent = async () => {
+    const eventId = localStorage.getItem("eventId");
     try {
-      const response = await axios.get(`http://localhost:8080/event/1`);
-      console.log(response.data.data.tickets);
+      const response = await axios.get(
+        `http://localhost:8080/event/${eventId}`
+      );
+      // console.log(response?.data?.data?.tickets?.price);
       setEvent(response?.data?.data);
       setTicket(response?.data?.data?.tickets);
+      setPriceReg(response?.data?.data?.tickets[0]?.price);
+      setPriceVvip(response?.data?.data?.tickets[1]?.price);
     } catch (err) {
       console.log(err);
     }
@@ -59,13 +66,20 @@ const Attedance = () => {
   const dispatch = useDispatch();
 
   const priceTotalTicket = () => {
-    const priceRegular = ticket[0]?.price;
-    const priceVvip = ticket[1]?.price;
+    let priceRegular = 0
+    let priceVvip = 0
+    if (ticket.length == 2) {
+      priceRegular = priceReg;
+      priceVvip = priceV;
+    } else if (ticket.length == 1) {
+      priceRegular = priceReg;
+    }
     const regular = priceRegular * quantity1;
     const vvip = priceVvip * quantity2;
     setJmlReguler(regular);
     setJmlVvip(vvip);
     setTotal(regular + vvip);
+    // setTotal(0)
   };
 
   useEffect(() => {
@@ -157,10 +171,11 @@ const Attedance = () => {
   });
   return (
     <Box>
+      <NavbarIsLogin />
       <Box
         maxW="100vw"
         minH="100vh"
-        padding="50px 24px 100px 24px"
+        padding="100px 24px 100px 24px"
         bgColor="#121212"
       >
         <form onSubmit={formik.handleSubmit}>

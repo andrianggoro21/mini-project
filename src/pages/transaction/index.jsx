@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import WidgetTransaction from "../../components/pagesTransaction/widgetTransaction";
 import DetailTransaction from "../../components/pagesTransaction/detailTransaction";
+import NavbarIsLogin from "../../components/isLoginNavbar";
+import Footer from "../../components/footer";
 
 const Transaction = () => {
   const [event, setEvent] = useState([]);
@@ -12,8 +14,9 @@ const Transaction = () => {
   const [details, setDetails] = useState([]);
 
   const getEvent = async () => {
+    const eventId = localStorage.getItem("eventId");
     try {
-      const response = await axios.get(`http://localhost:8080/event/1`);
+      const response = await axios.get(`http://localhost:8080/event/${eventId}`);
       // console.log(response.data.data.tickets);
       setEvent(response?.data?.data);
       setTicket(response?.data?.data?.tickets);
@@ -22,8 +25,9 @@ const Transaction = () => {
     }
   };
   const getAttendance = async () => {
+    const attendanceId =  localStorage.getItem("attendance");
     try {
-      const response = await axios.get("http://localhost:8080/attendance/1");
+      const response = await axios.get(`http://localhost:8080/attendance/${attendanceId}`);
       console.log(response?.data?.data);
       setAttendance(response?.data?.data);
     } catch (err) {
@@ -32,8 +36,11 @@ const Transaction = () => {
   };
 
   const getAttendanceDetail = async () => {
+    const attendanceId =  localStorage.getItem("attendance");
     try {
-      const response = await axios.get(`http://localhost:8080/attendance/detail/1`);
+      const response = await axios.get(
+        `http://localhost:8080/attendance/detail/${attendanceId}`
+      );
       // console.log(response?.data?.data);
       setDetails(response?.data?.data);
     } catch (err) {
@@ -43,26 +50,30 @@ const Transaction = () => {
 
   useEffect(() => {
     getEvent();
-    getAttendance()
-    getAttendanceDetail()
+    getAttendance();
+    getAttendanceDetail();
   }, []);
   return (
-    <Box
-      maxW="100vw"
-      minH="100vh"
-      bgColor="#121212"
-      padding="50px 24px 100px 24px"
-      display="flex"
-      justifyContent="center"
-      gap={{ base: "24px", xl: "48px" }}
-      flexDirection={{ base: "column", xl: "row" }}
-    >
-      <WidgetTransaction event={event} attendance={attendance} />
-      {/* <Box w="200px" h='200px' bgColor='#ffffff'></Box> */}
-      <Box>
-        <DetailTransaction detail={details} />
-        <Box w="350px" display={{ base: "none", xl: "block" }} />
+    <Box>
+      <NavbarIsLogin/>
+      <Box
+        maxW="100vw"
+        minH="100vh"
+        bgColor="#121212"
+        padding="100px 24px 100px 24px"
+        display="flex"
+        justifyContent="center"
+        gap={{ base: "24px", xl: "48px" }}
+        flexDirection={{ base: "column", xl: "row" }}
+      >
+        <WidgetTransaction event={event} attendance={attendance} />
+        {/* <Box w="200px" h='200px' bgColor='#ffffff'></Box> */}
+        <Box>
+          <DetailTransaction detail={details} />
+          <Box w="350px" display={{ base: "none", xl: "block" }} />
+        </Box>
       </Box>
+      <Footer/>
     </Box>
   );
 };

@@ -246,7 +246,7 @@ const BoxLogin = () => {
           </Stack>
           <Box marginTop="20px" display="flex" gap=".4em">
             <Text textColor="white">Don't have an account yet? </Text>
-            <Link to="/navbar/">
+            <Link to="/">
               <Text color="#7ED957">Sign Up..</Text>{" "}
             </Link>
           </Box>

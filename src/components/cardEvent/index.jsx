@@ -5,7 +5,6 @@ import {
   Image,
   Stack,
   Divider,
-  Link,
   Avatar,
   Heading,
   Text,
@@ -15,7 +14,7 @@ import {
   HStack,
   VStack,
 } from "@chakra-ui/react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { GrLocation } from "react-icons/gr";
 import { cards } from "../../database/cards";
 import { useEffect, useState } from "react";
@@ -27,6 +26,7 @@ const CardEvent = () => {
   const [loadMoreVisible, setLoadMoreVisible] = useState(true);
 
   const sliceCard = event.slice(0, element);
+  console.log(sliceCard[0]);
 
   const fetchEvent = async () => {
     try {
@@ -34,8 +34,8 @@ const CardEvent = () => {
         // headers: { "Cache-Control": "no-cache" },
       });
       setEvent(response.data.data);
-      console.log(process.env.REACT_APP_IMAGE_URL)
-      console.log(event);
+      // console.log(process.env.REACT_APP_IMAGE_URL)
+      console.log(response.data.data);
 
       // console.log(response.data.data[4].image);
       // console.log(response.data.data[0].tickets[0].price);
@@ -57,6 +57,10 @@ const CardEvent = () => {
     }
   };
 
+  // const eventId = (item) => {
+  //   localStorage.setItem("id", item);
+  // };
+
   return (
     <VStack>
       <Box
@@ -70,7 +74,8 @@ const CardEvent = () => {
         gap="1em"
       >
         {sliceCard?.map((item, index) => (
-          <Stack
+          
+            <Stack
             // maxW="sm"
             rounded="lg"
             background="#49494926"
@@ -78,6 +83,7 @@ const CardEvent = () => {
             overflow="hidden"
             key={index}
           >
+            <Link to="/event" onClick={() =>localStorage.setItem("eventId", item.id)}>
             <Box
               w="full"
               h="10em"
@@ -120,7 +126,10 @@ const CardEvent = () => {
                 </Text>
               </Flex>
             </Flex>
+            </Link>
           </Stack>
+          
+          
         ))}
       </Box>
       {event.length > 0 && loadMoreVisible && (
