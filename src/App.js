@@ -21,6 +21,11 @@ import SearchPage from "./pages/search";
 import Auth from "./components/auth";
 import NavbarUser from "./components/navbarUser";
 import { useSelector, useDispatch } from "react-redux";
+import UploadProfile from "./components/profilePicture/uploadImage";
+import Profile from "./pages/profile";
+import DashboardUser from "./pages/profile";
+
+
 
 function App() {
   const dispatch = useDispatch();
@@ -45,9 +50,10 @@ function App() {
           {/* <Route element={<ModalLogin />} path="/modal-login" /> */}
           {/* <Route path="/login" element={<Navbar role="users" />} /> */}
           <Route exact path="/login" element={<BoxLogin />} />
+          <Route path="/profile" element={<DashboardUser />} />
         </Routes>
       </Auth>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }
