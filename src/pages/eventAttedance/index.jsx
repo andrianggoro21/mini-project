@@ -29,8 +29,26 @@ const Attedance = () => {
   const [ticket, setTicket] = useState([]);
   const [priceReg, setPriceReg] = useState([]);
   const [priceV, setPriceVvip] = useState([]);
-  console.log(priceReg);
+  // console.log(ticket);
   const [referralCode, setReferralCode] = useState("");
+  const [discountReg, setDiscountReg] = useState([]);
+  const [discountV, setDiscountV] = useState([]);
+  const [discountTot, setDiscountTot] = useState(0);
+  // console.log(discountTot);
+
+  const getDiscount = (data) => {
+    setDiscountTot(data);
+  };
+
+  // useEffect(() => {
+  //   getDiscount();
+  //   const refreshInterval = setTimeout(getDiscount, 1000); // Refresh every 5 seconds (adjust as needed)
+
+  //   // Cleanup the interval when the component unmounts
+  //   return () => {
+  //     clearInterval(refreshInterval);
+  //   };
+  // }, [getDiscount]);
 
   const Navigate = useNavigate();
   const toast = useToast();
@@ -51,6 +69,9 @@ const Attedance = () => {
       setTicket(response?.data?.data?.tickets);
       setPriceReg(response?.data?.data?.tickets[0]?.price);
       setPriceVvip(response?.data?.data?.tickets[1]?.price);
+      setDiscountReg(response?.data?.data?.tickets[0]?.discount);
+
+      setDiscountV(response?.data?.data?.tickets[1]?.discount);
     } catch (err) {
       console.log(err);
     }
@@ -66,8 +87,8 @@ const Attedance = () => {
   const dispatch = useDispatch();
 
   const priceTotalTicket = () => {
-    let priceRegular = 0
-    let priceVvip = 0
+    let priceRegular = 0;
+    let priceVvip = 0;
     if (ticket.length == 2) {
       priceRegular = priceReg;
       priceVvip = priceV;
@@ -78,7 +99,7 @@ const Attedance = () => {
     const vvip = priceVvip * quantity2;
     setJmlReguler(regular);
     setJmlVvip(vvip);
-    setTotal(regular + vvip);
+    setTotal(discountTot ? regular + vvip - discountTot : regular + vvip);
     // setTotal(0)
   };
 
@@ -178,22 +199,22 @@ const Attedance = () => {
         padding="100px 24px 100px 24px"
         bgColor="#121212"
       >
-        <form onSubmit={formik.handleSubmit}>
-          <Box
-            display="flex"
-            justifyContent="center"
-            gap={{ base: "24px", xl: "48px" }}
-            flexDirection={{ base: "column", xl: "row" }}
-          >
-            <Box display="flex" flexDirection="column" gap="24px">
-              <Widget
-                event={event}
-                ticket={ticket}
-                quantity1={quantity1}
-                quantity2={quantity2}
-              />
+        <Box
+          display="flex"
+          justifyContent="center"
+          gap={{ base: "24px", xl: "48px" }}
+          flexDirection={{ base: "column", xl: "row" }}
+        >
+          <Box display="flex" flexDirection="column" gap="24px">
+            <Widget
+              event={event}
+              ticket={ticket}
+              quantity1={quantity1}
+              quantity2={quantity2}
+            />
 
-              {/* <FormAttendance/> */}
+            {/* <FormAttendance/> */}
+            <form onSubmit={formik.handleSubmit}>
               <Box>
                 <Text color="#ffffff" fontSize="18px" fontWeight="700">
                   Personal Details
@@ -283,98 +304,93 @@ const Attedance = () => {
                           )}
                       </FormControl>
                     </Box>
+                    <Box
+                      bgColor="#353535"
+                      w="full"
+                      h="2px"
+                      margin="8px 0 8px 0"
+                    />
+                    <Box display="flex" alignItems="center" gap="14px">
+                      <Checkbox defaultChecked colorScheme="green" />
+                      <Text color="#bcbcbc" fontSize="14px">
+                        I agree to the applicable Terms & Conditions
+                      </Text>
+                    </Box>
+
+                    <Button
+                      type="submit"
+                      w="full"
+                      bgColor="#3C891C"
+                      color="#ffffff"
+                      onClick={generateReferralCode}
+                    >
+                      Buy
+                    </Button>
                   </Box>
                 </Box>
               </Box>
-            </Box>
-            <Box>
-              {/* <DetailAttendance /> */}
+            </form>
+          </Box>
+          <Box>
+            {/* <DetailAttendance /> */}
+            <Box
+              w={{ base: "full", xl: "350px" }}
+              h="300px"
+              // position={{ base: "static", xl: "fixed" }}
+            >
               <Box
-                w={{ base: "full", xl: "350px" }}
-                h="300px"
-                // position={{ base: "static", xl: "fixed" }}
+                padding="24px"
+                borderRadius="10px"
+                display="flex"
+                flexDirection="column"
+                gap="12px"
+                bgColor="#1E1E1E"
               >
-                <Box
-                  padding="24px"
-                  borderRadius="10px"
-                  display="flex"
-                  flexDirection="column"
-                  gap="12px"
-                  bgColor="#1E1E1E"
-                >
-                  <FormReferral />
+                <FormReferral newDiscount={getDiscount} />
 
-                  <Text color="#ffffff" fontSize="18px" fontWeight="700">
-                    Price Details
-                  </Text>
-                  <Box>
-                    <Box
-                      display="flex"
-                      alignItems="center"
-                      justifyContent="space-between"
-                      color="#bcbcbc"
-                      fontSize="16px"
-                    >
-                      <Text>Total Ticket Price</Text>
-                      <Text>{total}</Text>
-                    </Box>
-                    <Box
-                      display="flex"
-                      alignItems="center"
-                      justifyContent="space-between"
-                      color="#bcbcbc"
-                      fontSize="16px"
-                    >
-                      <Text>Discount</Text>
-                      <Text>0</Text>
-                    </Box>
-                  </Box>
-                  <Box
-                    bgColor="#353535"
-                    w="full"
-                    h="2px"
-                    margin="8px 0 8px 0"
-                  />
+                <Text color="#ffffff" fontSize="18px" fontWeight="700">
+                  Price Details
+                </Text>
+                <Box>
                   <Box
                     display="flex"
                     alignItems="center"
                     justifyContent="space-between"
-                    color="#ffffff"
+                    color="#bcbcbc"
                     fontSize="16px"
-                    fontWeight="600"
                   >
-                    <Text>Total Payment</Text>
-                    <Text>{total}</Text>
+                    <Text>Total Ticket Price</Text>
+                    <Text>{jmlReguler + jmlVvip}</Text>
                   </Box>
                   <Box
-                    bgColor="#353535"
-                    w="full"
-                    h="2px"
-                    margin="8px 0 8px 0"
-                  />
-                  <Box display="flex" alignItems="center" gap="14px">
-                    <Checkbox defaultChecked colorScheme="green" />
-                    <Text color="#bcbcbc" fontSize="14px">
-                      I agree to the applicable Terms & Conditions
-                    </Text>
-                  </Box>
-
-                  <Button
-                    type="submit"
-                    w="full"
-                    bgColor="#3C891C"
-                    color="#ffffff"
-                    onClick={generateReferralCode}
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    color="#bcbcbc"
+                    fontSize="16px"
                   >
-                    Bayar Tiket
-                  </Button>
+                    <Text>Discount</Text>
+                    <Text>{discountTot}</Text>
+                  </Box>
+                </Box>
+                <Box bgColor="#353535" w="full" h="2px" margin="8px 0 8px 0" />
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="space-between"
+                  color="#ffffff"
+                  fontSize="16px"
+                  fontWeight="600"
+                >
+                  <Text>Total Payment</Text>
+                  <Text>{total}</Text>
                 </Box>
               </Box>
-
-              <Box w="350px" display={{ base: "none", xl: "block" }} />
             </Box>
+
+            <Box w="350px" display={{ base: "none", xl: "block" }} />
           </Box>
-        </form>
+        </Box>
       </Box>
       <Footer />
     </Box>

@@ -35,7 +35,7 @@ const Home = (isOpen) => {
         scrollBehavior="smooth"
       >
         {/* <Navbar /> */}
-        {/* <Carousel /> */}
+        <Carousel />
         <SearchBar />
         <Box as="main" pl="2em" pr="2em">
           <Heading as="h4" mt="1em" size="md" color="white">

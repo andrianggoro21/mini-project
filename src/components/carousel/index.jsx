@@ -70,7 +70,7 @@ const Carousel = (props) => {
   
   const fetchEventImage = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/event/carousel", {
+      const response = await axios.get("http://localhost:8080/event", {
         // headers: { "Cache-Control": "no-cache" },
       });
       setEventImage(response.data.data);

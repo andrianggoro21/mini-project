@@ -28,7 +28,7 @@ import { useSelector } from "react-redux";
 
 function App() {
   const { user, isLogin } = useSelector((state) => state.AuthReducer);
-  console.log(user);
+  // console.log(user);
   return (
     <>
       {user.roleId == 1 ? (

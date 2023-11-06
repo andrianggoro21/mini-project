@@ -35,11 +35,24 @@ import Bca from "../../../assets/images/bca.png";
 import axios from "axios";
 import { useFormik } from "formik";
 import { useState, useEffect } from "react";
+import { useDropzone } from "react-dropzone";
 
 const WidgetTransaction = ({ event, attendance }) => {
   const [fieldImage, setFieldImage] = useState(null);
   const [statusId, setStatusId] = useState(2);
-  
+  const [image, setImage] = useState(null);
+
+  const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
+    accept: 'image/*', // Accept only image files
+    onDrop: acceptedFiles => {
+      // Update the state with the first accepted image
+      if (acceptedFiles.length > 0) {
+        const imageURL = URL.createObjectURL(acceptedFiles[0]);
+        setImage(imageURL);
+      }
+    }
+  });
+
   const attendanceId = localStorage.getItem("attendance");
 
   const formTransaction = async (attendanceId, transactionStatusId) => {
@@ -47,8 +60,11 @@ const WidgetTransaction = ({ event, attendance }) => {
       let formData = new FormData();
       formData.append("attendanceId", attendanceId);
       formData.append("transactionStatusId", transactionStatusId);
-      formData.append("image", fieldImage);
-     const res =  await axios.post(
+      // formData.append("image", image);
+      acceptedFiles.forEach(file => {
+        formData.append("image", file);
+      });
+      const res = await axios.post(
         "http://localhost:8080/transaction",
         formData
       );
@@ -60,6 +76,7 @@ const WidgetTransaction = ({ event, attendance }) => {
     }
   };
 
+
   const formik = useFormik({
     initialValues: {
       image: null,
@@ -67,7 +84,7 @@ const WidgetTransaction = ({ event, attendance }) => {
 
     // validationSchema: EventSchema,
     onSubmit: (values) => {
-      formTransaction(attendanceId, statusId)
+      formTransaction(attendanceId, statusId);
     },
   });
   return (
@@ -79,7 +96,12 @@ const WidgetTransaction = ({ event, attendance }) => {
         <CardBody>
           <Box display="flex" gap="16px">
             <Box display={{ base: "none", md: "block" }}>
-              <Image w="300px" h="120px" borderRadius="10px" src={`${process.env.REACT_APP_IMAGE_URL}/events/${event?.image}`} />
+              <Image
+                w="300px"
+                h="120px"
+                borderRadius="10px"
+                src={`${process.env.REACT_APP_IMAGE_URL}/events/${event?.image}`}
+              />
             </Box>
             <Box display="flex" flexDirection="column" gap="10px">
               <Text color="#ffffff" fontSize="16px" fontWeight="700">
@@ -153,24 +175,18 @@ const WidgetTransaction = ({ event, attendance }) => {
                 padding="20px"
               >
                 <FormControl>
-                  <Box width="full" display="flex" justifyContent="center">
-                    <Box>
-                      <Image src={Upload} />
-                      <Input
-                        type="file"
-                        position="absolute"
-                        top="2"
-                        left="75"
-                        width="100px"
-                        height="50px"
-                        // opacity="0"
-                        name="image"
-                        value={formik.values.eventImage}
-                        onChange={(event) => {
-                          setFieldImage(event.currentTarget.files[0]);
-                        }}
-                      ></Input>
+                  <Box className="container">
+                    <Box {...getRootProps()} className="dropzone" color="#ffffff" display='flex' alignItems='center' justifyContent='center'>
+                      <Input {...getInputProps()} />
+                      <Image hidden={image? true : false} src={Upload} />
                     </Box>
+                    {image && (
+                      <Image
+                        src={image}
+                        alt="Uploaded Image"
+                        style={{ maxWidth: "100%" }}
+                      />
+                    )}
                   </Box>
                 </FormControl>
                 <Button size="md" type="submit">
