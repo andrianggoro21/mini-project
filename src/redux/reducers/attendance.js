@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   value: 0,
   valueV: 0,
-  ticket: [1]
+  ticket: []
 }
 
 export const quantitySlice = createSlice({

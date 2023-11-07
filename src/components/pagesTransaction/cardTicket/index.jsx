@@ -5,13 +5,15 @@ import Qr from "../../../assets/images/qrcode.png";
 import IconSuccess from "../../../assets/images/success.png";
 import { useSelector } from "react-redux";
 import QRCode from 'qrcode.react';
+import { useState } from "react";
 
-const CardTicket = () => {
+const CardTicket = ({jmlReg, jmlVvip}) => {
+  const [req, setReg] = useState(jmlReg)
   const form = useSelector((state) => state.quantity.ticket);
   const code = localStorage.getItem("qrcode")
   return (
     <>
-      {form.map((item, index) => (
+      {req.map((item, index) => (
         <Box>
           <Text color="#ffffff" fontSize='20px' fontWeight='700' marginBottom='20px'>Regular Ticket</Text>
           <Card maxW="sm" bgColor="#1E1E1E" padding="20px">

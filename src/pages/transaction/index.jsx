@@ -6,12 +6,18 @@ import WidgetTransaction from "../../components/pagesTransaction/widgetTransacti
 import DetailTransaction from "../../components/pagesTransaction/detailTransaction";
 import NavbarIsLogin from "../../components/isLoginNavbar";
 import Footer from "../../components/footer";
+import { nanoid } from "nanoid";
 
 const Transaction = () => {
   const [event, setEvent] = useState([]);
   const [ticket, setTicket] = useState([]);
   const [attendance, setAttendance] = useState([]);
   const [details, setDetails] = useState([]);
+
+  // const [codeReg, setCodeReg] = useState([]);
+  // const [codeVvip, setCodeVvip] = useState([]);
+  // const [jmlRegular, setJmlReguler] = useState();
+  // const [jmlVvip, setJmlVvip] = useState();
 
   const getEvent = async () => {
     const eventId = localStorage.getItem("eventId");
@@ -30,6 +36,9 @@ const Transaction = () => {
       const response = await axios.get(`http://localhost:8080/attendance/${attendanceId}`);
       console.log(response?.data?.data);
       setAttendance(response?.data?.data);
+      // setDetails(response?.data?.data?.attendanceDetails)
+      // setJmlReguler(response?.data?.data?.attendanceDetails[0]?.ticketTotal);
+      // setJmlVvip(response?.data?.data?.attendanceDetails[1]?.ticketTotal);
     } catch (err) {
       console.log(err);
     }
@@ -41,7 +50,7 @@ const Transaction = () => {
       const response = await axios.get(
         `http://localhost:8080/attendance/detail/${attendanceId}`
       );
-      // console.log(response?.data?.data);
+      console.log(response?.data?.data.length);
       setDetails(response?.data?.data);
     } catch (err) {
       console.log(err);
@@ -53,6 +62,22 @@ const Transaction = () => {
     getAttendance();
     getAttendanceDetail();
   }, []);
+
+  // const regularTicket = () => {
+  //   for (let index = 1; index <= jmlRegular; index++) {
+  //     const resCode = nanoid(10).toUpperCase();
+  //     setCodeReg(resCode);
+  //     // setReg();
+  //   }
+  //   console.log(codeReg);
+  // };
+
+  // const vvipTicket = () => {
+  //   for (let index = 1; index <= jmlVvip; index++) {
+  //     const resCode = nanoid(10).toUpperCase();
+  //     setCodeVvip(resCode);
+  //   }
+  // };
   return (
     <Box>
       <NavbarIsLogin/>
@@ -66,10 +91,10 @@ const Transaction = () => {
         gap={{ base: "24px", xl: "48px" }}
         flexDirection={{ base: "column", xl: "row" }}
       >
-        <WidgetTransaction event={event} attendance={attendance} />
+        <WidgetTransaction event={event} attendance={attendance} detail={details}/>
         {/* <Box w="200px" h='200px' bgColor='#ffffff'></Box> */}
         <Box>
-          <DetailTransaction detail={details} />
+          <DetailTransaction detail={details} attendance={attendance}/>
           <Box w="350px" display={{ base: "none", xl: "block" }} />
         </Box>
       </Box>

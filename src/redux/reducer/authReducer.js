@@ -7,6 +7,7 @@ const initialState = {
     fullname: "",
     email: "",
     roleId: null,
+    point: null
   },
   isLogin: false,
 };
@@ -16,12 +17,13 @@ export const AuthReducer = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      const { id, fullname, email, roleId } = action.payload;
+      const { id, fullname, email, roleId, point } = action.payload;
       state.user = {
         id,
         fullname,
         email,
         roleId,
+        point
       };
     },
     loginSuccess: (state, action) => {

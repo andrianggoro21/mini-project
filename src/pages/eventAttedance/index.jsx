@@ -22,7 +22,7 @@ import FormReferral from "../../components/pagesAttendance/fromReferral";
 import NavbarIsLogin from "../../components/isLoginNavbar";
 
 const Attedance = () => {
-  const [total, setTotal] = useState();
+  const [total, setTotal] = useState(0);
   const [jmlReguler, setJmlReguler] = useState();
   const [jmlVvip, setJmlVvip] = useState();
   const [event, setEvent] = useState([]);
@@ -36,19 +36,12 @@ const Attedance = () => {
   const [discountTot, setDiscountTot] = useState(0);
   // console.log(discountTot);
 
+  localStorage.setItem("discount", discountTot)
+  const { user, isLogin } = useSelector((state) => state.AuthReducer);
+
   const getDiscount = (data) => {
     setDiscountTot(data);
   };
-
-  // useEffect(() => {
-  //   getDiscount();
-  //   const refreshInterval = setTimeout(getDiscount, 1000); // Refresh every 5 seconds (adjust as needed)
-
-  //   // Cleanup the interval when the component unmounts
-  //   return () => {
-  //     clearInterval(refreshInterval);
-  //   };
-  // }, [getDiscount]);
 
   const Navigate = useNavigate();
   const toast = useToast();
@@ -99,7 +92,7 @@ const Attedance = () => {
     const vvip = priceVvip * quantity2;
     setJmlReguler(regular);
     setJmlVvip(vvip);
-    setTotal(discountTot ? regular + vvip - discountTot : regular + vvip);
+    setTotal(discountTot? +regular + +vvip - discountTot : +regular + +vvip);
     // setTotal(0)
   };
 
@@ -108,15 +101,17 @@ const Attedance = () => {
   }, [quantity1, quantity2]);
 
   const inputAttendance = async (fullName, email, phoneNumber) => {
+    console.log(total);
     try {
       const resAttendance = await axios.post(
         "http://localhost:8080/attendance",
         {
-          userId: 2,
+          userId: user.id,
           fullName,
           email,
           phoneNumber,
           referralCode,
+          pricePaid: total
         }
       );
 
@@ -177,6 +172,19 @@ const Attedance = () => {
     }
   };
 
+  const updatePointUser = async () => {
+    try {
+      const resPoint = await axios.patch(
+        `http://localhost:8080/user/point/${user.id}`,
+        {
+          point: 10000,
+        }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   const formik = useFormik({
     initialValues: {
       fullName: "",
@@ -186,8 +194,11 @@ const Attedance = () => {
 
     validationSchema: AttendanceSchema,
     onSubmit: (values) => {
-      console.log(values.fullName);
+      // console.log(values.fullName);
       inputAttendance(values.fullName, values.email, values.phoneNumber);
+      if (discountTot) {
+        updatePointUser()
+      }
     },
   });
   return (

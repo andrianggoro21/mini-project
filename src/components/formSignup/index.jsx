@@ -63,7 +63,8 @@ const FormRegister = () => {
         fullname,
         email,
         password,
-        roleId
+        roleId,
+        point: 0
       });
       // alert(data?.message);
       toast({

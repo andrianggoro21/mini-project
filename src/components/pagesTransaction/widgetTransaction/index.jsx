@@ -36,21 +36,29 @@ import axios from "axios";
 import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
+import { useToast } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+import { nanoid } from "nanoid";
 
-const WidgetTransaction = ({ event, attendance }) => {
+const WidgetTransaction = ({ event, attendance, detail }) => {
   const [fieldImage, setFieldImage] = useState(null);
   const [statusId, setStatusId] = useState(2);
   const [image, setImage] = useState(null);
+  const [transaction, setTransaction] = useState([]);
+  const [codeReg, setCodeReg] = useState([]);
+  const [codeVvip, setCodeVvip] = useState([]);
+  const Navigate = useNavigate();
+  const toast = useToast();
 
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
-    accept: 'image/*', // Accept only image files
-    onDrop: acceptedFiles => {
+    accept: "image/*", // Accept only image files
+    onDrop: (acceptedFiles) => {
       // Update the state with the first accepted image
       if (acceptedFiles.length > 0) {
         const imageURL = URL.createObjectURL(acceptedFiles[0]);
         setImage(imageURL);
       }
-    }
+    },
   });
 
   const attendanceId = localStorage.getItem("attendance");
@@ -61,20 +69,113 @@ const WidgetTransaction = ({ event, attendance }) => {
       formData.append("attendanceId", attendanceId);
       formData.append("transactionStatusId", transactionStatusId);
       // formData.append("image", image);
-      acceptedFiles.forEach(file => {
+      acceptedFiles.forEach((file) => {
         formData.append("image", file);
       });
       const res = await axios.post(
         "http://localhost:8080/transaction",
         formData
       );
-      alert("Create Event Success");
+      for (let index = 1; index <= detail[0]?.ticketTotal; index++) {
+        const resCode = nanoid(10).toUpperCase();
+        const resticket = await axios.post(
+          `http://localhost:8080/transaction/ticket`,{
+            transactionId: detail[0]?.id,
+            ticketCode: resCode
+          });
+          }
+          for (let index = 1; index <= detail[1]?.ticketTotal; index++) {
+            const resCode = nanoid(10).toUpperCase();
+            const resticket = await axios.post(
+              `http://localhost:8080/transaction/ticket`,{
+                transactionId: detail[1]?.id,
+                ticketCode: resCode
+              });
+              }
+      // const resCode = nanoid(10).toUpperCase();
+      // const resticket = await axios.post(
+      //   `http://localhost:8080/transaction/ticket`,{
+      //     transactionId: res?.data?.data?.id,
+      //     ticketCode: resCode
+      //   });
+      setTransaction(res?.data?.data?.id);
+      toast({
+        title: "Transaction success 😊 👋",
+        description: res?.data?.message,
+        status: "success",
+        duration: 4000,
+        isClosable: false,
+        position: "top-right",
+      });
+      // setCodeTicket()
+      setTimeout(() => {
+        Navigate("/success");
+      }, 5000);
+      // Navigate("/success")
       console.log(res);
     } catch (err) {
       // console.log(err);
       alert("Error");
     }
   };
+
+  // const regularTicket = () => {
+  //   for (let index = 1; index <= detail[0]?.ticketTotal; index++) {
+  //     const resCode = nanoid(10).toUpperCase();
+  //     setCodeReg(resCode);
+  //   }
+  // };
+
+  // const vvipTicket = () => {
+  //   for (let index = 1; index <= detail[1]?.ticketTotal; index++) {
+  //     const resCode = nanoid(10).toUpperCase();
+  //     setCodeVvip(resCode);
+  //   }
+  // };
+
+  // const setTicket = async () => {
+  //   const attendanceId =  localStorage.getItem("attendance");
+  //   try {
+  //     const response = await axios.get(
+  //       `http://localhost:8080/transaction/ticket${detail[0]?.ticketTotal}`
+  //     );
+  //     console.log(response?.data?.data.length);
+  //     setDetails(response?.data?.data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  const updateCapacityTicket = async (attendanceId) => {
+    try {
+      const resPoint = await axios.patch(
+        `http://localhost:8080/transaction/capacity/${attendanceId}`);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  // const setCodeTicket = async () => {
+  //   try {
+  //     // for (let index = 1; index <= detail[1]?.ticketTotal; index++) {
+  //     //   const resCode = nanoid(10).toUpperCase();
+  //     //   // setCodeVvip(resCode);
+  //     //   const resticket = await axios.post(
+  //     //     `http://localhost:8080/transaction/ticket`,{
+  //     //       transactionId: transaction,
+  //     //       ticketCode: resCode
+  //     //     });
+  //     // }
+  //     const resCode = nanoid(10).toUpperCase();
+  //     const resticket = await axios.post(
+  //       `http://localhost:8080/transaction/ticket`,{
+  //         transactionId: +transaction,
+  //         ticketCode: resCode
+  //       });
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
 
 
   const formik = useFormik({
@@ -85,8 +186,14 @@ const WidgetTransaction = ({ event, attendance }) => {
     // validationSchema: EventSchema,
     onSubmit: (values) => {
       formTransaction(attendanceId, statusId);
+      // regularTicket();
+      // vvipTicket();
+      updateCapacityTicket(attendanceId)
+      
+      // createTicketCodes();
     },
   });
+
   return (
     <Box>
       <Text color="#ffffff" fontSize="18px" fontWeight="700">
@@ -176,9 +283,16 @@ const WidgetTransaction = ({ event, attendance }) => {
               >
                 <FormControl>
                   <Box className="container">
-                    <Box {...getRootProps()} className="dropzone" color="#ffffff" display='flex' alignItems='center' justifyContent='center'>
+                    <Box
+                      {...getRootProps()}
+                      className="dropzone"
+                      color="#ffffff"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                    >
                       <Input {...getInputProps()} />
-                      <Image hidden={image? true : false} src={Upload} />
+                      <Image hidden={image ? true : false} src={Upload} />
                     </Box>
                     {image && (
                       <Image

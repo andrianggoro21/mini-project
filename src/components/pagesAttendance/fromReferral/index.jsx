@@ -56,8 +56,16 @@ const FromReferral = ({newDiscount}) => {
       // dispatch(loginSuccess());
       // alert(res?.data?.message);
       if (res?.data?.data?.referralCode === referralCode) {
-        console.log(+discountReg + +discountV);
-        newDiscount(+discountReg + +discountV)
+        newDiscount(ticket.length === 2? +discountReg + +discountV : +discountReg)
+        // const resAttendanceDetailRegular = await axios.patch(
+        //   "http://localhost:8080/attendance/detail",
+        //   {
+        //     attendanceId: resAttendance?.data?.data?.id,
+        //     ticketId: ticket[0]?.id,
+        //     ticketTotal: quantity1,
+        //     priceTotal: jmlReguler,
+        //   }
+        // );
       }
       toast({
         title: "referral code success 😊 👋",

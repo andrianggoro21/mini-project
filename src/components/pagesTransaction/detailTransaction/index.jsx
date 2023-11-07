@@ -10,7 +10,8 @@ import {
 import { Link } from "react-router-dom";
 import Ticket from "../../../assets/images/ticket.png";
 
-const DetailTransaction = ({ detail }) => {
+const DetailTransaction = ({ detail, attendance}) => {
+  const total = localStorage.getItem("discount")
   return (
     <Box
       w={{ base: "full", xl: "350px" }}
@@ -68,7 +69,7 @@ const DetailTransaction = ({ detail }) => {
             fontSize="16px"
           >
             <Text>Total Ticket Price</Text>
-            <Text>200.000</Text>
+            <Text>{detail.length == 2 ? +detail[0]?.priceTotal + +detail[1]?.priceTotal : detail[0]?.priceTotal}</Text>
           </Box>
           <Box
             display="flex"
@@ -78,7 +79,7 @@ const DetailTransaction = ({ detail }) => {
             fontSize="16px"
           >
             <Text>Discount</Text>
-            <Text>0</Text>
+            <Text>{total}</Text>
           </Box>
         </Box>
         <Box bgColor="#353535" w="full" h="2px" margin="8px 0 8px 0" />
@@ -91,7 +92,7 @@ const DetailTransaction = ({ detail }) => {
           fontWeight="600"
         >
           <Text>Total Payment</Text>
-          <Text>200.000</Text>
+          <Text>{attendance?.pricePaid}</Text>
         </Box>
         <Box bgColor="#353535" w="full" h="2px" margin="8px 0 8px 0" />
 
