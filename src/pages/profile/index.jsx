@@ -15,6 +15,7 @@ import {
 	MenuItem,
 	Flex,
 	Button,
+	Avatar
   } from "@chakra-ui/react";
   import { BsPersonCircle } from "react-icons/bs";
   import { Link, useNavigate } from "react-router-dom";
@@ -33,22 +34,28 @@ import {
 	const updateState = () => {
 	  setShow(!show);
 	};
+	const profile = localStorage.getItem('profile');
 	return (
 	  <Box>
 		<Box position={"relative"}>
-		  <IconButton
+		  {/* <IconButton
+		  src={profile}
 			size={"3em"}
 			bgColor={"transparent"}
 			_hover={"none"}
-			icon={
-			  <BsPersonCircle
-				size={"3em"}
-				color={"white"}
-				onClick={updateState}
-			  />
-			}
+			// icon={
+			//   <BsPersonCircle
+			// 	size={"3em"}
+			// 	color={"white"}
+			// 	onClick={updateState}
+			//   />}
 			_active={"none"}
-		  />
+		  /> */}
+		  <Avatar
+            size="md"
+            src={profile}
+			onClick={updateState}
+          />
 		  <Box
 			bgColor={"rgba(0, 0, 0, 0.5)"}
 			onClick={updateState}
@@ -85,14 +92,6 @@ import {
 				  onClick={updateState}
 				  alignSelf={"flex-end"}
 				/>
-  
-				{/* <IconButton
-				  size={"3em"}
-				  bgColor={"transparent"}
-				  _hover={"none"}
-				  icon={<BsPersonCircle size={"3em"} color={"black"} />}
-				  _active={"none"}
-				/> */}
 				<VStack spacing={"0"}>
 				  <Text textColor={"white"} fontWeight="bold">Halo saya {user.fullname} 👋</Text>
 				  <Text textColor={"white"} fontWeight="bold" fontSize={".75em"}>{user.email}</Text>

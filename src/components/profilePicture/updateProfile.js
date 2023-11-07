@@ -9,6 +9,8 @@ const UserProfile = ({ user }) => {
   );
   const fileInputRef = useRef(null);
 
+  localStorage.setItem("profile", profileImage)
+
   const handleUploadImage = (acceptedFiles) => {
     const uploadedFile = acceptedFiles[0];
     // Implement logic to handle the uploaded file here, e.g., upload it to a server
@@ -27,10 +29,12 @@ const UserProfile = ({ user }) => {
       <Center>
         <div {...getRootProps()}>
           <input {...getInputProps()} />
-          <Avatar size="lg" 
-		  name={user ? user.name : ""} 
-		  src={profileImage}
-		  onClick={() => fileInputRef.current.click()} />
+          <Avatar
+            size="lg"
+            name={user ? user.name : ""}
+            src={profileImage}
+            onClick={() => fileInputRef.current.click()}
+          />
         </div>
       </Center>
       <Text mt={4} textAlign="center">
