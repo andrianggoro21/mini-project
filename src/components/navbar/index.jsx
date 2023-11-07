@@ -25,7 +25,8 @@ import { CgClose } from "react-icons/cg";
 import { RiSearchLine } from "react-icons/ri";
 import ModalLogin from "../modalLogin";
 import ModalRegister from "../modalSignup";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Links = ["Home", "Find Events", "Transaction"];
 
@@ -51,12 +52,23 @@ const Navbar = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [height, setHeight] = useState("");
 
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
+
   const listenScrollEvent = () => {
     window.scrollY > 10 ? setHeight("60px") : setHeight("72px");
   };
 
   const handleRegisterClick = () => {
     setIsModalOpen(true);
+  };
+
+  const handleSearch = async () => {
+    try {
+      navigate(`/search?eventName=${searchQuery}`);
+    } catch (error) {
+      console.error("Error occurred during search:", error);
+    }
   };
 
   useEffect(() => {
@@ -115,8 +127,14 @@ const Navbar = (props) => {
                 top="50%"
                 transform="translateY(-50%)"
               />
-              <Input type="text" placeholder="Find your events here" />
+              <Input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Find your events here"
+              />
             </InputGroup>
+            <Button onClick={handleSearch}>Cari</Button>
             <Box>
               <ModalRegister
                 onClick={handleRegisterClick}

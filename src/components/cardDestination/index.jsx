@@ -57,7 +57,6 @@ const CardDestination = () => {
   ];
   return (
     <>
-      {/* <Slider {...settings}> */}
       <Box
         pb="2em"
         w="full"
@@ -70,37 +69,26 @@ const CardDestination = () => {
         flexDirection="row"
         justifyContent="space-between"
         alignItems="center"
-        // p={6}
         gap={3}
       >
         {destionation_card.map((item, index) => (
           <Flex
             alignItems="flex-end"
             overflow="hidden"
-            // position="relative"
-            // justifyContent="center"
-            // alignItems="center"
             rounded=".5em"
             
             backgroundPosition="center"
             backgroundRepeat="no-repeat"
             backgroundSize="cover"
-            // borderRadius=".5em"
             backgroundImage={item.path}
-            // w={{ base: "150px", md: "150px", lg: "full" }}
             w="100%"
-            // h="150px"
             h={{base:"93px", md:"150px", lg: "207px" }}
           >
             <HStack
             w="full"
-            //   w={{ base: "93px", md: "207px", lg: "full" }}
               h={{ base: "24px", lg: "56px" }}
-            //   overflow="auto"
               background="whiteAlpha.400"
               justifyContent="center"
-            //   position=""
-            // display="inline"
               alignItems="center"
               
             >
@@ -114,39 +102,8 @@ const CardDestination = () => {
               </Text>
             </HStack>
           </Flex>
-//         <Card maxW='sm' backgroundImage={item.path} w="207px" h="207px" 
-//         backgroundPosition="center"
-//         backgroundRepeat="no-repeat"
-//         backgroundSize="cover"
-//         >
-//   <CardBody>
-//     {/* <Image
-//       src={item.path}
-//       alt='Green double couch with wooden legs'
-//       borderRadius='lg'
-//     /> */}
-//     {/* <Stack mt='6' spacing='3'>
-//       <Heading size='md'>Living room Sofa</Heading>
-//       <Text>
-//         This sofa is perfect for modern tropical spaces, baroque inspired
-//         spaces, earthy toned spaces and for people who love a chic design with a
-//         sprinkle of vintage design.
-//       </Text>
-//       <Text color='blue.600' fontSize='2xl'>
-//         $450
-//       </Text>
-//     </Stack> */}
-//   </CardBody>
-//   <Divider />
-//   <CardFooter backdropBlur={10} background="whiteAlpha.900">
-//     <Text>
-//     {item.destination_name}
-//     </Text>
-//   </CardFooter>
-// </Card>
         ))}
       </Box>
-      {/* </Slider> */}
     </>
   );
 };

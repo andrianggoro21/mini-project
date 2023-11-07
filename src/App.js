@@ -46,6 +46,7 @@ function App() {
           <Route path="/dashboard/event-form" element={<CreateEvent />} />
           <Route path="/dashboard/ticket-form" element={<CreateTicket />} /> */}
               <Route path="/event" element={<Event />} />
+          <Route path="/search" element={< SearchPage/>} />
               <Route path="/transaction" element={<Transaction />} />
               <Route path="/transaction/waiting" element={<Waiting />} />
               <Route path="/transaction/success" element={<Success />} />
@@ -66,6 +67,7 @@ function App() {
           <Auth>
             <Routes>
               <Route path="/" element={<Home />} />
+          <Route path="/search" element={< SearchPage/>} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/dashboard/event-form" element={<CreateEvent />} />
               <Route path="/dashboard/ticket-form" element={<CreateTicket />} />
@@ -94,6 +96,7 @@ function App() {
           <Route path="/dashboard/ticket-form" element={<CreateTicket />} />
           <Route path="/event" element={<Event />} />
           <Route path="/transaction" element={<Transaction />} />
+          <Route path="/search" element={< SearchPage/>} />
           <Route path="/transaction/waiting" element={<Waiting />} />
           <Route path="/transaction/success" element={<Success />} />
           <Route path="/attendance" element={<Attendance />} />

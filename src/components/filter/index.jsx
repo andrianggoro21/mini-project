@@ -19,7 +19,8 @@ import {
   IconButton,
   Wrap,
   WrapItem,
-  Select
+  Select,
+  Input,
 } from "@chakra-ui/react";
 import { FaChevronDown } from "react-icons/fa";
 import { GrLocation } from "react-icons/gr";
@@ -29,135 +30,127 @@ import { IoFilter } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const FilterLocation = () => {
-  const [event, setEvent] = useState([]);
-  const fetchEvent = async () => {
+const FilterEvent = (props) => {
+  const [category, setCategory] = useState([]);
+  const [location, setLocation] = useState([]);
+
+  const filterLocation = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/event");
-      setEvent(response.data);
-      console.log(response.data);
+      const response = await axios.get(
+        "http://localhost:8080/event/list-location"
+      );
+      setLocation(response.data.data);
     } catch (err) {
       console.log(err);
     }
   };
 
   useEffect(() => {
-    fetchEvent();
+    filterLocation();
   }, []);
 
-  const Location = [
-    {
-      id_location: 1,
-      name_location: "Jogja",
-    },
-    {
-      id_location: 2,
-      name_location: "Semarang",
-    },
-    {
-      id_location: 3,
-      name_location: "Bandung",
-    },
-    {
-      id_location: 4,
-      name_location: "Jakarta",
-    },
-  ]
-
   return (
-    <Box
-      display="flex"
-      alignItems="center"
-      justifyContent="space-between"
-      gap="1em"
-      mt="1em"
-      mb="1em"
-    >
-      <HStack color="#838383" gap={{base:".7em", lg:"1.5em"}}>
-            <Link
-              borderBottom="2px solid #121212"
-              _hover={{ color: "#7ED957", borderBottom: "2px solid #7ED957" }}
-            >
-              <Text fontSize="16px" fontWeight="medium">All</Text>
-            </Link>
-            <Link
-              borderBottom="2px solid #121212"
-              _hover={{ color: "#7ED957", borderBottom: "2px solid #7ED957" }}
-            >
-              <Text fontSize="16px" fontWeight="medium">For You</Text>
-            </Link>
-            <Link
-              borderBottom="2px solid #121212"
-              _hover={{ color: "#7ED957", borderBottom: "2px solid #7ED957" }}
-            >
-              <Text fontSize="16px" fontWeight="medium">Online</Text>
-            </Link>
-      </HStack>
-      <Flex gap=".8em">
-          <>
-          <Select
-          name="filter_location"
-          placeholder="Select location"
+    <>
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+        gap="1em"
+        mt="1em"
+        mb="1em"
+      >
+        <HStack color="#838383" gap={{ base: ".7em", lg: "1.5em" }}>
+          <Link
+            borderBottom="2px solid #121212"
+            _hover={{ color: "#7ED957", borderBottom: "2px solid #7ED957" }}
           >
-            {Location.map((item, index) => (
-              <option key={index} value={item.name_location}>{item.name_location}</option>
-            ))}
-          </Select>
-        <Menu>
-          <MenuButton as={Button} variant="outline" color="#838383">
-          <Flex
-              justifyContent="center"
-              alignItems="center"
-              w={{base: "4px", lg:"auto"}}
-              gap=".5em"
-              >
-              <Icon as={AiOutlineCalendar} />
-              <Text display={{ base: "none", lg: "block" }}>
-                Select the date
-              </Text>
-              <Icon
-                as={FaChevronDown}
-                display={{ base: "none", lg: "block" }}
-                />
-            </Flex>
-          </MenuButton>
-          <MenuList>
-            <MenuItem>Download</MenuItem>
-            <MenuItem>Create a Copy</MenuItem>
-            <MenuItem>Mark as Draft</MenuItem>
-            <MenuItem>Delete</MenuItem>
-            <MenuItem>Attend a Workshop</MenuItem>
-          </MenuList>
-        </Menu>
-        <Menu>
-          <MenuButton as={Button} variant="outline" color="#838383">
-            <Flex
-              justifyContent="center"
-              alignItems="center"
-              w={{base: "4px", lg:"auto"}}
-              gap="0.5em"
-              >
-              <Icon as={IoFilter} display={{ base: "block", lg: "none" }} />
-              <Text display={{ base: "none", lg: "block" }}>Sort by</Text>
-              <Icon
-                as={FaChevronDown}
-                display={{ base: "none", lg: "block" }}
-                />
-            </Flex>
-          </MenuButton>
-          <MenuList>
-            <MenuItem>Download</MenuItem>
-            <MenuItem>Create a Copy</MenuItem>
-            <MenuItem>Mark as Draft</MenuItem>
-            <MenuItem>Delete</MenuItem>
-            <MenuItem>Attend a Workshop</MenuItem>
-          </MenuList>
-        </Menu>
-        </>
-      </Flex>
-    </Box>
-    );
-  };
-  
-  export default FilterLocation;
-  
+            <Text fontSize="16px" fontWeight="medium">
+              All
+            </Text>
+          </Link>
+          <Link
+            borderBottom="2px solid #121212"
+            _hover={{ color: "#7ED957", borderBottom: "2px solid #7ED957" }}
+          >
+            <Text fontSize="16px" fontWeight="medium">
+              For You
+            </Text>
+          </Link>
+          <Link
+            borderBottom="2px solid #121212"
+            _hover={{ color: "#7ED957", borderBottom: "2px solid #7ED957" }}
+          >
+            <Text fontSize="16px" fontWeight="medium">
+              Online
+            </Text>
+          </Link>
+        </HStack>
+        <Flex gap=".8em">
+          <>
+            <Select
+              color="#FFF"
+              w="13em"
+              name="filter_location"
+              placeholder="Select location"
+              value={props.filterByLocation}
+              onChange={(e) => props.setFilterByLocation(e.target.value)}
+            >
+              {location.map((item, index) => (
+                <option style={{ color: "black" }} key={index} value={item.id}>
+                  {item.locationName}
+                </option>
+              ))}
+            </Select>
+            <Menu>
+              <MenuButton as={Button} variant="outline" color="#838383">
+                <Flex
+                  justifyContent="center"
+                  alignItems="center"
+                  w={{ base: "4px", lg: "auto" }}
+                  gap=".5em"
+                >
+                  <Icon as={AiOutlineCalendar} />
+                  <Text display={{ base: "none", lg: "block" }}>
+                    Select the date
+                  </Text>
+                  <Icon
+                    as={FaChevronDown}
+                    display={{ base: "none", lg: "block" }}
+                  />
+                </Flex>
+              </MenuButton>
+              <MenuList>
+                <Input type="date"></Input>
+              </MenuList>
+            </Menu>
+            <Menu>
+              <MenuButton as={Button} variant="outline" color="#838383">
+                <Flex
+                  justifyContent="center"
+                  alignItems="center"
+                  w={{ base: "4px", lg: "auto" }}
+                  gap="0.5em"
+                >
+                  <Icon as={IoFilter} display={{ base: "block", lg: "none" }} />
+                  <Text display={{ base: "none", lg: "block" }}>Sort by</Text>
+                  <Icon
+                    as={FaChevronDown}
+                    display={{ base: "none", lg: "block" }}
+                  />
+                </Flex>
+              </MenuButton>
+              <MenuList>
+                <MenuItem>Newest</MenuItem>
+                <MenuItem>Free</MenuItem>
+                <MenuItem>Lowest Price</MenuItem>
+                <MenuItem>Highest Price</MenuItem>
+              </MenuList>
+            </Menu>
+          </>
+        </Flex>
+      </Box>
+    </>
+  );
+};
+
+export default FilterEvent;
