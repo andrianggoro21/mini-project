@@ -32,11 +32,16 @@ import ModalLogin from "../modalLogin";
 import ModalRegister from "../modalSignup";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutSuccess } from "../../redux/reducer/authReducer";
+import UserProfile from "../profilePicture/updateProfile";
+import ProfileModal from "../../pages/profile";
+import { AiOutlineClose } from "react-icons/ai";
+
 
 const Links = ["Home", "Find Events", "Transaction"];
 
 const NavLink = (props) => {
   // const { props.children }
+  
   return (
     <Box
       as="a"
@@ -58,6 +63,7 @@ const NavbarUser = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { user } = useSelector((state) => state.AuthReducer);
+  const [show, setShow] = useState(false);
 
   // const { user, isLogin } = useSelector((state) => state.AuthReducer);
   const dispatch = useDispatch();
@@ -65,6 +71,10 @@ const NavbarUser = () => {
   const handleLoginClick = () => {
     setIsModalOpen(true);
   };
+
+  const updateState = () => {
+	  setShow(!show);
+	};
   return (
     <>
       <Box
@@ -118,30 +128,7 @@ const NavbarUser = () => {
           </Flex>
           <Box>
             <Flex alignItems="center">
-              <Menu>
-                <MenuButton
-                  as={Avatar}
-                  size="sm"
-                  src="https://i.pinimg.com/736x/7f/79/6d/7f796d57218d9cd81a92d9e6e8e51ce4--free-avatars-online-profile.jpg"
-                />
-                <MenuList border="none" bg="#696666">
-                  <MenuItem bg="#696666">
-                    <Text fontWeight="bold">Halo saya {user.fullname} 👋</Text>
-                  </MenuItem>
-                  <MenuItem bg="#696666">
-                    <Link color="whatsapp.400" href="/navDashboard">
-                      Dashboard
-                    </Link>
-                  </MenuItem>
-                  <MenuItem
-                    bg="#696666"
-                    color="whatsapp.400"
-                    onClick={() => dispatch(logoutSuccess())}
-                  >
-                    Log Out
-                  </MenuItem>
-                </MenuList>
-              </Menu>
+              <ProfileModal />
             </Flex>
           </Box>
           <IconButton
