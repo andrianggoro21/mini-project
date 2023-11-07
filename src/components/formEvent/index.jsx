@@ -14,6 +14,7 @@ import {
   Text,
   useDisclosure,
   Stack,
+  VStack,
   Box,
   Image,
   Divider,
@@ -27,8 +28,10 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useFormik } from "formik";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import * as Yup from "yup";
+import {useDropzone} from 'react-dropzone';
+import Upload from "../../assets/images/upload.png";
 
 const EventSchema = Yup.object().shape({
   eventName: Yup.string().required("Event name is required"),
@@ -44,7 +47,19 @@ const EventSchema = Yup.object().shape({
 });
 
 const FormEvent = () => {
-  const [fieldImage, setFieldImage] = useState(null);
+  const [image, setImage] = useState(null);
+  const inputImage = useRef(null);
+
+  const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
+    accept: 'image/*', // Accept only image files
+    onDrop: acceptedFiles => {
+      // Update the state with the first accepted image
+      if (acceptedFiles.length > 0) {
+        const imageURL = URL.createObjectURL(acceptedFiles[0]);
+        setImage(imageURL);
+      }
+    }
+  });
   const [category, setCategory] = useState([]);
   const [location, setLocation] = useState([]);
   
@@ -95,7 +110,10 @@ const FormEvent = () => {
       formData.append("description", description);
       formData.append("highlight", highlight);
       formData.append("include", include);
-      formData.append("image", fieldImage);
+      // formData.append("image", fieldImage);
+      acceptedFiles.forEach(file => {
+        formData.append("image", file);
+      });
       await axios.post("http://localhost:8080/event/add-event", 
       // await axios.post("http://localhost:8000/event", {
         // eventName,
@@ -107,7 +125,6 @@ const FormEvent = () => {
         // description,
         // highlight,
         // include,
-        // fieldImage,
         formData
       );
       alert("Create Event Success");
@@ -116,6 +133,12 @@ const FormEvent = () => {
       alert("Error");
     }
   };
+
+  const handleReset = () => { 
+    if (inputImage.current) { 
+        inputImage.current.value = null;
+    } 
+  }; 
 
   const formik = useFormik({
     initialValues: {
@@ -160,52 +183,12 @@ const FormEvent = () => {
           justifyContent="space-between"
         >
           <Stack spacing={5} w={{ base: "full", lg: "50%" }} h="full">
-            {/* <Text>Upload Image</Text> */}
-            {/* <Flex gap="1em">
-              <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                background="#262626"
-                h="224px"
-                w="424px"
-              >
-                <Image src="./images/no-image.png" />
-              </Box>
-              <Flex
-                flexDirection="column"
-                justifyContent="flex-end"
-                alignItems="center"
-                gap=".7em"
-              >
-                <Button
-                  variant={"solid"}
-                  backgroundColor="#3C891C"
-                  size={"sm"}
-                  w="120px"
-                  h="40px"
-                  mr={4}
-                >
-                  Upload Image
-                </Button>
-                <Button
-                  variant={"unstyled"}
-                  border="1px solid #3C891C"
-                  size={"sm"}
-                  w="120px"
-                  h="40px"
-                  mr={4}
-                >
-                  Remove
-                </Button>
-              </Flex>
-            </Flex> */}
             
             <FormControl
               isInvalid={formik.touched.eventImage && formik.errors.eventImage}
             >
               <FormLabel>Upload Image</FormLabel>
-              <InputGroup>
+              {/* <InputGroup>
                 <Input
                   background="#262626"
                   color="#585454"
@@ -218,6 +201,32 @@ const FormEvent = () => {
                     setFieldImage(event.currentTarget.files[0]);}}
                   // onChange={formik.handleChange}
                 ></Input>
+              </InputGroup> */}
+              <InputGroup>
+              <Stack w="full" border="1px solid white" justifyContent="center" gap={0} rounded=".5em" overflow="hidden">
+                    <VStack h="13em"  hidden={image? true : false}  {...getRootProps()} className="dropzone" color="#ffffff" alignItems='center' justifyContent='center'>
+                      <Input {...getInputProps()} 
+                          ref={inputImage}/>
+                      <Image src={Upload} />
+                      <Text>Drag 'n' drop some files here, or click to select files</Text>
+                    </VStack>
+                    {image && (
+                      <Stack className="dropzone">
+                        <Image
+                        
+                          ref={inputImage}
+                          src={image}
+                          alt="Uploaded Image"
+                          style={{ maxWidth: "100%" }}
+                          />
+                          <Button overflow="hidden" onClick={handleReset}>
+                    {/* <Input display="none" {...getInputProps()}  */}
+                          {/* ref={inputImage}/> */}
+                          <Text>Reset</Text>
+                          </Button>
+                          </Stack>
+                    )}
+              </Stack>
               </InputGroup>
               {formik.touched.eventImage && formik.errors.eventImage && (
                 <FormErrorMessage>{formik.errors.eventImage}</FormErrorMessage>

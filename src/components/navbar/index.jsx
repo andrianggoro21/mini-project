@@ -26,7 +26,8 @@ import { CgClose } from "react-icons/cg";
 import { RiSearchLine } from "react-icons/ri";
 import ModalLogin from "../modalLogin";
 import ModalRegister from "../modalSignup";
-
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Links = ["Home", "Find Events", "Transaction"];
 
@@ -52,13 +53,23 @@ const Navbar = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [height, setHeight] = useState("");
 
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
+
   const listenScrollEvent = () => {
     window.scrollY > 10 ? setHeight("60px") : setHeight("72px");
   };
 
-
   const handleLoginClick = () => {
     setIsModalOpen(true);
+  };
+
+  const handleSearch = async () => {
+    try {
+      navigate(`/search?eventName=${searchQuery}`);
+    } catch (error) {
+      console.error("Error occurred during search:", error);
+    }
   };
 
   useEffect(() => {
@@ -103,7 +114,7 @@ const Navbar = (props) => {
           </HStack>
           <HStack w="auto" gap="2em" display={{ base: "none", lg: "flex" }}>
             {/* <Divider background="white" orientation="vertical" /> */}
-                
+
             <InputGroup
               color="white"
               rounded="1px"
@@ -117,8 +128,14 @@ const Navbar = (props) => {
                 top="50%"
                 transform="translateY(-50%)"
               />
-              <Input type="text" placeholder="Find your events here" />
+              <Input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Find your events here"
+              />
             </InputGroup>
+            <Button onClick={handleSearch}>Cari</Button>
             <Box>
               <ModalRegister
                 onClick={handleLoginClick}
@@ -161,22 +178,21 @@ const Navbar = (props) => {
             ))}
             <Divider background="white" orientation="horizontal" />
             <Flex alignItems={"center"} justifyContent="center" gap="1.5em">
-               <Box>
-              <ModalRegister
-                onClick={handleLoginClick}
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(true)}
-              />
-            </Box>
-            <Box>
-              <ModalLogin
-                onClick={handleLoginClick}
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(true)}
-              />
-            </Box>
+              <Box>
+                <ModalRegister
+                  onClick={handleLoginClick}
+                  isOpen={isModalOpen}
+                  onClose={() => setIsModalOpen(true)}
+                />
+              </Box>
+              <Box>
+                <ModalLogin
+                  onClick={handleLoginClick}
+                  isOpen={isModalOpen}
+                  onClose={() => setIsModalOpen(true)}
+                />
+              </Box>
             </Flex>
-           
           </VStack>
         </Flex>
       ) : null}

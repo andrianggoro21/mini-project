@@ -1,27 +1,22 @@
 import {
   Button,
-  CardBody,
   Box,
   Image,
   Stack,
   Divider,
-  Link,
   Avatar,
   Heading,
   Text,
-  AvatarGroup,
   Flex,
   Icon,
   HStack,
   VStack,
 } from "@chakra-ui/react";
-import { NavLink } from "react-router-dom";
 import { GrLocation } from "react-icons/gr";
-import { cards } from "../../database/cards";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const CardEvent = () => {
+const CardEvent = (props) => {
   const [event, setEvent] = useState([]);
   const [element, setElement] = useState(4);
   const [loadMoreVisible, setLoadMoreVisible] = useState(true);
@@ -30,15 +25,13 @@ const CardEvent = () => {
 
   const fetchEvent = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/event/list-event", {
-        // headers: { "Cache-Control": "no-cache" },
-      });
+      const response = await axios.get(`http://localhost:8080/filter?location=${props.filterByLocation}`);
       setEvent(response.data.data);
-      console.log(process.env.REACT_APP_IMAGE_URL)
-      console.log(event);
-
+      // console.log(process.env.REACT_APP_IMAGE_URL)
+      console.log(response.data?.data?.eventlocation?.id);
+      // {item.tickets[index]?.price}
       // console.log(response.data.data[4].image);
-      // console.log(response.data.data[0].tickets[0].price);
+      console.log(response.data?.data[10]?.tickets[0].price);
     } catch (err) {
       console.log(err);
     }
@@ -46,7 +39,7 @@ const CardEvent = () => {
 
   useEffect(() => {
     fetchEvent();
-  }, []);
+  }, [props.filterByLocation]);
 
   const loadMoreData = () => {
     const nextVisibleData = element + 4;
@@ -102,10 +95,16 @@ const CardEvent = () => {
                   <Icon as={GrLocation} />
                   <Text>{item.eventlocation?.locationName}</Text>
                 </HStack>
+                <Stack>
                 <Text color="" fontSize="xl">
-                  {item.tickets[index]?.price}
+                  {item.tickets?.[0]?.ticketName}
+                  {/* {item.tickets?.[0]?.price>item.tickets?.[1]?.price?item.tickets?.[0]?.price:item.tickets?.[1]?.price} */}
                   {/* Rp. 100.000 */}
                 </Text>
+                <Text>
+                  {item.tickets?.[0]?.price}
+                </Text>
+                </Stack>
               </Stack>
               <Divider />
               <Flex gap="0.5em">

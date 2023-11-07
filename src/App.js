@@ -39,6 +39,7 @@ function App() {
           <Route path="/dashboard/event-form" element={<CreateEvent />} />
           <Route path="/dashboard/ticket-form" element={<CreateTicket />} />
           <Route path="/event" element={<Event />} />
+          <Route path="/search" element={< SearchPage/>} />
           <Route path="/transaction/waiting" element={<Waiting />} />
           <Route path="/transaction/success" element={<Success />} />
           <Route path="/attendance" element={<Attendance />} />

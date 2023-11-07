@@ -1,11 +1,11 @@
 import Navbar from "../../components/navbar";
 import Carousel from "../../components/carousel";
 import CardCategory from "../../components/cardCategory";
-import FilterLocation from "../../components/filter";
+import FilterEvent from "../../components/filter";
 import CardEvent from "../../components/cardEvent";
 import CardDestination from "../../components/cardDestination";
 import Footer from "../../components/footer";
-import SearchBar from "../../components/search";
+
 
 import {
   Box,
@@ -17,11 +17,14 @@ import {
   VStack,
   Button,
 } from "@chakra-ui/react";
+import { useState } from "react";
 
-const Home = (isOpen) => {
+const Home = () => {
+  const [filterByLocation, setFilterByLocation] = useState();
+
   return (
     <Box
-      m="0"
+      m="0"D
       p="0"
       w="full"
       h="auto"
@@ -34,7 +37,6 @@ const Home = (isOpen) => {
     >
       {/* <Navbar /> */}
         <Carousel />
-        <SearchBar/>
       <Box as="main" pl="2em" pr="2em">
         <Heading as="h4" mt="1em" size="md" color="white">
           Category Events
@@ -43,9 +45,9 @@ const Home = (isOpen) => {
         <Heading as="h4" mt="1em" size="md" color="white">
           Popular Events
         </Heading>
-        <FilterLocation />
+        <FilterEvent filterByLocation={filterByLocation} setFilterByLocation={setFilterByLocation}/>    
         {/* <VStack gap="2em"> */}
-          <CardEvent />
+          <CardEvent filterByLocation={filterByLocation} />
         {/* </VStack> */}
         <Heading as="h4" mt="1em" mb="1em" size="md" color="white">Card Destionation</Heading>
         <CardDestination/>

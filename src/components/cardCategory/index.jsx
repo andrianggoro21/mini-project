@@ -15,6 +15,7 @@ import {
 import { useMediaQuery } from "@chakra-ui/react";
 import {MdOutlineArrowBackIos, MdArrowForwardIos} from "react-icons/md"
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function NextArrow(props) {
   const { className, style, onClick } = props;
@@ -115,46 +116,8 @@ const CardCategory = () => {
     ],
   };
 
-  const [isLG] = useMediaQuery("(min-width: 62em)");
-  const [isBase] = useMediaQuery("(min-width: 0)");
-
-  const categoryCard = [
-    {
-      name_category: "Music",
-      path: "./images/category/music_category.png",
-    },
-    {
-      name_category: "Food and Drink",
-      path: "./images/category/food_and_drink_category.png",
-    },
-    {
-      name_category: "Culture",
-      path: "./images/category/culture_category.png",
-    },
-    {
-      name_category: "Art",
-      path: "./images/category/art_category.png",
-    },
-    {
-      name_category: "Holiday",
-      path: "./images/category/holiday_category.png",
-    },
-    {
-      name_category: "Attraction",
-      path: "./images/category/attraction_category.png",
-    },
-    {
-      name_category: "Sport",
-      path: "./images/category/culture_category.png",
-    },
-    {
-      name_category: "Horror",
-      path: "./images/category/art_category.png",
-    },
-  ];
-
   const [category, setCategory] = useState([]);
-  
+  const navigate = useNavigate();
   const fetchCategory = async () => {
     try {
       const response = await axios.get("http://localhost:8080/event/list-category", {
@@ -168,6 +131,10 @@ const CardCategory = () => {
       console.log(err);
     }
   };
+
+  const handleCategory = (e) => {
+    navigate("/search");
+  }
 
   useEffect(() => {
     fetchCategory();
@@ -185,7 +152,7 @@ const CardCategory = () => {
                 w="full"
                 h="full"
               >
-                <Image rounded="100%" w={{base: "100px", lg: "172px"}} h={{base: "100px", lg: "172px"}} src={`${process.env.REACT_APP_IMAGE_URL}/category/${item?.image}`} />
+                <Image rounded="100%" w={{base: "100px", lg: "172px"}} h={{base: "100px", lg: "172px"}} onClick={() => handleCategory()} src={`${process.env.REACT_APP_IMAGE_URL}/category/${item?.image}`} />
               </Flex>
               <Text textAlign="center" fontWeight="medium" color="white">
                 {item.categoryName}
