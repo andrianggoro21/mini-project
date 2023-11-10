@@ -20,6 +20,7 @@ import {
 import { useState } from "react";
 
 const Home = () => {
+  const [filterByCategory, setFilterByCategory] = useState();
   const [filterByLocation, setFilterByLocation] = useState();
 
   return (
@@ -45,9 +46,9 @@ const Home = () => {
         <Heading as="h4" mt="1em" size="md" color="white">
           Popular Events
         </Heading>
-        <FilterEvent filterByLocation={filterByLocation} setFilterByLocation={setFilterByLocation}/>    
+        <FilterEvent filterByCategory={filterByCategory} setFilterByCategory={setFilterByCategory} filterByLocation={filterByLocation} setFilterByLocation={setFilterByLocation}/>    
         {/* <VStack gap="2em"> */}
-          <CardEvent filterByLocation={filterByLocation} />
+          <CardEvent filterByCategory={filterByCategory} filterByLocation={filterByLocation} />
         {/* </VStack> */}
         <Heading as="h4" mt="1em" mb="1em" size="md" color="white">Card Destionation</Heading>
         <CardDestination/>

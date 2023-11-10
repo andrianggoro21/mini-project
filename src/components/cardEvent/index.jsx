@@ -25,7 +25,7 @@ const CardEvent = (props) => {
 
   const fetchEvent = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/filter?location=${props.filterByLocation}`);
+      const response = await axios.get(`http://localhost:8080/filter?category=${props.filterByCategory}&location=${props.filterByLocation}`);
       setEvent(response.data.data);
       // console.log(process.env.REACT_APP_IMAGE_URL)
       console.log(response.data?.data?.eventlocation?.id);
@@ -39,7 +39,7 @@ const CardEvent = (props) => {
 
   useEffect(() => {
     fetchEvent();
-  }, [props.filterByLocation]);
+  }, [props.filterByCategory, props.filterByLocation]);
 
   const loadMoreData = () => {
     const nextVisibleData = element + 4;

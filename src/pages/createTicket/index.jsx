@@ -5,13 +5,13 @@ import {
   HStack,
   Heading,
   Image,
-  Link,
   Stack,
   Text,
   VStack,
   useDisclosure,
 } from "@chakra-ui/react";
 import FormTicket from "../../components/formTicket";
+import { Link } from "react-router-dom";
 
 const CreateTicket = () => {
   return (
@@ -30,17 +30,21 @@ const CreateTicket = () => {
 
       <HStack mb=".8em" fontWeight="medium" justifyContent="space-between">
         <Flex gap="1.3em">
-          <Link
-            borderBottom="2px solid #121212"
-            _hover={{ color: "#7ED957", borderBottom: "2px solid #7ED957" }}
-          >
-            <Text>Events</Text>
+          <Link to="/dashboard">
+            <Text
+              borderBottom="2px solid #121212"
+              _hover={{ color: "#7ED957", borderBottom: "2px solid #7ED957" }}
+            >
+              Events
+            </Text>
           </Link>
-          <Link
-            borderBottom="2px solid #121212"
-            _hover={{ color: "#7ED957", borderBottom: "2px solid #7ED957" }}
-          >
-            <Text>Ticket</Text>
+          <Link to="/dashboard">
+            <Text
+              borderBottom="2px solid #121212"
+              _hover={{ color: "#7ED957", borderBottom: "2px solid #7ED957" }}
+            >
+              Ticket
+            </Text>
           </Link>
         </Flex>
         <Button variant="solid" background="#3C891C" color="white">

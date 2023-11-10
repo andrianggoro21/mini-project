@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import SearchResult from "../../components/search";
-import { Box } from "@chakra-ui/react";
+import { Box, Stack, Heading } from "@chakra-ui/react";
 import FilterEvent from "../../components/filter";
 
 const SearchPage = () => {
@@ -21,8 +21,21 @@ const SearchPage = () => {
       boxSizing="inherit"
       scrollBehavior="smooth"
     >
+      <Stack
+      position="relative"
+      w="full"
+      h="auto"
+      p="2em"
+      background="#121212"
+      color="white"
+      gap="1em"
+    >
+      <Heading as="h4" size="md">
+        Find Events
+      </Heading>
       <FilterEvent filterByLocation={filterByLocation} setFilterByLocation={setFilterByLocation}/>    
       <SearchResult filterByLocation={filterByLocation}/>
+      </Stack>
     </Box>
   );
 };

@@ -28,18 +28,7 @@ const SearchResult = (props) => {
     fetchFindEvent();
   }, [eventName, props.filterByLocation]);
   return (
-    <Stack
-      position="relative"
-      w="full"
-      h="auto"
-      p="2em"
-      background="#121212"
-      color="white"
-      gap="1em"
-    >
-      <Heading as="h4" size="md">
-        Find Events
-      </Heading>
+    <>
             <VStack>
             <Box
               w="full"
@@ -50,7 +39,7 @@ const SearchResult = (props) => {
                 lg: "repeat(4, 1fr)",
               }}
               gap="1em"
-            >
+              >
               {findEvent?.map((item, index) => (
                 <Stack
                   // maxW="sm"
@@ -113,7 +102,7 @@ const SearchResult = (props) => {
             </Box>
           
           </VStack>
-    </Stack>
+          </>
   );
 };
 

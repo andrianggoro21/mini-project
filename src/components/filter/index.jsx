@@ -34,6 +34,17 @@ const FilterEvent = (props) => {
   const [category, setCategory] = useState([]);
   const [location, setLocation] = useState([]);
 
+  const filterCategory = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8080/event/list-category"
+      );
+      setCategory(response.data.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const filterLocation = async () => {
     try {
       const response = await axios.get(
@@ -45,7 +56,9 @@ const FilterEvent = (props) => {
     }
   };
 
+
   useEffect(() => {
+    filterCategory();
     filterLocation();
   }, []);
 
@@ -87,10 +100,25 @@ const FilterEvent = (props) => {
         </HStack>
         <Flex gap=".8em">
           <>
+          
+          <Select
+              color="#FFF"
+              w="13em"
+              name="filterCategory"
+              placeholder="Select Category"
+              value={props.filterByCategory}
+              onChange={(e) => props.setFilterByCategory(e.target.value)}
+            >
+              {category.map((item, index) => (
+                <option style={{ color: "black" }} key={index} value={item.id}>
+                  {item.categoryName}
+                </option>
+              ))}
+            </Select>
             <Select
               color="#FFF"
               w="13em"
-              name="filter_location"
+              name="filterLocation"
               placeholder="Select location"
               value={props.filterByLocation}
               onChange={(e) => props.setFilterByLocation(e.target.value)}

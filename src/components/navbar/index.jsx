@@ -3,7 +3,6 @@ import {
   Box,
   Button,
   HStack,
-  Link,
   Avatar,
   Menu,
   MenuButton,
@@ -18,16 +17,15 @@ import {
   Input,
   Divider,
   VStack,
+  InputRightElement,
 } from "@chakra-ui/react";
-import { HamburgerIcon, CloseIcon, AddIcon } from "react-icons";
-import { ReactChildren, ReactChild, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { CgClose } from "react-icons/cg";
 import { RiSearchLine } from "react-icons/ri";
 import ModalLogin from "../modalLogin";
 import ModalRegister from "../modalSignup";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
 
 const Links = ["Home", "Find Events", "Transaction"];
 
@@ -107,35 +105,61 @@ const Navbar = (props) => {
               spacing={3}
               display={{ base: "none", lg: "flex" }}
             >
-              {Links.map((link) => (
+              {/* {Links.map((link) => (
                 <NavLink key={link}>{link}</NavLink>
-              ))}
+              ))} */}
+
+              <Link to="/">
+                <Text
+                  borderBottom="2px solid #000000"
+                  _hover={{
+                    color: "#7ED957",
+                    borderBottom: "2px solid #7ED957",
+                  }}
+                >
+                  Home
+                </Text>
+              </Link>
+              <Link to="/search">
+                <Text
+                  borderBottom="2px solid #000000"
+                  _hover={{
+                    color: "#7ED957",
+                    borderBottom: "2px solid #7ED957",
+                  }}
+                >
+                  Find Events
+                </Text>
+              </Link>
+              <Link to="/transaction">
+                <Text
+                  borderBottom="2px solid #000000"
+                  _hover={{
+                    color: "#7ED957",
+                    borderBottom: "2px solid #7ED957",
+                  }}
+                >
+                  Transaction
+                </Text>
+              </Link>
             </HStack>
           </HStack>
           <HStack w="auto" gap="2em" display={{ base: "none", lg: "flex" }}>
             {/* <Divider background="white" orientation="vertical" /> */}
 
-            <InputGroup
-              color="white"
-              rounded="1px"
-              w="241px"
-              // display="flex"
-              // flexDirection="row"
-            >
-              <InputLeftElement
-                children={<RiSearchLine />}
-                pointerEvents="none"
-                top="50%"
-                transform="translateY(-50%)"
-              />
+            <InputGroup color="white" rounded="1px" w="auto">
               <Input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Find your events here"
               />
+              <InputRightElement>
+                <IconButton icon={<RiSearchLine />} onClick={handleSearch}>
+                  Cari
+                </IconButton>
+              </InputRightElement>
             </InputGroup>
-            <Button onClick={handleSearch}>Cari</Button>
             <Box>
               <ModalRegister
                 onClick={handleLoginClick}
@@ -173,9 +197,7 @@ const Navbar = (props) => {
           display={{ md: "none" }}
         >
           <VStack as={"nav"} spacing={4} color="white">
-            {Links.map((link) => (
-              <NavLink key={link}>{link}</NavLink>
-            ))}
+            <NavLink to="/home">Home</NavLink>
             <Divider background="white" orientation="horizontal" />
             <Flex alignItems={"center"} justifyContent="center" gap="1.5em">
               <Box>
